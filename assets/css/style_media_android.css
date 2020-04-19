@@ -1,0 +1,151 @@
+﻿body{
+	font-size:11px;
+}
+
+.container-fluid{
+	padding-right:5px !important;
+	padding-left:5px !important;
+}
+.navbar-header{
+	padding:3px 7px;
+}
+
+.navbar-nav > li > a{
+	margin-top:10px;
+}
+
+.sidebar{
+	top:55px;
+	width:250px;
+	height: calc(100vh - 55px);
+}
+
+.right-sidebar{
+	top:55px;
+	height: calc(100vh - 55px);
+}
+
+section.content{
+	margin: 75px 5px 0 265px;
+}
+
+.material-icons{
+	font-size:20px;
+}
+
+.sidebar .menu .list a{
+	padding:5px 8px;
+}
+.sidebar .menu .list a span{
+	font-size:11px;
+}
+
+.sidebar .menu .list .ml-menu span{
+	font-size:11px;
+	margin: 3px 0 1px 0px;
+}
+
+.navbar-header .bars{
+	margin-top:-4px;
+}
+
+.dropdown-menu > li > a{
+	font-size:11px;
+}
+
+.theme-cyan .navbar{
+	background-color:#165EC9;
+	background-image: linear-gradient(to left bottom, #165ec9, #0095e6, #00c0d0, #46e3a6, #dafb90);
+}
+.sidebar .user-info{
+	background-image: linear-gradient(to right top, #165ec9, #0095e6, #00c0d0, #46e3a6, #dafb90);
+}
+
+.sidebar .user-info .info-container .user-helper-dropdown{
+	bottom:-2px;
+}
+
+.card .header{
+	padding:10px 20px;
+}
+
+.card .header h2{
+	font-size:14px;
+}
+
+.card .header h2 small{
+	font-size:10px;
+}
+.card .body{
+	font-size:11px;
+}
+
+.modal .modal-header{
+	padding: 15px 25px 15px 25px;
+	background-color: #00BCD4;
+	color:#FFF;
+}
+
+.btn-circle{
+	width:18px;
+	height:18px;
+	line-height:1em;
+	padding:3px 5px;
+}
+
+.btn-circle i{
+	font-size:11px;
+	font-weight:bold;
+}
+
+fieldset{
+    border: 1px solid #F2F2F2 !important;
+    padding: 0.5em 1em 0.5em 1em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #F2F2F2;
+            box-shadow:  0px 0px 0px 0px #F2F2F2;
+}
+
+legend {
+	font-size: 1.1em !important;
+	font-weight: bold !important;
+	text-align: left !important;
+	width:auto;
+	padding:0 10px;
+	border-bottom:none;
+}
+
+.card .body{
+	padding:5px 7px;
+}
+
+.card .body .col-xs-5, .card .body .col-sm-5, .card .body .col-md-5, .card .body .col-lg-5{
+	margin-bottom:5px;
+}
+.card .body .col-xs-12, .card .body .col-sm-12, .card .body .col-md-12, .card .body .col-lg-12{
+	margin-bottom:5px;
+}
+
+.form-group{
+	margin-bottom:7px;
+}
+
+.input-group{
+	margin-bottom:7px;
+}
+.btn:not(.btn-link):not(.btn-circle) i {
+	top:0px !important;
+}
+table.dataTable thead > tr > th, table.dataTable thead > tr > td {
+	padding-right:0px;
+}
+
+.div-480{
+	min-height:calc(100vh - 190px);
+	overflow-y:auto;
+	overflow-x:hidden;
+}
+
+thead.text-center tr th{
+	text-align:center;
+}

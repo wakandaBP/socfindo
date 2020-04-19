@@ -1,0 +1,17 @@
+#exampletree ul {
+	padding-left:20px;
+}
+#exampletree li {
+	list-style:none;
+}
+#exampletree ul.hide {
+	display:none;
+}
+#exampletree span {
+	color:#999;
+	font-family:"Courier New", Courier, monospace;
+	cursor:default;
+}
+#exampletree span.expanded, #exampletree span.collapsed {
+	cursor:pointer;
+}
