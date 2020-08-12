@@ -21,13 +21,21 @@
 
 
 	foreach ($query::$result as $key => $value) {
+		$last_updated = "";
+		if (isset($_POST['last_updated']) != ""){
+			if ($_POST['last_updated'] == $value['id']){
+				$last_updated = "last_updated";
+			}
+		}
+
 		array_push($MetaData, 
 			array(
 				"id"=>$value["id"],
 				"idblock"=>$value["idblock"],
 				"blocknumber"=>$value["blocknumber"],
 				"panelname"=>$value["panelname"], 
-				"description"=>$value["description"]
+				"description"=>$value["description"],
+				"last_updated"=>$last_updated
 			)
 		);
 	}

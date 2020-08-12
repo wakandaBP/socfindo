@@ -9,10 +9,10 @@
 	if (isset($_POST['awal']) && isset($_POST['akhir']) && $_POST['awal'] != "" && $_POST['akhir'] != ""){
 		$query = new Database("SELECT * FROM karet_initiation_trans WHERE isactive = ? 
 								AND transferdate BETWEEN ? AND ? 
-								ORDER BY transferdate DESC",array("1",$_POST['awal'],$_POST['akhir']));
+								ORDER BY id DESC",array("1",$_POST['awal'],$_POST['akhir']));
 	} else {
 		$query = new Database("SELECT * FROM karet_initiation_trans WHERE isactive = ? 
-								ORDER BY transferdate DESC",array("1"));
+								ORDER BY id DESC",array("1"));
 	}
 
 	foreach ($query::$result as $key => $value) {
@@ -47,6 +47,13 @@
 			$lastmedia = $media_data::$result[0];
 			$lastmediadate = date("Y-m-d", strtotime($lastmedia['tglkeluar']));
 		}
+
+		$last_updated = "";
+		if (isset($_POST['id']) != ""){
+			if ($_POST['id'] == $value['id']){
+				$last_updated = "last_updated";
+			}
+		}
 	
 		array_push($MetaData, 
 			array(
@@ -61,7 +68,8 @@
 				"growembryo"=>$growem,
 				"remainembryo"=>$remainem,
 				"idpengeluaranmedia"=>$value['idpengeluaranmedia'],
-				"lastmedia"=>$lastmediadate
+				"lastmedia"=>$lastmediadate,
+				"last_updated"=>$last_updated
 			)
 		);
 

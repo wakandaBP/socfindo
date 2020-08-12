@@ -12,14 +12,14 @@
 		});
 
 		$("#amountmedia").on('keyup',function(){
-			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedia").val(),"error-media");
+			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedia").val(),"error-media","available-media");
 			disabledButton(stats);
 		});
 
 		$("#media").on('change',function(){
 			$("#idmedia").val($(this).val());
 
-			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedia").val(),"error-media");
+			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedia").val(),"error-media","available-media");
 			disabledButton(stats);
 		});
 		

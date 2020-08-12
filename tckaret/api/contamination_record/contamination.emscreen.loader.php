@@ -11,7 +11,7 @@
 							FROM karet_initiation_embryo_screening a 
 							JOIN karet_contamination_record b ON b.id = a.idcontaminationrecord
 							WHERE (b.contamination_bact != 0 OR b.contamination_fungi != 0 OR b.pink != 0 OR b.dead != 0) AND a.isactive = 1 
-							ORDER BY screening_checkpoint DESC"
+							ORDER BY a.screening_checkpoint DESC"
 							,array());
 
 	foreach ($query::$result as $key => $value) {

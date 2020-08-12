@@ -36,7 +36,7 @@
 
 													foreach ($worker::$result as $key => $value) {
 												?>
-													<option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option>
+													<option value="<?php echo $value['id'];?>"><?php echo $value['initial'];?></option>
 												<?php
 													}
 												?>
@@ -159,13 +159,14 @@
 							<th width="100px" class="text-center" rowspan="2">Screening Worker</th>
 							<th width="50px" class="text-center" rowspan="2">Screening Checkpoint</th>
 							<th width="100px" class="text-center" colspan="2">Contamination</th>
+							<th width="100px" class="text-center" rowspan="2">Pink</th>
 							<th width="100px" class="text-center" rowspan="2">Dead</th>
 							<th width="100px" class="text-center" rowspan="2">Contamination Comment</th>
 							<th width="80px" class="text-center" rowspan="2">Action</th>
 						</tr>
 						<tr>
-							<th>By Fungi</th>
-							<th>By Bacteri</th>
+							<th width="100px" >By Fungi</th>
+							<th width="100px" >By Bacteri</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -173,7 +174,7 @@
 					</tbody>
 				</table>
 				<div style="text-align: right;">
-					<a href="<?php echo $tckaret;?>/germination" class="btn btn-primary btn-sm">Back</a>
+					<a href="<?php echo $tckaret;?>/germination" class="btn btn-danger btn-sm">Back</a>
 				</div>
 			</div>
 		</div>

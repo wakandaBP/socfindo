@@ -65,12 +65,14 @@
 						certinumber:certinumber
 					},
 					success:function(resp){
-						if(parseInt(resp) > 0){
-                            alert("Data has been saved!");
-                            location.href = hostname + "/tree";
+						data = JSON.parse(resp);
+
+						if(parseInt(data['rowcount']) > 0){
+							alert("Tree has added!");
+                            location.href = hostname + "/tree?last="+data['id'];
                         }
                         else{
-                            alert("Data can't be saved!");
+                            alert("Tree cant be added!");
                         }
 					}
 				});

@@ -205,15 +205,7 @@ try {
 						<fieldset>
 							<legend>Media</legend>
 							<div class="row clearfix">
-								<div class="col-sm-6">
-				                	<h6>Media Amount : *</h6>
-									<div class="input-group">
-										<div class="form-line">
-											<input type="text" readonly class="form-control numberonly" id="amountmedia" value="1">
-										</div>
-									</div>
-				                </div>
-				                <div class="col-sm-6" id="media-field"> 
+				                <div class="col-sm-4" id="media-field"> 
 				                	<h6>Choose Media : *</h6>
 									<div class="input-group">
 										<div class="form-line">
@@ -234,6 +226,22 @@ try {
 									</div>
 									<div id="error-media"></div>
 								</div>
+								<div class="col-sm-4"> 
+									<h6>Available Media : <span></span></h6>
+									<div class="input-group"> 
+										<div class="form-line">
+											<input type="text" readonly class="form-control numberonly" id="available-media" value="">
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-4">
+				                	<h6>Media Amount : *</h6>
+									<div class="input-group">
+										<div class="form-line">
+											<input type="text" readonly class="form-control numberonly" id="amountmedia" value="1">
+										</div>
+									</div>
+				                </div>
 							</div>
 						</fieldset>
 					</div>

@@ -4,15 +4,7 @@
             <div class="modal-content">
                 <div class="modal-header"><h5><span id="title-media"></span> Update Media for ID Treatment : <b><span id="title-id"></span></b> </h5> </div> 
                 <div class="modal-body">
-                	<div class="col-sm-6">
-	                	<h6>Media Amount : *</h6>
-						<div class="input-group">
-							<div class="form-line">
-								<input type="text" class="form-control numberonly" id="amountmedia" value="">
-							</div>
-						</div>
-	                </div> 
-	                <div class="col-sm-6" id="media-field"> 
+	                <div class="col-sm-5" id="media-field"> 
 	                	<h6>Choose Media : *</h6>
 						<div class="input-group">
 							<div class="form-line">
@@ -32,13 +24,30 @@
 							</div>
 						</div>
 						<div id="error-media"></div>
-	                </div>  	                
+	                </div>
+					<div class="col-sm-3"> 
+						<h6>Available Media : <span></span></h6>
+						<div class="input-group"> 
+							<div class="form-line">
+								<input type="text" readonly class="form-control numberonly" id="available-media" value="">
+							</div>
+						</div>
+					</div> 	    
+					<div class="col-sm-4">
+	                	<h6>Media Amount : *</h6>
+						<div class="input-group">
+							<div class="form-line">
+								<input type="text" class="form-control numberonly" id="amountmedia" value="">
+							</div>
+						</div>
+	                </div>             
                 </div>
                 <div class="modal-footer">
                 	<div class="">
 	                    <div class="input-group">
-	                    	<button id="btnUpdateMedia" class="btn btn-primary">Save</button>
-	                    	<button class="btn btn-danger right" data-dismiss="modal">Back</button>
+							<button id="btnUpdateMedia" class="btn btn-primary">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
+							&nbsp;
+	                    	<button class="btn btn-warning right" data-dismiss="modal">Back</button>
 	                	</div>
 	                </div>
                 </div>
@@ -361,6 +370,7 @@
 								<th class="text-center">Media</th>
 								<th class="text-center">Last Screening</th>
 								<th class="text-center">Last Checkpoint</th>
+								<th class="text-center">Contaminated</th>
 								<th width="100px" class="text-center">Action</th>
 							</tr>
 						</thead>

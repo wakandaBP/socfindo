@@ -1,14 +1,13 @@
 <script type="text/javascript">
 	$(function(){
-		menuActive();
-		
-		var no = 1;
+		id = '<?php echo ($_GET['last']!='')?$_GET['last']:''; ?>';
+
 		var contaminationList = $("#list-contamination").DataTable({
 
 			"ajax":{
 				"url": hostname + "/api/loader.contamination.php",
 				"data":{
-					//
+					id:id
 				},
 				"type":"POST"
 			},
@@ -45,10 +44,15 @@
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return "<div style='text-align:center;'><a href=\"" + hostname + "/contamination.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\">edit</i></a> | <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete-" + row["id"] + "\" data-name=\"" + row["species"] + "\"><i class=\"material-icons\">close</i></button></div>";
+						return "<div style='text-align:center;' class='"+ row["last_updated"] +"'><a href=\"" + hostname + "/contamination.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\">edit</i></a> | <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete-" + row["id"] + "\" data-name=\"" + row["species"] + "\"><i class=\"material-icons\">close</i></button></div>";
 					}
 				}
-			]
+			],
+			rowCallback: function (row, data) {
+				if (data['last_updated'] == "last_updated"){
+					$(row).css({"background-color":"#0779e4","color":"#ffffff"});
+				}
+			}
 		});
 	
 		$("body").on("click", ".btn-delete", function(){

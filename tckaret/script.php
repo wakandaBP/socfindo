@@ -223,7 +223,7 @@
 
         function checkAvailableMedia(amount, idmedia, msg_selector, availableMedia){
             stats = "";
-			for_error = msg_selector;
+			msg_error = msg_selector;
             count_media = availableMedia;
 
             $.ajax({
@@ -243,8 +243,7 @@
                             stok = parseInt(data['stok']);
                         }
 
-                        console.log(data);
-                        $("#" + for_error).html(data['msg']);
+                        $("#" + msg_error).html(data['msg']);
                         $("#" + count_media).val(stok);
                         stats = data['msg'];
                     }
@@ -276,8 +275,10 @@
         }
 
 
-        function checkAvailableMediaforEdit(amount, idmedia, idpengeluaran, selector){
+        function checkAvailableMediaforEdit(amount, idmedia, idpengeluaran, msg_selector, availableMedia){
             stats = "";
+            msg_error = msg_selector;
+            count_media = availableMedia;
 
             $.ajax({
                 async:false,
@@ -289,12 +290,22 @@
                     idpengeluaranmedia:idpengeluaran
                 },
                 success: function(resp){
-                    //console.log(resp);
-                    $("#" + selector).html(resp);
-                    stats = resp;
+                    if (resp != ""){
+                        data = JSON.parse(resp);
+
+                        stok = 0;
+                        if (parseInt(data['stok']) > 0){
+                            stok = parseInt(data['stok']);
+                        }
+
+                        console.log(data);
+                        $("#" + msg_error).html(data['msg']);
+                        $("#" + count_media).val(stok);
+                        stats = data['msg'];
+                    }
                 }
             });
-            //console.log(stats);
+            
             return stats;
         }
 
@@ -311,5 +322,23 @@
 
             row.node().classList.add('hightlight');
         }
+
+        /*-------------------------- FUNGSI REDIRECT AFTER ADD -----------------------------*/
+        function redirectAfterAction(resp, redirectUrl, mode, menuName){
+            try {
+                data = JSON.parse(resp);
+
+                if(parseInt(data['rowcount']) > 0){
+                    alert(menuName + " has "+ mode +"ed!");
+                    location.href = hostname + "/"+ redirectUrl +"?last="+data['id'];
+                }
+                else {
+                    alert(menuName + " cant be "+ mode +"ed!");
+                }
+            } catch (e) {
+                console.log("Error : " + e + ". Please contact the System Developer");
+            }
+        }
+
 
     </script>

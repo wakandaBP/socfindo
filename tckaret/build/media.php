@@ -1,14 +1,13 @@
 <script type="text/javascript">
 	$(function(){
-		menuActive();
+		id = '<?php echo ($_GET['last']!='')?$_GET['last']:''; ?>';
 		
-		var no = 1;
 		var mediaList = $("#list-media").DataTable({
 
 			"ajax":{
 				"url": hostname + "/api/loader.media.php",
 				"data":{
-					//
+					id:id
 				},
 				"type":"POST"
 			},
@@ -53,15 +52,26 @@
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return "<div style=\"text-align:center;\"><a href=\"" + hostname + "/media.creation.add/" + row["id"] + "\" class=\"btn btn-success btn-circle waves-effect waves-circle waves-float\" title=\"Add Stock\"><i class=\"material-icons\">add</i></a>" + 
+						return "<div style=\"text-align:center;\"  class='"+ row['last_updated'] +"'><a href=\"" + hostname + "/media.creation.add/" + row["id"] + "\" class=\"btn btn-success btn-circle waves-effect waves-circle waves-float\" title=\"Add Stock\"><i class=\"material-icons\">add</i></a>" + 
 							" | <a href=\"" + hostname + "/media.creation.log/" + row["id"] + "\" class=\"btn btn-warning btn-circle waves-effect waves-circle waves-float\" title=\"View Stok Log\"><i class=\"material-icons\">list</i></a>" + 
 							" | <a href=\"" + hostname + "/media.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" title=\"Edit Media\"><i class=\"material-icons\">edit</i></a>" + 
 							" | <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete-" + row["id"] + "\" data-name=\"" + row["mediacode"] + "\"> <i class=\"material-icons\" title=\"Delete Media\">close</i></button></div>";
 					}
 				}
-			]
+			],
+			rowCallback: function (row, data) {
+				if (data['last_updated'] == "last_updated"){
+					$(row).css({"background-color":"#0779e4","color":"#ffffff"});
+				}
+			}
 		});
-	
+
+		$("#list-media tbody").on('click','tr',function(e) {
+			if ( $(e.target).closest('last_updated').length === 0 ) {
+				$(".last_updated").parent().parent().removeAttr("style");
+			}
+		});
+		
 		$("body").on("click", ".btn-delete", function(){
 			var id = $(this).attr("id").split("-");
 			var nama = $(this).data("name");

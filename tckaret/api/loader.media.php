@@ -8,6 +8,13 @@
 							WHERE a.isactive = ?",array("1"));
 
 	foreach ($query::$result as $key => $value) {
+		$last_updated = "";
+		if (isset($_POST['id']) != ""){
+			if ($_POST['id'] == $value['id']){
+				$last_updated = "last_updated";
+			}
+		}
+
 		array_push($MetaData, 
 			array(
 				"id"=>$value["id"], 
@@ -15,7 +22,8 @@
 				"media"=>$value["jenismedia"],
 				"description"=>$value["description"],
 				"stok"=>$value["stok"],
-				"status"=>$value["isactive"]
+				"status"=>$value["isactive"],
+				"last_updated"=>$last_updated
 			)
 		);
 	}

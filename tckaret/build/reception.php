@@ -1,12 +1,13 @@
 <script type="text/javascript">
 	$(function(){
-		
+		id = '<?php echo ($_GET['last']!='')?$_GET['last']:''; ?>';
+
 		var receptionList = $("#list-reception").DataTable({
 
 			"ajax":{
 				"url": hostname + "/api/loader.reception.php",
 				"data":{
-					//
+					id:id
 				},
 				"type":"POST"
 			},
@@ -72,14 +73,23 @@
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return "<div style='text-align:center;'><a href=\"" + hostname + "/reception.seeds/" + row["id"] + "\" class=\"btn btn-warning btn-circle waves-effect waves-circle waves-float\" title=\"View Seeds Description\"><i class=\"material-icons\">list</i></a>" +
+						return "<div class='"+ row['last_updated'] +"' style='text-align:center;'><a href=\"" + hostname + "/reception.seeds/" + row["id"] + "\" class=\"btn btn-warning btn-circle waves-effect waves-circle waves-float\" title=\"View Seeds Description\"><i class=\"material-icons\">list</i></a>" +
 
 							" | <a href=\"" + hostname + "/initiation.add/" + row["id"] + "\" class=\"btn btn-success btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\" title='Initiatiate this Reception'>trending_flat</i></a> " +
 							" | <a href=\"" + hostname + "/reception.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" title='Edit Reception'><i class=\"material-icons\">edit</i></a> " +
 							" | <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete-" + row["id"] + "\" data-name=\"" + row["id"] + "\" title='Delete Reception'><i class=\"material-icons\">close</i></button></div> ";
 					}
 				}
-			]
+			],
+			rowCallback: function (row, data) {
+				if (data['last_updated'] == "last_updated"){
+					$(row).css({"background-color":"#0779e4","color":"#ffffff"});
+				}
+			}
+		});
+
+		$('#list-reception tbody').on( 'click', 'tr', function () {
+			$(".last_updated").parent().parent().removeAttr("style");
 		});
 	
 		$("body").on("click", ".btn-delete", function(){

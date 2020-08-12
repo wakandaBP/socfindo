@@ -6,13 +6,13 @@
 		var MODE = "NEW";
 		//alert(hostname + "/api/loader.motherplant.php");
 		var DataPopulate = {};
- 
+ 	
 
 		$.ajax({
 			url: hostname + "/api/loader.motherplant.php",
 			async: false,
 			success: function(data){
-				//console.log(data);
+				console.log(data);
 				var parsed = JSON.parse(data);
 				for(var a = 0; a < parsed.data.length; a++){
 					DataPopulate["identifier-" + parsed.data[a]["id"] + "-" + parsed.data[a]["treecode_id"] + "-" + parsed.data[a]["treepart_id"]] = parsed.data[a];
@@ -20,9 +20,10 @@
 				//DataPopulate = parsed.data;
 			}
 		});
+			
 		function reCheckTableAuto(TargetTable){
 			if($(TargetTable).find("tbody tr").length == 0){
-				createNewRow("#" + $(TargetTable).attr("id"));
+				//createNewRow("#" + $(TargetTable).attr("id"));
 			}
 			$(TargetTable + " tbody tr").each(function(){
 				var ParentRow = $(this);
@@ -80,6 +81,7 @@
 			buttons: [
 				'excel', 'csv', 'pdf', 'copy'
 			],
+			pageLength: 5,
 			aaSorting: [[0, "asc"]],
 			"columnDefs":[
 				{"targets":0, "className":"dt-body-left"}
@@ -188,10 +190,10 @@
 				var codese = $("#nomor").val();
 				var se = $("#se").val();
 				var certified = ($("#certified").is(":checked"))?"Yes":"No";
-				var deactivated = ($("#deactive").is(":checked"))?"Yes":"No";
+				var deactivated = ($("#deactive").is(":checked"))?"TRUE":"FALSE";
 				var initiationyear = $("#initiationyear").val();
-				var tree = $("#tree").attr("selectedidunique");
-				var treepart = $("#treepart").attr("selectedidunique");
+				var tree = $("#tree").val(); //$("#tree").attr("selectedidunique");
+				var treepart =  $("#treepart").val(); //$("#treepart").attr("selectedidunique");
 				var harvestdate = $("#harvestdate").val();
 				var receptionug = $("#receptionug").val();
 				var usageofseeds = $("#usageofseeds").val();
@@ -204,23 +206,10 @@
 				var germinationse = $("#germinationse").val();
 
 				if (
-					/*codese != "" &&*/
 					se != "" &&
-					/*certified != "" &&
-					deactivated != "" &&*/
 					initiationyear != "" &&
 					tree != "" &&
-					treepart != "" && 
-					harvestdate != "" &&
-					receptionug != "" &&
-					usageofseeds != "" &&
-					startmedium != "" &&
-					germinationdate != "" &&
-					germinationmedium != "" &&
-					/*leafsample != "" &&*/
-					leafsamplelocation != "" &&
-					/*leafsamplecirad != "" &&*/
-					germinationse != ""
+					receptionug != ""
 				){
 					$.ajax({
 						url: hostname + "/action.php",
@@ -232,23 +221,37 @@
 							se:se,
 							certified:certified,
 							deactivated:deactivated,
-							initiationyear:initiationyear,
+							initiation_year:initiationyear,
 							tree:tree,
 							treepart:treepart,
-							harvestdate:harvestdate,
-							receptionug:receptionug,
-							usageofseeds:usageofseeds,
-							startmedium:startmedium,
-							germinationdate:germinationdate,
-							germinationmedium:germinationmedium,
-							leafsample:leafsample,
-							leafsamplelocation:leafsamplelocation,
-							leafsamplecirad:leafsamplecirad,
-							germinationse:germinationse
+							harvest_date:harvestdate,
+							reception_ug:receptionug,
+							usage_of_seeds:usageofseeds,
+							start_medium:startmedium,
+							germination_date:germinationdate,
+							germination_medium:germinationmedium,
+							leaf_sample:leafsample,
+							leaf_sample_location:leafsamplelocation,
+							leaf_sample_cirad:leafsamplecirad,
+							germination_se:germinationse
 						},
 						success:function(resp){
+							console.log(resp);
 							$("#btnReset").click();
 							motherplantList.ajax.reload();
+
+							$.ajax({
+								url: hostname + "/api/loader.motherplant.php",
+								async: false,
+								success: function(data){
+									console.log(data);
+									var parsed = JSON.parse(data);
+									for(var a = 0; a < parsed.data.length; a++){
+										DataPopulate["identifier-" + parsed.data[a]["id"] + "-" + parsed.data[a]["treecode_id"] + "-" + parsed.data[a]["treepart_id"]] = parsed.data[a];
+									}
+									//DataPopulate = parsed.data;
+								}
+							});
 							/*if(parseInt(resp) > 0){
 	                            
 	                            alert(resp);
@@ -257,6 +260,10 @@
 	                        else{
 	                            alert(resp);
 	                        }*/
+						},
+						error: function(response) {
+							console.log("Error : ");
+							console.log(response);
 						}
 					});
 				}
@@ -277,15 +284,15 @@
 			$("#harvestdate").val("");
 			$("#receptionug").val("");
 			$("#usageofseeds").val("");
-			$("#startmedium").val("");
+			$("#tree").val("").trigger('change');
+			$("#treepart").val("").trigger('change');
+			$("#startmedium").val("").trigger('change');
 			$("#germinationdate").val("");
-			$("#germinationmedium").val("");
+			$("#germinationmedium").val("").trigger('change');
 			$("#leafsamplelocation").val("");
 			$("#germinationse").val("");
 		});
 
-
-		
 
 		$("#addComment").submit(function(){
 			var comment = $("#txt_comment").val();
@@ -607,6 +614,8 @@
 			if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm} today = mm+'/'+dd+'/'+yyyy;
 			if(tomday<10){tomday='0'+tomday} if(tommonth<10){tommonth='0'+tommonth} tomorrow = tommonth+'/'+tomday+'/'+tomyear;*/
 
+			$("#tree").val("").trigger('change');
+
 			$("#harvestdate").val(formatHarvestDateReFormat);
 			$("#usageofseeds").val(usageOfSeedsDateReFormat);
 			$("#receptionug").val(receptionUGDateReFormat);
@@ -616,15 +625,19 @@
 			//$("#receptionug").datepicker("setDate", DataPopulate[id]["receptionug_format"]);
 			//$("#germinationdate").datepicker("setDate", DataPopulate[id]["germinationdate_format"]);
 
-			$("#tree").val(DataPopulate[id]["tree"] + ", " + DataPopulate[id]["plantation_name"] + ", " + DataPopulate[id]["yearofplanting"])
-			.attr("selectedidunique", getTreeID[2]);
+			/*$("#tree").val(DataPopulate[id]["tree"] + ", " + DataPopulate[id]["plantation_name"] + ", " + DataPopulate[id]["yearofplanting"])
+			.attr("selectedidunique", getTreeID[2]);*/
+			$("#tree").val(DataPopulate[id]['treecode_id']).trigger('change');
+
 			//console.log("Data "+DataPopulate[id]["tree"] + ", " + DataPopulate[id]["plantation_name"] + ", " + DataPopulate[id]["yearofplanting"]);
-			$("#treepart").val(DataPopulate[id]["treepart_name"])
-			.attr("selectedidunique", getTreeID[3]);
+			/*$("#treepart").val(DataPopulate[id]["treepart_name"])
+			.attr("selectedidunique", getTreeID[3]);*/
+
+			$("#treepart").val(DataPopulate[id]["treepart_id"]).trigger('change');
 
 			$("#initiationyear").val(DataPopulate[id]["initiationyear"]);
-			$("#startmedium").val(DataPopulate[id]["initiationmedium"]);
-			$("#germinationmedium").val(DataPopulate[id]["germinationmedium"]);
+			$("#startmedium").val(DataPopulate[id]["startmedium"]).trigger('change');
+			$("#germinationmedium").val(DataPopulate[id]["germinationmedium"]).trigger('change');
 			//alert(DataPopulate[id]["leafsample"]);
 			if(DataPopulate[id]["leafsample"] == ""){
 				$("#leafsample").removeAttr("checked");

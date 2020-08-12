@@ -2,14 +2,16 @@
 	var datafortransfer = [];
 	var datacheck = [];
 	var datacheckbox = [];
+	var remainSample = 0;
+	var numberSample = 0;
 
 	var selectedRow = "";
+
 	$(function() {
 			
 		//------------- OBSERVATION PART -----------------
 
 		cekAmount(<?= $page[1]; ?>);
-		//console.log(dats);
 
 		var obsList = $("#list-obs").DataTable({
 			"ajax":{
@@ -19,14 +21,6 @@
 				},
 				"type":"POST"
 			},
-			/*dom: 'Blfrtip',
-			buttons: [
-				'selectAll',
-        		'selectNone'
-			],
-			select: {
-		      style: 'multi'
-			},*/
 			aaSorting: [[2, "desc"]],
 			"columnDefs":[
 				{"targets":0, "className":"dt-body-left"}
@@ -65,22 +59,8 @@
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return "<div style='text-align:center;'>" + 
-
-							// "<a href=\"" + hostname + "/reception.seeds/" + row["id"] + "\" class=\"btn btn-warning btn-circle waves-effect waves-circle waves-float\" title=\"View Initiation Description\"><i class=\"material-icons\">list</i></a>"
-
-							//"<button data-id='" + row["id"] + "' class=\"btn btn-warning btn-circle waves-effect waves-circle waves-float btnView\" title=\"View Initiation Description\"><i class=\"material-icons\">list</i></button>" +
-
-							//" | <a href=\"" + hostname + "/initiation-obs.add/" + row["id"] + "\" class=\"btn btn-success btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\" title='Go To Observation Callus'>trending_flat</i></a> " +
-
-							//"<button data-id='" + row["id"] + "' " + row['disable'] + " class=\"btn btn-info btn-circle waves-effect waves-circle waves-float btnEditObs\" title=\"Edit Observation Data\"><i class=\"material-icons\">edit</i></button>" +
-
-							/*" | <a href=\"" + hostname + "/initiation.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" title='Edit Initiation'><i class=\"material-icons\">edit</i></a> " +*/
-
-
-							//" | <button " + row['disable'] + " class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete btnDeleteObs\" id=\"delete-" + row["id"] + "\" data-name=\"" + row["id"] + "\" title='Delete Initiation'><i class=\"material-icons\">close</i></button></div> ";
-							
-							"<button data-id='" + row["id"] + "' " + row['disabled'] + " class=\"btn btn-info btn-circle waves-effect waves-circle waves-float btnEditObs\" title=\"Edit Observation Data\"><i class=\"material-icons\">edit</i></button></div>";
+						return "<div style='text-align:center;'>" + 							
+									"<button data-id='" + row["id"] + "' " + row['btndisabled'] + " class=\"btn btn-info btn-circle waves-effect waves-circle waves-float btnEditObs "+ row['notdisabled'] +"\" title=\"Edit Observation Data\"><i class=\"material-icons\">edit</i></button></div>";
 					}
 				}
 			],
@@ -92,11 +72,76 @@
 
 		$("#btnTambahObs").click(function(){
 			mode = "add";
+
 			$("form")[0].reset();
+
+			//get number of remaining sample 
+			$.ajax({
+				async:false,
+				url : hostname + "/api/myfunction/check.remaining.sample.initiation.php",
+				type : "POST",
+				data :  { id:'<?= $page[1] ?>' },
+				success: function(resp){
+					sample = JSON.parse(resp);
+					remainSample = sample;
+
+					$("#notreact").val(sample);
+				}
+			});
+
+			
+			numberSample = remainSample;
 			$("#obsworker").val("").trigger('change');
 			$("#form-obscallus").modal("show");
-
 		});
+
+		/*------------------------- FUNCTION KEYUP PIECES NOT REACTED ---------------------------*/
+
+		// On Keyup action
+		$("#alotofcallus").on('keyup', function(){
+			keyupNotReacted("alotofcallus", remainSample);
+		});
+
+		$("#littlebitofcallus").on('keyup', function(){
+			 keyupNotReacted("littlebitofcallus", remainSample);
+		});
+
+		$("#dead").on('keyup', function(){
+			keyupNotReacted("dead", remainSample);
+		});
+
+		$("#contfungi").on('keyup', function(){
+			keyupNotReacted("contfungi", remainSample);
+		});
+		
+		$("#contbact").on('keyup', function(){
+			keyupNotReacted("contbact", remainSample);
+		});
+
+
+		//On Change action
+		$("#alotofcallus").on('change', function(){
+			keyupNotReacted("alotofcallus", remainSample);
+		});
+
+		$("#littlebitofcallus").on('change', function(){
+			 keyupNotReacted("littlebitofcallus", remainSample);
+		});
+
+		$("#dead").on('change', function(){
+			keyupNotReacted("dead", remainSample);
+		});
+
+		$("#contfungi").on('change', function(){
+			keyupNotReacted("contfungi", remainSample);
+		});
+		
+		$("#contbact").on('change', function(){
+			keyupNotReacted("contbact", remainSample);
+		});
+
+
+		/*--------------------------------------------------------------------*/
 
 		$("#obsworker").on('change',function(){
 			$("#idobsworker").val($(this).val());
@@ -165,63 +210,67 @@
 			if (mode == 'edit'){
 				allseeds += parseInt($("#obs_samp").val());
 			}
-			console.log(allseeds);
 			
 			alotlittlebit = alotof + littlebit;
 			sum = alotlittlebit + dead + notreact; 
 
-			//alert(obsdate + " " + obsworker + " " + contfungi + " " + contbact + " " + notreact + " " + alotof + " " + littlebit + " " + yellow + " " + white + " " + orange + " " + brown + " " + dead + " | " + remainpetri + " " + transdate + " " + transworker + " " + callustrans + " " + laminar);
-
 			if (obsdate != "" && obsworker != ""){
-				//alert((alotof + littlebit) + " " + (yellow + white + orange + brown));
-				if (sum <= allseeds){
-					//alert(alotof + littlebit + " " + allseeds);
-					if (alotlittlebit == (yellow + white + orange + brown)){
-						$.ajax({
-							url: hostname + "/action.php",
-							type: "POST",
-							data: {
-								action:mode+"-obs-callus",
-								obsdate:obsdate,
-								obsworker:obsworker,
-								contfungi:contfungi,
-								contbact:contbact,
-								notreact:notreact,
-								alotof:alotof,
-								littlebit:littlebit,
-								yellow:yellow,
-								white:white,
-								orange:orange,
-								brown:brown,
-								dead:dead,
-								pink:pink,
-								remainpetri:remainpetri,						
+				
+				if (sum == allseeds){
 
-								id_init:id_init,
-								idtreatment:<?php echo $page[1]?>
-							},
-							success:function(resp){
-								if(parseInt(resp) > 0){
-									alert("Observation has " + mode +  "ed!");
-		     
-		                        	RefreshData($("#list-obs"), hostname + "/api/initiation/loader.initiation.obs.php", {id:<?= $page[1] ?>});
-		                        	cekAmount(<?= $page[1] ?>);
-		                        	$("#form-obscallus").modal("hide");
-		                        }
-		                        else{
-		                            alert("Observation can't  be " + mode +  "ed!");
-		                        }
-							}
-						});
+					if (sum <= allseeds){
+						
+						if (alotlittlebit == (yellow + white + orange + brown)){
+							$.ajax({
+								url: hostname + "/action.php",
+								type: "POST",
+								data: {
+									action:mode+"-obs-callus",
+									obsdate:obsdate,
+									obsworker:obsworker,
+									contfungi:contfungi,
+									contbact:contbact,
+									notreact:notreact,
+									alotof:alotof,
+									littlebit:littlebit,
+									yellow:yellow,
+									white:white,
+									orange:orange,
+									brown:brown,
+									dead:dead,
+									pink:pink,
+									remainpetri:remainpetri,						
+
+									id_init:id_init,
+									idtreatment:<?php echo $page[1]?>
+								},
+								success:function(resp){
+									if(parseInt(resp) > 0){
+										alert("Observation has " + mode +  "ed!");
+				
+										RefreshData($("#list-obs"), hostname + "/api/initiation/loader.initiation.obs.php", {id:<?= $page[1] ?>});
+										cekAmount(<?= $page[1] ?>);
+										$("#form-obscallus").modal("hide");
+									}
+									else{
+										alert("Observation can't  be " + mode +  "ed!");
+									}
+								}
+							});
+							return false;
+
+						} else {
+							alert("Make sure total of (A Lot of Calus + Little Bit of Callus) = (Yellow + White + Orange + Brown)");
+						}
 						return false;
 
 					} else {
-						alert("Make sure total of (A Lot of Calus + Little Bit of Callus) = (Yellow + White + Orange + Brown)");
+						alert("Total of (A Lot of Callus + Little Bit of Callus + Pieces Not React + Dead) is more than 'Amount of Pieces Initiated from Initiation'");
 					}
 					return false;
-
+				
 				} else {
-					alert("Total of (A Lot of Callus + Little Bit of Callus + Pieces Not React + Dead) is more than 'Amount of Pieces Initiated from Initiation'");
+					alert("Total of (A Lot of Callus + Little Bit of Callus + Pieces Not React + Dead) is must same ");
 				}
 				return false;
 
@@ -312,10 +361,17 @@
 		$("#btnCancelTrans").click(function(){
 			$(this).attr("disabled",true);
 			$("#btnTambahObs").attr("disabled",false);
+
 			$.each($("input[class='usecheckbox notdisabled']"), function(){
 		       	$(this).attr("disabled",false);
 		    });
-		    $(".btnEditObs").attr("disabled",false);
+
+			$.each($(".btnEditObs"), function(){
+		       	if ($(this).hasClass("notdisabled") == true){
+				   $(this).attr("disabled",false);
+				}
+		    });
+
 		    $(".btnDeleteObs").attr("disabled",false);
 			$("#btnAllselect").attr("disabled",false);
 	    	$("#btnUnselect").attr("disabled",false);
@@ -376,28 +432,33 @@
 						idtreatment:<?php echo $page[1]?>
 					},
 					success:function(resp){
-						//alert(resp);
-						if(parseInt(resp) > 0){
-							alert("Callus has been transfered!");
-                          	$("#form-transfer").attr("hidden",true);
-                        	$("#btnCancelTrans").attr("disabled",true);
-							$("#btnTambahObs").attr("disabled",false);
-							
-							$.each($("input[class='usecheckbox notdisabled']"), function(){
-						       	$(this).attr("disabled",false);
-						    });
-							
-							$("#btnAllselect").attr("disabled",false);
-					    	$("#btnUnselect").attr("disabled",false);
-					    	$("#transfer").attr("disabled",false);
-					    	$("#form-transfer").attr("hidden",true);
-                           	RefreshData($("#list-obs"), hostname + "/api/initiation/loader.initiation.obs.php", {id:<?= $page[1] ?>});
+						try {
+							data = JSON.parse(resp);
 
-                           	location.href = hostname + "/embryoscreening";
-                        }
-                        else{
-                            //alert(resp);
-                        }
+							if(parseInt(data['rowcount']) > 0){
+								alert("Callus has been transfered!");
+								$("#form-transfer").attr("hidden",true);
+								$("#btnCancelTrans").attr("disabled",true);
+								$("#btnTambahObs").attr("disabled",false);
+								
+								$.each($("input[class='usecheckbox notdisabled']"), function(){
+									$(this).attr("disabled",false);
+								});
+								
+								$("#btnAllselect").attr("disabled",false);
+								$("#btnUnselect").attr("disabled",false);
+								$("#transfer").attr("disabled",false);
+								$("#form-transfer").attr("hidden",true);
+								RefreshData($("#list-obs"), hostname + "/api/initiation/loader.initiation.obs.php", {id:<?= $page[1] ?>});
+
+								location.href = hostname + "/embryoscreening?last="+data['id'];
+							}
+							else {
+								alert("Callus cant be transfered!");
+							}
+						} catch (e) {
+							console.log("Error : " + e + ". Please contact the System Developer");
+						}
 					}
 				});
 				return false;
@@ -407,6 +468,27 @@
 
 			return false;
 		});
+
+
+		/*------------------------- FUNCTION KEYUP PIECES NOT REACTED ---------------------------*/
+
+		$("#yellow").on('keyup', function(){
+			keyupCallusColor("yellow");
+		});
+
+		$("#white").on('keyup', function(){
+			keyupCallusColor("white");
+		});
+
+		$("#orange").on('keyup', function(){
+			keyupCallusColor("orange");
+		});
+
+		$("#brown").on('keyup', function(){
+			keyupCallusColor("brown");
+		});
+
+		/*--------------------------------------------------------------------*/
 
 	});
 
@@ -449,6 +531,65 @@
 			$("#btnSimpanTrans").attr("disabled",false);
 		} else {
 			$("#btnSimpanTrans").attr("disabled",true);
+		}
+	}
+
+	function keyupNotReacted(selector, remainSample){
+		selectorVal = $("#"+ selector).val();
+
+		if (selectorVal != ""){
+			thisVal = parseInt(selectorVal);
+
+			pAlot = parseInt($("#alotofcallus").val());
+			pLittle = parseInt($("#littlebitofcallus").val());
+			pDead = parseInt($("#dead").val());
+			pFungi = parseInt($("#contfungi").val());
+			pBact = parseInt($("#contbact").val());
+
+			totalS = pAlot + pLittle + pDead + pFungi + pBact;
+
+			if (totalS <= remainSample){
+				num = remainSample - totalS;				
+			} else if (totalS > remainSample) {
+				num = remainSample - (totalS - parseInt($("#"+selector).val()));
+
+				$("#"+ selector).val(0);
+			}
+
+			$("#notreact").val(num);
+		}
+	}
+
+
+	function keyupCallusColor(selector){
+		selectorVal = $("#"+ selector).val();
+
+		alot = $("#alotofcallus").val();
+		little = $("#littlebitofcallus").val();
+
+		if (selectorVal != ""){
+			thisVal = parseInt(selectorVal);
+
+			if (alot != "" || little != ""){
+				totalAL = parseInt(alot) + parseInt(little);
+
+				pYellow = parseInt($("#yellow").val());
+				pWhite = parseInt($("#white").val());
+				pOrange = parseInt($("#orange").val());
+				pBrown = parseInt($("#brown").val());
+
+				totalS = pYellow + pWhite + pOrange + pBrown;
+
+				if (totalS <= totalAL){
+					num = totalAL - totalS;				
+				} else if (totalS > totalAL) {
+					num = totalAL - (totalS - parseInt($("#"+selector).val()));
+
+					$("#"+ selector).val(0);
+				}
+
+			}
+			
 		}
 	}
 

@@ -1,6 +1,5 @@
 <script type="text/javascript">
 	$(function(){
-		//menuActive();
 		$("form")[0].reset();
 
 		$("#listpegawai").on('change',function(){
@@ -68,11 +67,14 @@
 						description:description
 					},
 					success:function(resp){
-						if(parseInt(resp) > 0){
-                            location.href = hostname + "/worker";
+						data = JSON.parse(resp);
+
+						if(parseInt(data['rowcount']) > 0){
+							alert("Worker has been added!");
+                            location.href = hostname + "/worker?last="+data['id'];
                         }
                         else{
-                            //alert(resp);
+                            alert("Worker cant be added!");
                         }
 					}
 				})

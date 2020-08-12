@@ -1,11 +1,9 @@
 <script type="text/javascript">
 	$(function(){
-		menuActive();
 		
 		var mode;
 		
 		//---------------FOR BLOCK-------------------
-		var no = 1;
 		$("#add-block").click(function(){
 	        mode = "add";
 	        idblock = 0;
@@ -14,7 +12,7 @@
 	        $("#form-block").modal("show");
 	    });
 
-	    $("tbody").on("click","#edit-block",function(){
+	    $("#list-block tbody").on("click",".edit-block",function(){
 	        mode = "update";
 	        var idblock = $(this).data("id");
 	        getBlock(idblock);
@@ -52,12 +50,23 @@
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return "<div style='text-align:center;'><button id='add-panel' data-id='" + row['idblock'] + "' data-noblock='" + row['blocknumber'] + "' class=\"btn btn-success btn-circle waves-effect waves-circle waves-float\" title=\"Add Panel\"><i class=\"material-icons\">add</i></button>" +
-							" | <button id='edit-block' data-id=\"" + row["idblock"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\">edit</i></button>" +
+						return "<div style='text-align:center;' class='"+ row['last_updated'] +"'><button id='add-panel' data-id='" + row['idblock'] + "' data-noblock='" + row['blocknumber'] + "' class=\"btn btn-success btn-circle waves-effect waves-circle waves-float\" title=\"Add Panel\"><i class=\"material-icons\">add</i></button>" +
+							" | <button id='' data-id=\"" + row["idblock"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float edit-block\"><i class=\"material-icons\">edit</i></button>" +
 							" | <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete-block\" id=\"delete-" + row["idblock"] + "\" data-name=\"" + row["idblock"] + "\"><i class=\"material-icons\">close</i></button></div>";
 					}
 				}
-			]
+			],
+			rowCallback: function (row, data) {
+				if (data['last_updated'] == "last_updated"){
+					$(row).css({"background-color":"#0779e4","color":"#ffffff"});
+				}
+			}
+		});
+
+		$(document).click(function(e) {
+			if ( $(e.target).closest('last_updated').length === 0 ) {
+				$(".last_updated").parent().parent().removeAttr("style");
+			}
 		});
 	
 		$("body").on("click", ".btn-delete-block", function(){
@@ -115,13 +124,23 @@
 					},
 					{
 						"data" : null, render: function(data, type, row, meta) {
-							return "<div style='text-align:center;'><button id='edit-panel' data-id=\"" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\">edit</i></button> <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete-panel\" id=\"delete-" + row["id"] + "\" data-name=\"" + row["panelname"] + "\" data-block='" + row['idblock'] + "'><i class=\"material-icons\">close</i></button></div>";
+							return "<div style='text-align:center;' class='"+ row['last_updated'] +"'><button id='edit-panel' data-id=\"" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\">edit</i></button> <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete-panel\" id=\"delete-" + row["id"] + "\" data-name=\"" + row["panelname"] + "\" data-block='" + row['idblock'] + "'><i class=\"material-icons\">close</i></button></div>";
 						}
 					}
-				]
+				],
+				rowCallback: function (row, data) {
+					if (data['last_updated'] == "last_updated"){
+						$(row).css({"background-color":"#0779e4","color":"#ffffff"});
+					}
+				}
 			});
 		});
 
+		$(document).click(function(e) {
+			if ( $(e.target).closest('last_updated').length === 0 ) {
+				$(".last_updated").parent().parent().removeAttr("style");
+			}
+		});
 
 		//---------------FOR PANEL-------------------
 
@@ -182,6 +201,7 @@
 	        type: "POST",
 	        data: {idblock:id},
 	        success: function(data){
+				console.log(data);
 	        	value = JSON.parse(data); 
 
 	        	$("#idblock").val(value[0].idblock);
@@ -211,15 +231,23 @@
 						description:description
 					},
 					success:function(resp){
-						if(parseInt(resp) > 0){
-							no = 1;
+						data = JSON.parse(resp);
+
+						if(parseInt(data['rowcount']) > 0){
+							alert("Block has added!");
+
 							var idplantation = <?php echo $page[1] ?>;
-		                    RefreshData("#list-block", hostname + "/api/loader.plantation.block.php", {idplantation:idplantation});
-		                    $("#form-block").modal("hide");
-		                }
-		                else{
-		                    //alert(resp);
-		                }
+		                    var id = data['id'];
+
+							RefreshData("#list-block", hostname + "/api/loader.plantation.block.php", {idplantation:idplantation, last_updated:id});
+
+							RefreshData("#list-panel", hostname + "/api/loader.plantation.panel.php", {idblock:idblock});
+		                    $("#idblockforpanel").val(data['id']);
+							$("#form-block").modal("hide");
+                        }
+                        else{
+                            alert("Block cant be added!");
+                        }
 					}
 				});
 			} else if (mode == "update"){
@@ -233,15 +261,24 @@
 						description:description
 					},
 					success:function(resp){
-						if(parseInt(resp) > 0){
-							no = 1;
+						data = JSON.parse(resp);
+
+						if(parseInt(data['rowcount']) > 0){
+							alert("Block has updated!");
+
 							var idplantation = <?php echo $page[1] ?>;
-		                    RefreshData("#list-block", hostname + "/api/loader.plantation.block.php", {idplantation:idplantation});
+		                    var id = data['id'];
+
+							RefreshData("#list-block", hostname + "/api/loader.plantation.block.php", {idplantation:idplantation, last_updated:id});
+
+							RefreshData("#list-panel", hostname + "/api/loader.plantation.panel.php", {idblock:idblock});
+							$("#idblockforpanel").val(data['id']);
+
 		                    $("#form-block").modal("hide");
-		                }
-		                else{
-		                    //alert(resp);
-		                }
+                        }
+                        else{
+                            alert("Block cant be updated!");
+                        }
 					}
 				});
 			}
@@ -268,6 +305,8 @@
 	        	$("#idpanel").val(value[0].id);
 	            $("#panelname").val(value[0].panelname);
 	            $("#paneldescription").val(value[0].description);
+				$("#mode-block").html(value[0].blocknumber);
+				$("#title-panel").html(value[0].panelname);
 	            $("#mode-panel").html("Edit");
 
 	            $("#form-panel").modal("show");
@@ -293,13 +332,21 @@
 						description:description
 					},
 					success:function(resp){
-						if(parseInt(resp) > 0){
-		                    RefreshData("#list-panel", hostname + "/api/loader.plantation.panel.php", {idblock:idblockforpanel});
+						data = JSON.parse(resp);
+
+						if(parseInt(data['rowcount']) > 0){
+							alert("Panel has added!");
+
+							var idplantation = <?php echo $page[1] ?>;
+		                    var id = data['id'];
+
+							RefreshData("#list-panel", hostname + "/api/loader.plantation.panel.php", {idblock:idblockforpanel,last_updated:id});
+							
 		                    $("#form-panel").modal("hide");
-		                }
-		                else{
-		                    //alert(resp);
-		                }
+                        }
+                        else{
+                            alert("Panel cant be added!");
+                        }
 					}
 				});
 			} else if (mode == "update"){
@@ -313,13 +360,22 @@
 						description:description
 					},
 					success:function(resp){
-						if(parseInt(resp) > 0){
-		                    RefreshData("#list-panel", hostname + "/api/loader.plantation.panel.php", {idblock:idblockforpanel});
+						console.log(resp);
+						data = JSON.parse(resp);
+
+						if(parseInt(data['rowcount']) > 0){
+							alert("Panel has updated!");
+
+							var idplantation = <?php echo $page[1] ?>;
+		                    var id = data['id'];
+
+							RefreshData("#list-panel", hostname + "/api/loader.plantation.panel.php", {idblock:idblockforpanel,last_updated:id});
+							
 		                    $("#form-panel").modal("hide");
-		                }
-		                else{
-		                    //alert(resp);
-		                }
+                        }
+                        else{
+                            alert("Panel cant be updated!");
+                        }
 					}
 				});
 			}

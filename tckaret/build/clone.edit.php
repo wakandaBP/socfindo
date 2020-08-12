@@ -21,12 +21,14 @@
 						id:<?php echo $page[1];?>
 					},
 					success:function(resp){
-						if(parseInt(resp) > 0){
-							alert("Data has been saved!");
-                            location.href = hostname + "/clone";
+						data = JSON.parse(resp);
+
+						if(parseInt(data['rowcount']) > 0){
+							alert("Clone has updated!");
+                            location.href = hostname + "/clone?last="+data['id'];
                         }
                         else{
-                            alert("Data can't be saved!");
+                            alert("Clone cant be updated!");
                         }
 					}
 				})

@@ -5,10 +5,10 @@
 	$MetaData = array();
 	
 
-	$query = new Database("SELECT * FROM karet_motherplan", array()); 
+	$query = new Database("SELECT * FROM karet_motherplant WHERE deleted_at IS NULL", array()); 
 
 	foreach ($query::$result as $key => $value) {
-		if(!empty($value["codese"])){
+		if(!empty($value["code_se"])){
 			
 			$getTree = new Database("SELECT * FROM karet_tree WHERE id = ?", array($value["tree"]));
 			$IDTree = $getTree::$result[0]["id"];
@@ -24,9 +24,9 @@
 			$getTreePart = new Database("SELECT * FROM karet_treepart WHERE id = ?", array($value["treepart"]));
 			$PartName = $getTreePart::$result[0]["partname"];
 
-			/*$getMedium = new Database("SELECT * FROM karet_media WHERE id = ?", array($value["idmedium"]));
-			$readMedium = $getMedium::$result[0]["mediacode"];*/
-			$readMedium = $value["idmedium"];
+			$getMedium = new Database("SELECT * FROM karet_media WHERE id = ?", array($value["start_medium"]));
+			$readMedium = $getMedium::$result[0]["mediacode"];
+			//$readMedium = "";// $value["idmedium"];
 
 			//$getEmbryo = new Database("SELECT * FROM karet_embryo WHERE se = ?", array($value["idembryo"]));
 			
@@ -34,36 +34,35 @@
 			array_push($MetaData, 
 				array(
 					"id"=>$value["id"],
-					"codese"=>$value["codese"],
-					"se"=>/*$getEmbryo::$result[0]["se"]*/"",
+					"codese"=>$value["code_se"],
+					"se"=>$value['se'],
 					"certified"=>$value["certified"],
-					"deactive"=>$value["deactive"],
-					"initiationyear"=>$value["initiationyear"],
+					"deactive"=>$value["deactivated"],
+					"initiationyear"=>$value["initiation_year"],
 					"tree"=>$CloneName,
-					"treecode_id" => $IDTree,
+					"treecode_id" => $value['tree'],
 					"treepart_name"=>$PartName, 
-					"treepart_id" => $getTreePart::$result[0]["id"],
+					"treepart_id" => $value["treepart"],
 
-					"receptionug"=>date("d F Y", strtotime($value["receptiondate"])),
-					"receptionug_format"=>date("d-m-Y", strtotime($value["receptiondate"])),
-					"usageofseeds"=>($value["initiationdate"] == "") ? "" : date("d F Y", strtotime($value["initiationdate"])),
-					"usageofseeds_format"=>date("d-m-Y", strtotime($value["initiationdate"])),
-					"harvestdate"=>date("d F Y", strtotime($value["harvestdate"])),
-					"harvestdate_format"=>date("d-m-Y", strtotime($value["harvestdate"])),
-					"germinationdate"=>date("d F Y", strtotime($value["germinationdate"])),
-					"germinationdate_format"=>date("d-m-Y", strtotime($value["germinationdate"])),
+					"receptionug"=>date("d F Y", strtotime($value["reception_ug"])),
+					"receptionug_format"=>date("d-m-Y", strtotime($value["reception_ug"])),
+					"usageofseeds"=>($value["usage_of_seeds"] == "") ? "" : date("d F Y", strtotime($value["usage_of_seeds"])),
+					"usageofseeds_format"=>date("d-m-Y", strtotime($value["usage_of_seeds"])),
+					"harvestdate"=>date("d F Y", strtotime($value["harvest_date"])),
+					"harvestdate_format"=>date("d-m-Y", strtotime($value["harvest_date"])),
+					"germinationdate"=>date("d F Y", strtotime($value["germination_date"])),
+					"germinationdate_format"=>date("d-m-Y", strtotime($value["germination_date"])),
 					
 					"plantation_name"=>$PlantationName,
 					"yearofplanting"=>/*$YearOfPlanting*/"",
-					"startmedium"=>$readMedium,
+					"startmedium"=>$value['start_medium'],
+					"startmedium_name"=>$readMedium,
 					//"germination"=>$value["germination"],
-					"germinationmedium"=>$value["germinationmedium"],
-					"leafsample"=>$value["leafsample"],
-					"leafsamplelocation"=>$value["leafsamplelocation"],
-					"leafsamplecirad"=>$value["leafsamplecirad"],
-					"germinationse"=>$value["germinationse"],
-					"isactive" => $value["isactive"],
-					"initiationmedium" => $value["initiationmedium"]
+					"germinationmedium"=>$value["germination_medium"],
+					"leafsample"=>$value["leaf_sample"],
+					"leafsamplelocation"=>$value["leaf_sample_location"],
+					"leafsamplecirad"=>$value["leaf_sample_cirad"],
+					"germinationse"=>$value["germination_se"]
 				)
 			);
 		}

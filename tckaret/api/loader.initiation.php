@@ -20,7 +20,7 @@
 							JOIN karet_media d ON d.id = a.idmedia
 							JOIN karet_laminar e ON a.laminar = e.id 
 							WHERE a.isactive = ? AND a.remaining_sample > 0 AND a.initiation_date BETWEEN ? AND ? 
-							ORDER BY a.initiation_date DESC",array("1",$_POST['awal'],$_POST['akhir']));
+							ORDER BY a.id_treatment DESC",array("1",$_POST['awal'],$_POST['akhir']));
 
 	} else {
 		$query = new Database("SELECT a.id_treatment, a.id_reception, a.sample, a.initiation_date, 
@@ -35,9 +35,8 @@
 							JOIN karet_clone c ON b.clone = c.id
 							JOIN karet_media d ON d.id = a.idmedia
 							JOIN karet_laminar e ON a.laminar = e.id 
-							WHERE a.isactive = ? AND a.remaining_sample > 0 ORDER BY a.initiation_date DESC",array("1"));
+							WHERE a.isactive = ? AND a.remaining_sample > 0 ORDER BY a.id_treatment DESC",array("1"));
 	}
-	
 
 	foreach ($query::$result as $key => $value) {
 		$workerinit = getWorkerName($value["initiation_worker"]);

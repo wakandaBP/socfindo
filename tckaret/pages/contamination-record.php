@@ -16,11 +16,12 @@
 								<div class="form-line">
 									<select id="showBy" class="form-control">
 										<option selected disable value="">--Select-Step--</option>
-										<option value="1">Embryoscreening</option>
-										<option value="2">Maturation I</option>
-										<option value="3">Maturation II</option>
-										<option value="4">Germination</option>
-										<option value="5">Show All</option>
+										<option value="1">Initiation</option>
+										<option value="2">Embryoscreening</option>
+										<option value="3">Maturation I</option>
+										<option value="4">Maturation II</option>
+										<option value="5">Germination</option>
+										<option value="6">Show All</option>
 									</select>
 								</div>
 							</div>
@@ -30,28 +31,34 @@
 								<button class="btn btn-primary" id="btnShow">Show</button>
 							</div>
 						</div>
-					</div>	
-					<!-- <table class="table table-bordered table-striped dataTable" id="list-contamination-initiation">
-						<thead>
-							<tr>
-								<th rowspan="2" width="20px" class="text-center">No</th>
-								<th rowspan="2" class="text-center">ID Treatment</th>
-								<th rowspan="2" class="text-center">ID Embryo</th>
-								<th rowspan="2" class="text-center">Rejuvination Step</th>
-								<th colspan="3" class="text-center">Contamination</th>
-								<th rowspan="2" width="auto" class="text-center">Dead</th>
-								<th rowspan="2" width="auto" class="text-center">Action</th>
-							</tr>
-							<tr>
-								<th class="text-center">Fungi</th>
-								<th class="text-center">Bacteri</th>
-								<th class="text-center">Pink</th>
-							</tr>
-						</thead>
-						<tbody>
-							
-						</tbody>
-					</table> -->
+					</div>
+					<div class="row clearfix">
+						<div id="table-initiation" hidden>
+							<fieldset>
+								<legend>Contamination in Initiation</legend>	
+								<table class="table table-bordered table-striped dataTable" id="list-contamination-initiation" style="text-align:center; width:100%;">
+									<thead>
+										<tr>
+											<th rowspan="2" width="20px" class="text-center">No</th>
+											<th rowspan="2" class="text-center">ID Treatment</th>
+											<th colspan="2" class="text-center">Contamination</th>
+											<th rowspan="2" width="auto" class="text-center">Dead</th>
+											<th rowspan="2" width="auto" class="text-center">Date Recorded</th>
+											<th rowspan="2" width="auto" class="text-center">Observation Worker</th>
+											<th rowspan="2" width="auto" class="text-center">Action</th>
+										</tr>
+										<tr>
+											<th class="text-center">Fungi</th>
+											<th class="text-center">Bacteri</th>
+										</tr>
+									</thead>
+									<tbody>
+										
+									</tbody>
+								</table>
+							</fieldset>
+						</div>
+					</div>
 					<br />
 					<div class="row clearfix">
 						<div id="table-embryoscreen" hidden>
@@ -65,6 +72,7 @@
 											<th colspan="3" class="text-center">Contamination</th>
 											<th rowspan="2" width="auto" class="text-center">Dead</th>
 											<th rowspan="2" width="auto" class="text-center">Date Recorded</th>
+											<th rowspan="2" width="auto" class="text-center">Transfer Worker</th>
 											<th rowspan="2" width="auto" class="text-center">Action</th>
 										</tr>
 										<tr>
@@ -91,6 +99,7 @@
 											<th colspan="3" class="text-center">Contamination</th>
 											<th rowspan="2" width="auto" class="text-center">Dead</th>
 											<th rowspan="2" width="auto" class="text-center">Date Recorded</th>
+											<th rowspan="2" width="auto" class="text-center">Transfer Worker</th>
 											<th rowspan="2" width="auto" class="text-center">Action</th>
 										</tr>
 										<tr>
@@ -117,6 +126,7 @@
 											<th colspan="3" class="text-center">Contamination</th>
 											<th rowspan="2" width="auto" class="text-center">Dead</th>
 											<th rowspan="2" width="auto" class="text-center">Date Recorded</th>
+											<th rowspan="2" width="auto" class="text-center">Transfer Worker</th>
 											<th rowspan="2" width="auto" class="text-center">Action</th>
 										</tr>
 										<tr>
@@ -143,6 +153,7 @@
 											<th colspan="3" class="text-center">Contamination</th>
 											<th rowspan="2" width="auto" class="text-center">Dead</th>
 											<th rowspan="2" width="auto" class="text-center">Date Recorded</th>
+											<th rowspan="2" width="auto" class="text-center">Transfer Worker</th>
 											<th rowspan="2" width="auto" class="text-center">Action</th>
 										</tr>
 										<tr>

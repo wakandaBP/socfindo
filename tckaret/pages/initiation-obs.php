@@ -75,7 +75,7 @@ try {
 											<h6>Pieces Not Reacted</h6>
 											<div class="input-group">
 												<div class="form-line">
-													<input type="number"  min="0" class="form-control numberonly" id="notreact" value="0">
+													<input type="number"  min="0" readonly class="form-control numberonly" id="notreact" value="0">
 												</div>
 											</div>
 										</div>
@@ -93,7 +93,7 @@ try {
 											<h6>Little Bit of Callus *</h6>
 											<div class="input-group">
 												<div class="form-line">
-													<input type="number" class="form-control numberonly" required id="littlebitofcallus" value="0">
+													<input type="number"  min="0" class="form-control numberonly" required id="littlebitofcallus" value="0">
 												</div>
 											</div>
 										</div>
@@ -197,10 +197,10 @@ try {
 						<tr>
 							<th width="2%"></th>
 							<th class="text-center">No.</th>
-							<th class="text-center">Obs. Date</th>
-							<th class="text-center">P. Not Reacted</th>
-							<th class="text-center">A Lot Of Callus</th>
-							<th class="text-center">Little Of Callus</th>
+							<th class="text-center" width="100px">Obs. Date</th>
+							<th class="text-center" width="100px">P. Not Reacted</th>
+							<th class="text-center" width="100px">A Lot Of Callus</th>
+							<th class="text-center" width="100px">Little Of Callus</th>
 							<!-- <th class="text-center">Yellow</th>
 							<th class="text-center">White</th>
 							<th class="text-center">Brown</th>

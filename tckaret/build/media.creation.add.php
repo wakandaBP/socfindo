@@ -52,6 +52,8 @@
 						lamakerja:lamakerja
 					},
 					success:function(resp){
+						console.log(resp);
+
 						if(parseInt(resp) > 0){
 							alert("Stok has been added!");
                             location.href = hostname + "/media.creation.log/<?php echo $page[1]?>";

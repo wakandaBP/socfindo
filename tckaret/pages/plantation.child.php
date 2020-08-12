@@ -42,7 +42,7 @@ try {
 	<div class="modal fade" tabindex="-1" role="dialog" id="form-panel">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header"><h5><span id="mode-panel"></span> Panel for Block <span id="mode-block"></h5></span></div>
+                <div class="modal-header"><h5><span id="mode-panel"></span> Panel <span id="title-panel"></span> for Block <span id="mode-block"></h5></span></div>
                 <div class="modal-body">
                     <form action="" autocomplete="off">
                     	<input hidden type="text" id="idblockforpanel">

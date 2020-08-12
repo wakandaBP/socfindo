@@ -5,7 +5,7 @@
 	$MetaData = array();
 	
 
-	$query = new Database("SELECT * FROM karet_motherplan_comment WHERE comment_motherplan = ?", array($_POST["id"])); 
+	$query = new Database("SELECT * FROM karet_motherplant_comment WHERE comment_motherplan = ?", array($_POST["id"])); 
 
 	foreach ($query::$result as $key => $value) {
 		array_push($MetaData, 

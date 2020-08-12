@@ -23,14 +23,7 @@
 						id:<?php echo $page[1]?>
 					},
 					success:function(resp){
-						if(parseInt(resp) > 0){
-							alert("Data has been saved!");
-                            location.href = hostname + "/laminar";
-                        }
-                        else{
-							alert("Data can't be saved!");
-                            //alert(resp);
-                        }
+						redirectAfterAction(resp, "laminar", "updat", "Laminar");
 					}
 				})
 			} else {

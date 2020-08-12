@@ -35,7 +35,11 @@
 						$_POST["status"]
 					)
 				);
-				echo $query::$rowCount;
+
+				$id = $query::$lastInsertId;
+				
+				//own function
+				printResult($id, $query::$rowCount);
 			break;
 
 			case "update-worker":
@@ -49,7 +53,8 @@
 						$_POST["id"]
 					)
 				);
-				echo $query::$rowCount;
+				
+				printResult($_POST["id"],$query::$rowCount);
 			break;
 
 			case "delete-worker":
@@ -60,13 +65,20 @@
 			/*-----------------Plantation CRUD---------------------*/
 
 			case "add-plantation":
-				$query = new Database("INSERT INTO karet_plantation (name, description, isactive) VALUES (?,?,?)",array(strtoupper($_POST["name"]),$_POST["description"],"1"));
-				echo $query::$rowCount;
+				$query = new Database("INSERT INTO karet_plantation (name, description, isactive) VALUES (?,?,?)",array(strtoupper($_POST["name"]),$_POST["description"],"1")); 
+
+				$id = $query::$lastInsertId;
+				$count = $query::$rowCount;
+
+				printResult($id, $count);
 			break;
 
 			case "update-plantation":
 				$query = new Database("UPDATE karet_plantation SET name = ?, description = ? WHERE id = ?",array(strtoupper($_POST["name"]),$_POST["description"],$_POST["id"]));
-				echo $query::$rowCount;
+				
+				$count = $query::$rowCount;
+
+				printResult($_POST['id'], $count);
 			break;
 
 			case "delete-plantation":
@@ -78,12 +90,19 @@
 
 			case "add-block":
 				$query = new Database("INSERT INTO karet_plantation_block (idplantation, blocknumber, description, isactive) VALUES (?,?,?,?)",array($_POST["idplantation"],$_POST["blocknumber"],$_POST["description"],"1"));
-				echo $query::$rowCount;
+				
+				$id = $query::$lastInsertId;
+				$count = $query::$rowCount;
+
+				printResult($id, $count);
 			break;
 
 			case "update-block":
 				$query = new Database("UPDATE karet_plantation_block SET blocknumber = ?, description = ? WHERE id = ?",array($_POST["blocknumber"],$_POST["description"],$_POST["idblock"]));
-				echo $query::$rowCount;
+				
+				$count = $query::$rowCount;
+
+				printResult($_POST['idblock'], $count);
 			break;
 
 			case "delete-block":
@@ -95,12 +114,19 @@
 
 			case "add-panel":
 				$query = new Database("INSERT INTO karet_plantation_panel (idblock, panelname, description, isactive) VALUES (?,?,?,?)",array($_POST["idblock"],$_POST["panelname"],$_POST["description"],"1"));
-				echo $query::$rowCount;
+				
+				$id = $query::$lastInsertId;
+				$count = $query::$rowCount;
+
+				printResult($id, $count);
 			break;
 
 			case "update-panel":
-				$query = new Database("UPDATE karet_plantation_panel SET panelname = ?, description = ? WHERE id = ?",array($_POST["panelname"],$_POST["description"],$_POST["idpanel"]));
-				echo $query::$rowCount;
+				$query = new Database("UPDATE karet_plantation_panel SET panelname = ?, description = ? WHERE id = ?",array($_POST["panelname"],$_POST["description"],$_POST["idpanel"]));			
+				
+				$count = $query::$rowCount;
+
+				printResult($_POST['idpanel'], $count);
 			break;
 
 			case "delete-panel":
@@ -113,12 +139,19 @@
 
 			case "add-clone":
 				$query = new Database("INSERT INTO karet_clone (clonename, description, isactive) VALUES (?,?,?)",array($_POST["clonename"],$_POST["description"],"1"));
-				echo $query::$rowCount;
+				
+				$id = $query::$lastInsertId;
+				$count = $query::$rowCount;
+
+				printResult($id, $count);
 			break;
 
 			case "update-clone":
 				$query = new Database("UPDATE karet_clone SET clonename = ?, description = ? WHERE id = ?",array($_POST["clonename"],$_POST["description"],$_POST["id"]));
-				echo $query::$rowCount;
+				
+				$count = $query::$rowCount;
+
+				printResult($_POST['id'], $count);
 			break;
 
 			case "delete-clone":
@@ -130,12 +163,19 @@
 
 			case "add-treepart":
 				$query = new Database("INSERT INTO karet_treepart (partname, description, isactive) VALUES (?,?,?)",array($_POST["partname"],$_POST["description"],"1"));
-				echo $query::$rowCount;
+				
+				$id = $query::$lastInsertId;
+				$count = $query::$rowCount;
+
+				printResult($id, $count);
 			break;
 
 			case "update-treepart":
 				$query = new Database("UPDATE karet_treepart SET partname = ?, description = ? WHERE id = ?",array($_POST["partname"],$_POST["description"],$_POST["id"]));
-				echo $query::$rowCount;
+				
+				$count = $query::$rowCount;
+
+				printResult($_POST['id'], $count);
 			break;
 
 			case "delete-treepart":
@@ -161,7 +201,11 @@
 						"1"
 					)
 				);
-				echo $query::$rowCount;
+
+				$id = $query::$lastInsertId;
+				$count = $query::$rowCount;
+
+				printResult($id, $count);
 			break;
 
 			case "update-tree":
@@ -177,7 +221,11 @@
 						$_POST["certified"],
 						$_POST["certinumber"],
 						$_POST["id"]));
-				echo $query::$rowCount;
+				
+
+				$count = $query::$rowCount;
+
+				printResult($_POST['id'], $count);
 			break;
 
 			case "delete-tree":
@@ -195,7 +243,11 @@
 						$_POST["datetoclean"],
 						$_POST["description"],
 						"1"));
-				echo $query::$rowCount;
+				
+				$id = $query::$lastInsertId;
+				$count = $query::$rowCount;
+
+				printResult($id, $count);
 			break;
 
 			case "update-laminar":
@@ -208,7 +260,10 @@
 						$_POST["id"]
 					)
 				);
-				echo $query::$rowCount;
+				
+				$count = $query::$rowCount;
+
+				printResult($_POST['id'], $count);
 			break;
 
 			case "delete-laminar":
@@ -219,13 +274,18 @@
 			/*-----------------Vessel CRUD---------------------*/
 
 			case "add-vessel":
-				$query = new Database("INSERT INTO karet_vessel (vesselcode, vessel, description, isactive) VALUES (?,?,?,?)"
-					,array(
-						$_POST["vesselcode"],
-						$_POST["vessel"],
-						$_POST["description"],
-						"1"));
-				echo $query::$rowCount;
+				$query = new Database("INSERT INTO karet_vessel (vesselcode, vessel, description, isactive) 
+									VALUES (?,?,?,?)"
+									,array(
+										$_POST["vesselcode"],
+										$_POST["vessel"],
+										$_POST["description"],
+										"1"));
+				
+				$id = $query::$lastInsertId;
+				$count = $query::$rowCount;
+
+				printResult($id, $count);
 			break;
 
 			case "update-vessel":
@@ -237,7 +297,9 @@
 						$_POST["id"]
 					)
 				);
-				echo $query::$rowCount;
+				$count = $query::$rowCount;
+
+				printResult($_POST['id'], $count);
 			break;
 
 			case "delete-vessel":
@@ -249,12 +311,19 @@
 
 			case "add-contamination":
 				$query = new Database("INSERT INTO karet_contamination (species, deactive, isactive) VALUES (?,?,?)",array($_POST["species"],"Y","1"));
-				echo $query::$rowCount;
+				
+				$id = $query::$lastInsertId;
+				$count = $query::$rowCount;
+
+				printResult($id, $count);
 			break;
 
 			case "update-contamination":
 				$query = new Database("UPDATE karet_contamination SET species = ? WHERE id = ?",array($_POST["species"],$_POST["id"]));
-				echo $query::$rowCount;
+				
+				$count = $query::$rowCount;
+
+				printResult($_POST['id'], $count);
 			break;
 
 			case "delete-contamination":
@@ -266,12 +335,19 @@
 
 			case "add-mediatype":
 				$query = new Database("INSERT INTO karet_media_type (nama_jenis, keterangan, isactive) VALUES (?,?,?)",array($_POST["type"],$_POST["keterangan"],1));
-				echo $query::$rowCount;
+				
+				$id = $query::$lastInsertId;
+				$count = $query::$rowCount;
+
+				printResult($id, $count);
 			break;
 
 			case "update-mediatype":
 				$query = new Database("UPDATE karet_media_type SET nama_jenis = ?, keterangan = ? WHERE id = ?",array($_POST["type"],$_POST["keterangan"],$_POST['id']));
-				echo $query::$rowCount;
+				
+				$count = $query::$rowCount;
+
+				printResult($_POST['id'], $count);
 			break;
 
 			case "delete-mediatype":
@@ -282,13 +358,20 @@
 			/*-----------------Media CRUD---------------------*/
 
 			case "add-media":
-				$query = new Database("INSERT INTO karet_media (mediacode, id_jenis_media, description, isactive) VALUES (?,?,?,?)",array($_POST["mediacode"],$_POST["media"],$_POST["description"],"1"));
-				echo $query::$rowCount;
+				$query = new Database("INSERT INTO karet_media (mediacode, id_jenis_media, description, isactive, stok) VALUES (?,?,?,?,?)",array($_POST["mediacode"],$_POST["media"],$_POST["description"],"1",0));
+				
+				$id = $query::$lastInsertId;
+				$count = $query::$rowCount;
+
+				printResult($id, $count);
 			break;
 
 			case "update-media":
 				$query = new Database("UPDATE karet_media SET mediacode = ?, id_jenis_media = ?, description = ? WHERE id = ?",array($_POST["mediacode"],$_POST["media"],$_POST["description"],$_POST["id"]));
-				echo $query::$rowCount;
+				
+				$count = $query::$rowCount;
+
+				printResult($_POST['id'], $count);
 			break;
 
 			case "delete-media":
@@ -435,7 +518,10 @@
 								//$_POST["line"]
 							)
 						);
-				echo $query::$rowCount;
+				$id = $query::$lastInsertId;	
+				
+				$result = array("id"=>$id,"rowcount"=>$query::$rowCount);
+				print_r(json_encode($result));
 			break;
 
 			case "update-reception":
@@ -455,7 +541,9 @@
 						$_POST["id"]
 					)
 				);
-				echo $query::$rowCount;
+
+				$result = array("id"=>$_POST['id'],"rowcount"=>$query::$rowCount);
+				print_r(json_encode($result));
 			break;
 
 			case "delete-reception":
@@ -700,13 +788,14 @@
 				
 			case "add-obs-callus":
 
-				$q1 = new Database("INSERT INTO karet_contamination_record (id_treatment, contamination_fungi, contamination_bact, pink, dead, reju_step, isactive) VALUES (?,?,?,?,?,?,?)",array($_POST['idtreatment'],$_POST['contfungi'],$_POST['contbact'],$_POST['pink'],$_POST['dead'],2,1));
+				$q1 = new Database("INSERT INTO karet_contamination_record (id_treatment, contamination_fungi, contamination_bact, pink, dead, reju_step, isactive) VALUES (?,?,?,?,?,?,?)",array($_POST['idtreatment'],$_POST['contfungi'],$_POST['contbact'],$_POST['pink'],$_POST['dead'],3,1));
 				$contid = $q1::$lastInsertId;
 				$q1count = $q1::$rowCount; 
 
-				$q2 = new Database("INSERT INTO karet_initiation_obs (id_treatment, obsdate, obsworker, 
-										alotofcallus, littlebitofcallus, yellow, white, orange, brown, 
-										dead, piecesnotreact, isactive, idcontaminationrecord, isavailable) 
+				$q2 = new Database("INSERT INTO karet_initiation_obs (id_treatment, obsdate, 
+										obsworker, alotofcallus, littlebitofcallus, yellow, white,
+										orange, brown, dead, piecesnotreact, isactive,
+										idcontaminationrecord, isavailable) 
 										VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
 							,array(
 								$_POST['idtreatment'],
@@ -725,6 +814,7 @@
 								1
 							)
 						);
+
 				$q2count = $q2::$rowCount;
 
 				$q3 = new Database("UPDATE karet_initiation SET remaining_sample = ?, 
@@ -779,7 +869,7 @@
 			case "add-trans-callus":
 				$idobs = $_POST['datafortransfer'];
 
-				$media = createLogMedia($_POST['idtreatment'], $_POST['idmedia'], $_POST['amountmedia'],3);
+				$media = createLogMedia($_POST['idtreatment'], $_POST['idmedia'], $_POST['amountmedia'],4);
 
 				//to tabel initiation_trans
 				$reception = new Database("SELECT * FROM karet_initiation WHERE id_treatment = ?",array($_POST['idtreatment']));
@@ -805,6 +895,7 @@
 									)
 								);
 				$q1count = $q1::$rowCount;
+				$id = $q1::$lastInsertId;
 
 				//disable row of initiation_obs has transfered
 				$q2count = 0;
@@ -814,7 +905,10 @@
 					$q2count = $q2count + $q2::$rowCount;
 				}
 
-				echo $q1count + $q2count + $media['count'];
+				$count = $q1count + $q2count;
+
+				printResult($id, $count);
+				//echo $q1count + $q2count + $media['count'];
 			break;
 
 			case "update-trans-callus":
@@ -859,16 +953,6 @@
 				$query = new Database("UPDATE karet_obscallus SET isactive = ? WHERE id = ?",array(0,$_POST['id']));
 
 				echo $query::$rowCount;
-			break;
-
-			// -------------------------- TRANSFER CALLUS CrUD ----------------------------
-
-			case "edit-transcallus":
-
-			break;
-
-			case "delete-transcallus":
-
 			break;
 
 			// -------------------------- UPDATE PETRI TRANSCALLUS ----------------------------
@@ -960,7 +1044,7 @@
 											$_POST['pink'],
 											$_POST['dead'],
 											$_POST['contcomment'],
-											3,
+											4,
 											1
 										)
 									);
@@ -1332,7 +1416,7 @@
 											$_POST['pink'],
 											$_POST['dead'],
 											$_POST['contcomment'],
-											3,
+											5,
 											1
 										)
 									);
@@ -1409,7 +1493,7 @@
 											$_POST['pink'],
 											$_POST['dead'],
 											$_POST['contcomment'],
-											4,
+											6,
 											1
 										)
 									);
@@ -1615,7 +1699,7 @@
 											$_POST['pink'],
 											$_POST['dead'],
 											$_POST['contcomment'],
-											5,
+											7,
 											1
 										)
 									);
@@ -1679,9 +1763,17 @@
 			/*--------------------------------------------------*/
 
 			case "add-germ-prepare":
+				$cek = new Database("SELECT * FROM karet_embryo_germination WHERE id_embryo = ?",array($_POST['idembryo']));
+				
+				$idmedia = $idpeng_media = 0;
+				if ($cek::$rowCount > 0){
+					$idmedia = $cek::$result[0]['idmedia'];
+					$idpeng_media = $cek::$result[0]['idpengeluaranmedia'];
+				}
+
 				$query1 = new Database("INSERT INTO karet_embryo_germination_prepare (id_embryo, germ_date,
-											germ_worker, shoot, germinated, comment, isactive, is_available)
-											VALUES (?,?,?,?,?,?,?,?)"
+											germ_worker, shoot, germinated, comment, isactive, is_available, idmedia, idpengeluaranmedia)
+											VALUES (?,?,?,?,?,?,?,?,?,?)"
 											,array(
 												$_POST['idembryo'],
 												$_POST['germdate'],
@@ -1690,7 +1782,9 @@
 												$_POST['germinated'],
 												$_POST['comment'],
 												1,
-												1
+												1,
+												$idmedia,
+												$idpeng_media
 											)
 										);
 
@@ -1735,7 +1829,7 @@
 											$_POST['pink'],
 											$_POST['dead'],
 											$_POST['contcomment'],
-											5,
+											8,
 											1
 										)
 									);
@@ -1794,30 +1888,6 @@
 				//$idEmScreen = $query1::$lastInsertId;
 
 				echo $cont::$rowCount + $query1::$rowCount;
-			break;
-
-			case "add-motherplant-in":
-				$query1 = new Database("INSERT INTO karet_motherplant_in (id_embryo, transferdate,
-											leafsample, resultofident, isactive, is_available) 
-											VALUES (?,?,?,?,?,?)"
-											,array(
-												$_POST['idembryo'],
-												$_POST['transdate'],
-												//$_POST['worker'],
-												$_POST['leafsample'],
-												$_POST['resultofident'],
-												1,
-												1
-											)
-										);
-
-				$id = $query1::$lastInsertId;
-
-				$unicode = generateUnicode($id,$_POST['idembryo'],"M");
-				$query2 = new Database("UPDATE karet_motherplant_in SET codese = ? WHERE id = ?",array($unicode,$id));
-
-				echo $query1::$rowCount + $query2::$rowCount;
-
 			break;
 
 			/*--------------------------- UPDATE MEDIA INITIATION ---------------------------*/
@@ -1961,51 +2031,98 @@
 			
 			/*-----------------add Motherplant---------------------*/
 
+			case "add-motherplant-from-reju":
+				//$get_data = new Database("SELECT id FROM ")
+
+				$query1 = new Database("INSERT INTO karet_motherplant_in 
+											(
+											code_se,
+											se,
+											initiation_year,
+											tree,
+											tree_part,
+											harvest_date,
+											reception_ug,
+											usage_of_seeds,
+											start_medium,
+											germination_date,
+											germination_medium,
+											from_reju,
+											idembryo,
+											idtreatment,
+											transferdate,
+											leafsample, 
+											resultofident, 
+											isactive, 
+											is_available) 
+											VALUES (?,?,?,?,?,?)"
+											,array(
+												$_POST['idembryo'],
+												$_POST['transdate'],
+												//$_POST['worker'],
+												$_POST['leafsample'],
+												$_POST['resultofident'],
+												1,
+												1
+											)
+										);
+
+				$id = $query1::$lastInsertId;
+
+				$unicode = generateUnicode($id,$_POST['idembryo'],"M");
+				$query2 = new Database("UPDATE karet_motherplant_in SET codese = ? WHERE id = ?",array($unicode, $id));
+
+				echo $query1::$rowCount + $query2::$rowCount;
+			break;
+
 			case "add-motherplant":
-				
-				$query = new Database("INSERT INTO karet_motherplan 
-								([codese],
-								[idembryo],
-								[idtreatment],
-								[used],
-								[certified],
-								[deactive],
-								[initiationyear],
-								[initiationdate],
-								[tree],
-								[treepart],
-								[harvestdate],
-								[receptiondate],
-								[germinationdate],
-								[germinationmedium],
-								[leafsample],
-								[leafsamplelocation],
-								[leafsamplecirad],
-								[germinationse])
-								VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+				$timestamp = timeStamp();
+
+				$query = new Database("INSERT INTO karet_motherplant
+								([se]
+								,[certified]
+								,[deactivated]
+								,[initiation_year]
+								,[tree]
+								,[treepart]
+								,[harvest_date]
+								,[reception_ug]
+								,[usage_of_seeds]
+								,[start_medium]
+								,[germination_date]
+								,[germination_medium]
+								,[leaf_sample]
+								,[leaf_sample_location]
+								,[leaf_sample_cirad]
+								,[germination_se]
+								,[from_reju]
+								,[created_at]
+      							,[updated_at])
+								VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
 							,array(
-								"a",
-								1,
-								1,
-								"N",
+								$_POST['se'],
 								$_POST["certified"],
 								$_POST["deactivated"],
-								$_POST["initiationyear"],
-								$_POST["usageofseeds"],
+								$_POST["initiation_year"],
 								$_POST["tree"],
 								$_POST["treepart"],
-								$_POST["harvestdate"],
-								$_POST["receptionug"],
-								$_POST["germinationdate"],
-								$_POST["germinationmedium"],
-								$_POST["leafsample"],
-								$_POST["leafsamplelocation"],
-								$_POST["leafsamplecirad"],
-								$_POST["germinationse"],
-
+								$_POST["harvest_date"],
+								$_POST["reception_ug"],
+								$_POST["usage_of_seeds"],
+								$_POST['start_medium'],
+								$_POST["germination_date"],
+								$_POST["germination_medium"],
+								$_POST["leaf_sample"],
+								$_POST["leaf_sample_location"],
+								$_POST["leaf_sample_cirad"],
+								$_POST["germination_se"],
+								"No",
+								$timestamp,
+								$timestamp
 							)
 						);
-				echo $query::$rowCount;
+
+				$row = $query::$rowCount;
 				$SETID = $query::$lastInsertId;
 
 				$tree = new Database("
@@ -2023,17 +2140,23 @@
 
 				$CODESE = $tree::$result[0]["clonename"] . "-" . $tree::$result[0]["block"] . "-" . $_POST["se"] . "_M_" . str_pad($SETID, 6, "0", STR_PAD_LEFT);
 
-				$updateCodeSE = new Database("UPDATE karet_motherplan SET codese = ? WHERE id = ?", array(
+				$updateCodeSE = new Database("UPDATE karet_motherplant SET code_se = ? WHERE id = ?", array(
 					$CODESE, $SETID
 				));
 				
-				//print_r($_POST);
+				if ($row > 0){
+					$result = array("id"=>$SETID,"rowcount"=>$row);
+				} else {
+					$result = $query::$result;
+				}
+
+				print_r($result);
 			break;
 
 			/*-----------------Update Motherplant---------------------*/
 			case "update-motherplant":
 				$query = new Database("
-					UPDATE karet_motherplan
+					UPDATE karet_motherplant
 						SET
 						idembryo = ?,
 						certified = ?,
@@ -2076,7 +2199,7 @@
 			break;
 
 			case "tambah_komentar":
-				$query = new Database("INSERT INTO karet_motherplan_comment ([comment_motherplan], [comment_content], [comment_date])
+				$query = new Database("INSERT INTO karet_motherplant_comment ([comment_motherplan], [comment_content], [comment_date])
 					VALUES (?,?,?)", array(
 						intval($_POST["id"]),
 						$_POST["comment"],
@@ -2099,7 +2222,7 @@
 						$filename = implode(".", $format) . date("d-m-Y_H_i_s") . "." . $getFormat;
 					}
 					if(move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/' . $filename)){
-						$query = new Database("INSERT INTO karet_motherplan_file (file_name, file_location, file_comment, file_date, file_motherplan)
+						$query = new Database("INSERT INTO karet_motherplant_file (file_name, file_location, file_comment, file_date, file_motherplan)
 							VALUES(?,?,?,?,?)", array(
 								$_FILES["file"]["name"],
 								'uploads/' . $filename,
@@ -2113,7 +2236,7 @@
 			break;
 
 			case "edit_komen":
-				$query = new Database("UPDATE karet_motherplan_comment SET comment_content = ? WHERE comment_id = ?", array(
+				$query = new Database("UPDATE karet_motherplant_comment SET comment_content = ? WHERE comment_id = ?", array(
 					$_POST["comment"],
 					$_POST["id"]
 				));
@@ -2121,7 +2244,7 @@
 			break;
 
 			case "edit_komen_file":
-				$query = new Database("UPDATE karet_motherplan_file SET file_comment = ? WHERE file_id = ?", array(
+				$query = new Database("UPDATE karet_motherplant_file SET file_comment = ? WHERE file_id = ?", array(
 					$_POST["comment"],
 					$_POST["id"]
 				));
@@ -2131,7 +2254,7 @@
 			case "invitro_from_se":
 
 				//GET embryocode
-				$codese = new Database("SELECT MAX(id) FROM karet_motherplan WHERE id = ?", array($_POST["motherplan"]));
+				$codese = new Database("SELECT MAX(id) FROM karet_motherplant WHERE id = ?", array($_POST["motherplan"]));
 				$getcodeSE = explode("_", $codese::$result[0]["codese"]);
 
 				//GET nextcode
@@ -2173,6 +2296,246 @@
 				echo ($query::$rowCount < 1)?$query::$qStrings:$query::$rowCount;
 			break;
 
+			case 'invitro-from-se':
+				//GET embryocode
+				$codese = new Database("SELECT * FROM karet_motherplant WHERE id = ?", array($_POST["motherplant"]));
+				$getcodeSE = explode("_", $codese::$result[0]["code_se"]);
+
+				//GET nextcode
+				$code = new Database("SELECT MAX(id) max_id FROM karet_invitro");
+				$nextcode = ($code::$rowCount > 0) ? intval($code::$result[0]["max_id"]) + 1 : 1;
+
+				$timestamp = timeStamp();
+
+				$query = new Database("INSERT INTO karet_invitro (
+						unique_code,
+						deactivated,
+						start_date,
+						medium,
+						recipient,
+						number_of_plants,
+						laminar_flow,
+						worker,
+						created_at,
+						updated_at)
+						VALUES (?, ?, ?, ?, ?,
+						?, ?, ?, ?, ?)"
+					, array(
+						$getcodeSE[0] . "_I_" . str_pad($nextcode, 6, "0", STR_PAD_LEFT),
+						"FALSE",
+						$_POST['startdate'],
+						$_POST['medium'],
+						$_POST['recipient'],
+						$_POST['numberofplants'],
+						$_POST['laminarflow'],
+						$_POST['worker'],
+						$timestamp,
+						$timestamp
+				));
+
+				$setID = $query::$lastInsertId;
+				$rowCount = intval($query::$rowCount);
+
+				if ($rowCount > 0){
+					$parentTable = new Database("INSERT INTO 
+						karet_invitro_parent_child (
+								parent,
+								child,
+								parent_option,
+								created_at,
+								updated_at)
+								VALUES (?,?,?,?,?)"
+							,array(
+								$_POST['motherplant'],
+								$setID,
+								"motherplant",
+								$timestamp,
+								$timestamp
+						)	
+					);
+
+					$result = array("id"=>$setID,"rowcount"=>$rowCount);
+
+					if ($parentTable::$rowCount > 0){
+						$result["parent_table"] = $parentTable::$rowCount;
+					}
+
+				} else {
+					$result = $query::$result;
+				}
+
+				//print_r($_POST['motherplant'] . " _ " . $_POST['startdate'] . " _ " . $_POST['medium'] . " _ " . $_POST['recipient'] . " _ " . $_POST['numberofplants'] . " _ " . $_POST['laminarflow'] . " _ " . $_POST['worker']);
+
+				print_r(json_encode($result));
+
+				break;
+
+			case "invitro-from-invitro":
+				
+				//GET embryocode
+				$getcodeSE = "";
+				foreach ($_POST['dataParent'] as $key => $value) {
+					$codese = new Database("SELECT * FROM karet_invitro WHERE id = ?", array($value["id"]));
+					$getcodeSE = explode("_", $codese::$result[0]["unique_code"]);
+					if ($getcodeSE != "") { break; }
+				}
+				
+				//GET nextcode
+				$code = new Database("SELECT MAX(id) max_id FROM karet_invitro");
+				$nextcode = ($code::$rowCount > 0) ? intval($code::$result[0]["max_id"]) + 1 : 1;
+
+				$timestamp = timeStamp();
+
+				$query = new Database("INSERT INTO karet_invitro (
+						unique_code,
+						deactivated,
+						start_date,
+						medium,
+						recipient,
+						number_of_plants,
+						laminar_flow,
+						worker,
+						created_at,
+						updated_at)
+						VALUES (?, ?, ?, ?, ?,
+						?, ?, ?, ?, ?)"
+					, array(
+						$getcodeSE[0] . "_I_" . str_pad($nextcode, 6, "0", STR_PAD_LEFT),
+						"FALSE",
+						$_POST['startdate'],
+						$_POST['medium'],
+						$_POST['recipient'],
+						$_POST['numberofplants'],
+						$_POST['laminarflow'],
+						$_POST['worker'],
+						$timestamp,
+						$timestamp
+				));
+
+				$setID = $query::$lastInsertId;
+				$rowCount = intval($query::$rowCount);
+
+				if ($query::$rowCount > 0){
+					$updateParentCount = 0;
+					$parentChildCount = 0;
+					foreach ($_POST['dataParent'] as $key => $value) {
+						$updateParent = new Database("UPDATE karet_invitro SET 
+							end_date = ?,
+							deactivated = ?,
+							number_of_plants = ?,
+							number_of_alive = ?,
+							number_of_dead = ?,
+							number_of_contaminated = ?,
+							new_shoots_for_r = ?,
+							new_shoots_on_m = ?,
+							updated_at = ?
+							WHERE id = ?"
+							,array(
+								$value['end_date'],
+								$value['deactivated'],
+								$value['qty'],
+								$value['number_of_alive'],
+								$value['number_of_dead'],
+								$value['contaminated'],
+								$value['new_shoots_for_r'],
+								$value['new_shoots_on_m'],
+								$timestamp,
+								$value['id']
+							)
+						);
+						
+						if ($updateParent::$rowCount > 0){
+							$updateParentCount += $updateParent::$rowCount;
+						}
+
+						$parentTable = new Database("INSERT INTO 
+							karet_invitro_parent_child (
+									parent,
+									child,
+									parent_option,
+									created_at,
+									updated_at)
+									VALUES (?,?,?,?,?)"
+								,array(
+									$value['id'],
+									$setID,
+									"invitro",
+									$timestamp,
+									$timestamp
+							)	
+						);
+
+						if ($parentTable::$rowCount > 0){
+							$parentChildCount += $parentTable::$rowCount;
+						}
+						//}
+					}
+
+						$result = array("id"=>$setID,"rowcount"=>$rowCount);
+
+						if ($parentTable::$rowCount > 0){
+							$result["parent_update"] = $updateParentCount;
+							$result["parent_table"] = $parentChildCount;
+						}
+
+				} else {
+					$result = $query::$result;
+				}
+
+				print_r(json_encode($result));
+
+				break;
+
+			case 'update-invitro':
+				$timestamp = timeStamp();
+				$end_date = ($_POST['enddate'] != null) ? $_POST['enddate'] : NULL;
+
+				$query = new Database("UPDATE karet_invitro SET 
+						start_date = ?, 
+						end_date = ?,
+						medium = ?,
+						recipient = ?,
+						number_of_plants = ?,
+						number_of_alive = ?,
+						number_of_dead = ?,
+						number_of_contaminated = ?,
+						new_shoots_for_r = ?,
+						new_shoots_on_m = ?,
+						deactivated = ?,
+						contamination_type = ?,
+						laminar_flow = ?,
+						worker = ?,
+						updated_at = ?
+						WHERE id = ?"
+						, array(
+							$_POST['startdate'],
+							$end_date,
+							$_POST['medium'],
+							$_POST['recipient'],
+							$_POST['numberofplants'],
+							$_POST['numberofalive'],
+							$_POST['numberofdead'],
+							$_POST['contaminated'],
+							$_POST['new_shoots_for_r'],
+							$_POST['new_shoots_on_m'],
+							$_POST['deactivated'],
+							$_POST['contamination_type'],
+							$_POST['laminarflow'],
+							$_POST['worker'],
+							$timestamp,
+							$_POST['selectedID']
+						)
+					);
+
+				if ($query::$rowCount > 0){
+					$result = array("id"=>$query::$lastInsertId,"rowcount"=>intval($query::$rowCount));
+				} else {
+					$result = $query::$result;
+				}
+
+				print_r(json_encode($result));
+
+				break;
 			default:
 				# code...
 			break;

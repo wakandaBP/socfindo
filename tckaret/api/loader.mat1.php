@@ -5,9 +5,9 @@
 
 	$MetaData = array();
 	if (isset($_POST['awal']) && isset($_POST['akhir']) && $_POST['awal'] != "" && $_POST['akhir'] != ""){
-		$query = new Database("SELECT * FROM karet_embryo_maturation_1 WHERE isactive = ? AND is_available = ? AND transferdate ? BETWEEN ? ORDER BY transferdate",array(1,1,$_POST['awal'],$_POST['akhir']));
+		$query = new Database("SELECT * FROM karet_embryo_maturation_1 WHERE isactive = ? AND is_available = ? AND transferdate ? BETWEEN ? ORDER BY id DESC",array(1,1,$_POST['awal'],$_POST['akhir']));
 	} else {
-		$query = new Database("SELECT * FROM karet_embryo_maturation_1 WHERE isactive = ? AND is_available = ? ORDER BY transferdate",array(1,1));
+		$query = new Database("SELECT * FROM karet_embryo_maturation_1 WHERE isactive = ? AND is_available = ? ORDER BY id DESC",array(1,1));
 	}
 
 	/*if (isset($_POST['awal']) && isset($_POST['akhir']) && $_POST['awal'] != "" && $_POST['akhir'] != ""){
@@ -53,8 +53,13 @@
 
 		$cekCont = new Database("SELECT * FROM karet_contamination_record WHERE id_embryo = ? AND reju_step = ? AND (contamination_fungi = ? OR contamination_bact = ? OR pink = ? OR dead = ?)",array($value['id_embryo'],3,1,1,1,1));
 
-		if ($cekCont::$rowCount < 1){
-			array_push($MetaData, 
+		$cont_status = "<span style='color:blue'>False</span>";
+		if ($cekCont::$rowCount > 0){
+			$cont_status = "<span style='color:red'>True</span>";
+			$disabled = "disabled";
+		}
+
+		array_push($MetaData, 
 				array(
 					"id"=>$value["id"], 
 					"idembryo"=>$value["id_embryo"],
@@ -66,11 +71,12 @@
 					"media"=>$media['mediacode'],
 					"disabled"=>$disabled,
 					"lastdate"=>$lastdate,
-					"cekpoin"=>$cekpoin
+					"cekpoin"=>$cekpoin,
+					"cont_status"=>$cont_status
 				)
 			);
-		}
 	}
+
 	$returnData = array(
 				"draw"=>1,
 				"recordsTotal"=>intval($query::$rowCount),

@@ -41,23 +41,7 @@
                 <span>Tree</span>
             </a>
         </li>
-            <!-- <li>
-                <a href="#" class="menu-toggle">
-                    <i class="material-icons">layers</i>
-                    <span>Media</span>
-                </a>
-                <ul class="ml-menu">
-                    <li>
-                        <a href="<?php //echo $tckaret;?>/media">Media List</a>
-                    </li>
-                    <li>
-                        <a href="<?php //echo $tckaret;?>/creationmedia">Creation Media</a>
-                    </li>
-                    <li>
-                        <a href="polen4">Expenditures</a>
-                    </li>
-                </ul>
-            </li> -->
+    
         <li <?php if($module[0]=='mediatype'){ echo "class='active'";} ?>>
             <a href="<?php echo $tckaret;?>/mediatype">
                 <i class="material-icons">layers</i>
@@ -100,19 +84,14 @@
         <li class="header">Rejuvination</li>
         <li <?php if($module[0]=='reception'){ echo "class='active'";} ?>>
             <a href="<?php echo $tckaret;?>/reception">
-                <i class="material-icons">work</i>
+                <i class="material-icons">playlist_add_check</i>
                 <span>Reception</span>
             </a>
         </li>
-        <!-- <li <?php //if($module[0]=='initiation'){ echo "class='active'";} ?>>
-            <a href="<?php //echo $tckaret;?>/initiation">
-                <i class="material-icons">layers</i>
-                <span>Initiation</span>
-            </a>
-        </li> -->
+    
         <li>
             <a href="javascript:void(0);" class="menu-toggle <?php if($module[0]=='initiation' OR $module[0]=='initiation-obs' OR $module[0]=='embryoscreening'){ echo "toggled"; echo " class='active'";}?>">
-                <i class="material-icons">layers</i>
+                <i class="material-icons">assignment</i>
                 <span>Initiation</span>
             </a>
             <ul class="ml-menu">
@@ -127,41 +106,23 @@
                 </li>
             </ul>
         </li>
-        <!-- <li>
-            <a href="javascript:void(0);" class="menu-toggle <?php //if($module[0]=='maturation1' OR $module[0]=='maturation1-screen'){ echo "toggled"; echo " class='active'";}?>">
-                <i class="material-icons">layers</i>
-                <span>Maturation 1</span>
-            </a>
-            <ul class="ml-menu">
-                <li <?php //if($module[0]=='maturation1'){ echo "class='active'";}?>>
-                    <a href="<?php echo $tckaret;?>/maturation1">Maturation 1 List</a>
-                </li>
-                <li <?php //if($module[0]=='maturation1-screen'){ echo "class='active'";}?>>
-                    <a href="<?php echo $tckaret;?>/maturation1-screen">Maturation 1 Screening</a>
-                </li>
-            </ul>
-        </li> -->
+       
         <li <?php if($module[0]=='maturation1'){ echo "class='active'";} ?>>
             <a href="<?php echo $tckaret;?>/maturation1">
-                <i class="material-icons">work</i>
+                <i class="material-icons">blur_circular</i>
                 <span>Maturation I</span>
             </a>
         </li>
          <li <?php if($module[0]=='maturation2'){ echo "class='active'";} ?>>
             <a href="<?php echo $tckaret;?>/maturation2">
-                <i class="material-icons">work</i>
+                <i class="material-icons">blur_on</i>
                 <span>Maturation II</span>
             </a>
         </li>
-        <!-- <li <?php // if($module[0]=='germination'){ echo "class='active'";}?>>
-            <a href="<?php //echo $tckaret;?>/germination">
-                <i class="material-icons">list</i>
-                <span>Germination</span>
-            </a>
-        </li> -->
+       
         <li>
             <a href="javascript:void(0);" class="menu-toggle <?php if($module[0]=='germination' OR $module[0]=='germination-prepare'){ echo "toggled"; echo " class='active'";}?>">
-                <i class="material-icons">layers</i>
+                <i class="material-icons">camera</i>
                 <span>Germination</span>
             </a>
             <ul class="ml-menu">
@@ -169,79 +130,22 @@
                     <a href="<?php echo $tckaret;?>/germination">Germination List</a>
                 </li>
                 <li <?php if($module[0]=='germination-prepare'){ echo "class='active'";}?>>
-                    <a href="<?php echo $tckaret;?>/germination-prepare">Germination Prepare</a>
+                    <a href="<?php echo $tckaret;?>/germination-prepare">Prepare for Motherplant</a>
                 </li>
             </ul>
         </li>
-         <!--
-        <li <?php //if($module[0]=='transfercallus'){ echo "class='active'";}?>>
-            <a href="<?php //echo $tckaret;?>/transfercallus">
-                <i class="material-icons">list</i>
-                <span>Transfer Callus</span>
-            </a>
-        </li> -->
-       <!--  <li <?php //if($module[0]=='embryoscreening'){ echo "class='active'";}?>>
-            <a href="<?php //echo $tckaret;?>/embryoscreening">
-                <i class="material-icons">list</i>
-                <span>Embryo Screening</span>
-            </a>
-        </li> -->
-        <!-- <li>
-            <a href="javascript:void(0);" class="menu-toggle <?php //if($module=='serbuk3' OR $module=='serbuk4'){ echo "toggled";}?>">
-                <i class="material-icons">layers</i>
-                <span>Embryogenesis</span>
-            </a>
-            <ul class="ml-menu">
-                <li <?php //if($module=='serbuk3'){ echo "class='active'";}?>>
-                    <a href="serbuk3">Embryogenesis Add</a>
-                </li>
-                <li <?php //if($module=='serbuk4'){ echo "class='active'";}?>>
-                    <a href="serbuk4">Embryogenesis List</a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="javascript:void(0);" class="menu-toggle <?php //if($module=='serbuk3' OR $module=='serbuk4'){ echo "toggled";}?>">
-                <i class="material-icons">layers</i>
-                <span>Maturation I</span>
-            </a>
-            <ul class="ml-menu">
-                <li <?php //if($module=='serbuk3'){ echo "class='active'";}?>>
-                    <a href="serbuk3">Maturation I Add</a>
-                </li>
-                <li <?php //if($module=='serbuk4'){ echo "class='active'";}?>>
-                    <a href="serbuk4">Maturation I List</a>
-                </li>
-                <li <?php //if($module=='serbuk4'){ echo "class='active'";}?>>
-                    <a href="serbuk4">Transfer to Maturation II</a>
-                </li>
-            </ul>
-        </li> -->
-
         <!-- INVITRO -->
         <li class="header">Invitro</li>
-      <!--   <li <?php //if($module=='panen1'){ echo "class='active'";}?>>
-            <a href="panen1">
-                <i class="material-icons">people</i>
-                <span>Mother Plant</span>
-            </a>
-        </li> -->
-        <li <?php //if($module=='panen1'){ echo "class='active'";}?>>
+        <li <?php if($module[0]=='motherplant'){ echo "class='active'";}?>>
             <a href="<?php echo $tckaret;?>/motherplant">
-                <i class="material-icons">people</i>
+                <i class="material-icons">leak_add</i>
                 <span>Mother Plant</span>
             </a>
         </li>
-        <li <?php //if($module=='panen2'){ echo "class='active'";}?>>
-            <a href="<?php echo $tckaret;?>/Invitro">
-                <i class="material-icons">people_outline</i>
+        <li <?php if($module[0]=='invitro'){ echo "class='active'";}?>>
+            <a href="<?php echo $tckaret;?>/invitro">
+                <i class="material-icons">grain</i>
                 <span>Invitro</span>
-            </a>
-        </li>
-        <li <?php //if($module=='panen2'){ echo "class='active'";}?>>
-            <a href="<?php echo $tckaret;?>/deactivateinvitro">
-                <i class="material-icons">people_outline</i>
-                <span>Deactivate In Vitro</span>
             </a>
         </li>
         <!--li>
@@ -259,43 +163,48 @@
             </ul>
         </li-->
 
-        <li <?php //if($module=='panen2'){ echo "class='active'";}?>>
-            <a href="panen2">
-                <i class="material-icons">people_outline</i>
-                <span>Invitro</span>
-            </a>
-        </li>
-
         <!-- EXVITRO -->
         <li class="header">Exvitro</li>
-        <li <?php //if($module=='lbk1'){ echo "class='active'";}?>>
-            <a href="lbk1">
-                <i class="material-icons">grain</i>
+        <li <?php if($module[0]=='acclimatization'){ echo "class='active'";}?>>
+            <a href="<?php echo $tckaret;?>/acclimatization">
+                <i class="material-icons">present_to_all</i>
                 <span>Acclimatization</span>
             </a>
         </li>
-        <li <?php //if($module=='lbk2'){ echo "class='active'";}?>>
-            <a href="lbk2">
+        <li <?php if($module[0]=='hardening'){ echo "class='active'";}?>>
+            <a href="<?php echo $tckaret;?>/hardening">
                 <i class="material-icons">leak_remove</i>
                 <span>Hardening</span>
             </a>
         </li>
-        <li <?php //if($module=='lbk3'){ echo "class='active'";}?>>
-            <a href="lbk3">
+        <li <?php if($module[0]=='nursery'){ echo "class='active'";}?>>
+            <a href="<?php echo $tckaret;?>/nursery">
                 <i class="material-icons">filter_tilt_shift</i>
                 <span>Nursery</span>
             </a>
         </li>
-        <li <?php //if($module=='lbk4'){ echo "class='active'";}?>>
-            <a href="lbk4">
+        <li <?php if($module[0]=='plantation_field'){ echo "class='active'";}?>>
+            <a href="<?php echo $tckaret;?>/plantation_field">
                 <i class="material-icons">nature</i>
                 <span>Plantation Field</span>
             </a>
         </li>
-        <li <?php //if($module=='lbk5'){ echo "class='active'";}?>>
-            <a href="lbk5">
+        <li <?php if($module[0]=='budwood_garden'){ echo "class='active'";}?>>
+            <a href="<?php echo $tckaret;?>/budwood_garden">
                 <i class="material-icons">terrain</i>
                 <span>Budwood Garden</span>
+            </a>
+        </li>
+        <li <?php if($module[0]=='stock_cuttings'){ echo "class='active'";}?>>
+            <a href="<?php echo $tckaret;?>/stock_cuttings">
+                <i class="material-icons">content_cut</i>
+                <span>Stock For Cuttings</span>
+            </a>
+        </li>
+        <li <?php if($module[0]=='rooting'){ echo "class='active'";}?>>
+            <a href="<?php echo $tckaret;?>/rooting">
+                <i class="material-icons">ac_unit</i>
+                <span>Rooting Green House</span>
             </a>
         </li>
     </ul>

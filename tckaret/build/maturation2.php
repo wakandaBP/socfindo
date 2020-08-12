@@ -32,12 +32,12 @@
 		$("#medium").on('change',function(){
 			$("#idmedium").val($(this).val());
 
-			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedium").val(),"error-media");
+			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedium").val(),"error-media","available-media");
 			disabledButton(stats,"btnUpdateMedia");
 		});
 
 		$("#amountmedia").on('keyup',function(){
-			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedium").val(),"error-media");
+			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedium").val(),"error-media","available-media");
 			disabledButton(stats,"btnUpdateMedia");
 		});
 
@@ -62,7 +62,7 @@
 			buttons: [
 				'excel', 'csv', 'pdf', 'copy'
 			],
-			aaSorting: [[3, "desc"]],
+			//aaSorting: [[3, "desc"]],
 			"columnDefs":[
 				{"targets":0, "className":"dt-body-left"}
 			],
@@ -124,15 +124,21 @@
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
+						return "<b>" + row["cont_status"] + "</b>";
+					}
+				},
+				{
+					"data" : null, render: function(data, type, row, meta) {
 						return "<div style='text-align:center;'>" + 
+							" <a href=\"" + hostname + "/maturation2.screen.log/" + row["idembryo"] + "\" class=\"btn btn-default btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\" title='Maturation II Screening'>check</i></a> " +
 
-							"  <button class=\"btn btn-info btn-circle waves-effect waves-circle waves-float btnEdit\" data-id='" + row['id'] + "' title='Edit Data'><i class=\"material-icons\">edit</i></button> " +
+							" | <a href=\"" + hostname + "/germination.add/" + row["idembryo"] + "\" class=\"btn btn-success btn-circle waves-effect waves-circle waves-float " + row['disabled'] + "\"><i class=\"material-icons\" title='Transfer to Germination'>trending_flat</i></a>" +
+
+							" | <button class=\"btn btn-info btn-circle waves-effect waves-circle waves-float btnEdit\" data-id='" + row['id'] + "' title='Edit Data'><i class=\"material-icons\">edit</i></button> " +
 
 							" | <button class=\"btn btn-danger btn-circle waves-effect waves-circle waves-float btn-delete\" data-idem='" + row['idembryo'] + "' id='delete-" + row['id'] + "'><i class=\"material-icons\" title='Remove Sample'>delete_outline</i></button> " +
 
-							" | <a href=\"" + hostname + "/maturation2.screen.log/" + row["idembryo"] + "\" class=\"btn btn-default btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\" title='Maturation II Screening'>check</i></a> " +
-
-							" | <a href=\"" + hostname + "/germination.add/" + row["idembryo"] + "\" class=\"btn btn-success btn-circle waves-effect waves-circle waves-float " + row['disabled'] + "\"><i class=\"material-icons\" title='Transfer to Germination'>trending_flat</i></a></div> ";
+							"</div> ";
 					}
 				}
 			],

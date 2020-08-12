@@ -19,11 +19,14 @@
 						description:description
 					},
 					success:function(resp){
-						if(parseInt(resp) > 0){
-                            location.href = hostname + "/plantation";
+						data = JSON.parse(resp);
+
+						if(parseInt(data['rowcount']) > 0){
+							alert("Plantation has been added!");
+                            location.href = hostname + "/plantation?last="+data['id'];
                         }
                         else{
-                            //alert(resp);
+                            alert("Plantation cant be added!");
                         }
 					}
 				})

@@ -140,9 +140,6 @@
 						</h5>
 						<ul class="header-dropdown m-r--4" style="margin-top: -2%;">
 							<li>
-								<!-- <a href="<?= $tckaret;?>/maturation1.screen.add/<?= $page[1];?>" class="btnTambah">
-									<i class="material-icons">add</i>
-								</a> -->
 								<button id="btnAddLog" class="btn btn-success"><i class="material-icons">add</i></button>
 							</li>
 						</ul>
@@ -158,13 +155,14 @@
 							<th width="100px" class="text-center" rowspan="2">Screening Worker</th>
 							<th width="50px" class="text-center" rowspan="2">Screening Checkpoint</th>
 							<th width="100px" class="text-center" colspan="2">Contamination</th>
+							<th width="100px" class="text-center" rowspan="2">Pink</th>
 							<th width="100px" class="text-center" rowspan="2">Dead</th>
 							<th width="100px" class="text-center" rowspan="2">Contamination Comment</th>
 							<th width="80px" class="text-center" rowspan="2">Action</th>
 						</tr>
 						<tr>
-							<th>By Fungi</th>
-							<th>By Bacteri</th>
+							<th width="100px">By Fungi</th>
+							<th width="100px">By Bacteri</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -172,7 +170,7 @@
 					</tbody>
 				</table>
 				<div style="text-align: right;">
-					<a href="<?php echo $tckaret;?>/maturation1" class="btn btn-primary btn-sm">Back</a>
+					<a href="<?php echo $tckaret;?>/maturation1" class="btn btn-danger btn-sm">Back</a>
 				</div>
 			</div>
 		</div>

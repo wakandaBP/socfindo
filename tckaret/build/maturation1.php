@@ -10,15 +10,15 @@
 		$("#medium").on('change',function(){
 			$("#idmedium").val($(this).val());
 
-			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedium").val(),"error-media");
-			disabledButton(stats);
+			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedium").val(),"error-media","available-media");
+			disabledButton(stats,"btnUpdateMedia");
 		});
 
 		$("#amountmedia").on('keyup',function(){
 			//console.log(selectedData['idpengeluaranmedia']);
 
-			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedium").val(),"error-media");
-			disabledButton(stats);
+			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedium").val(),"error-media","available-media");
+			disabledButton(stats,"btnUpdateMedia");
 		});
 
 		$("#mat2medium").on('change',function(){
@@ -75,7 +75,7 @@
 			buttons: [
 				'excel', 'csv', 'pdf', 'copy'
 			],
-			aaSorting: [[3, "desc"]],
+			//aaSorting: [[3, "desc"]],
 			"columnDefs":[
 				{"targets":0, "className":"dt-body-left"}
 			],
@@ -138,17 +138,22 @@
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
+						return "<b>" + row["cont_status"] + "</b>";
+					}
+				},
+				{
+					"data" : null, render: function(data, type, row, meta) {
 						return "<div style='text-align:center;'>" + 
 
-							// "<a href=\"" + hostname + "/reception.seeds/" + row["id"] + "\" class=\"btn btn-warning btn-circle waves-effect waves-circle waves-float\" title=\"View Initiation Description\"><i class=\"material-icons\">list</i></a>"
+							"  <a href=\"" + hostname + "/maturation1.screen.log/" + row["idembryo"] + "\" class=\"btn btn-default btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\" title='Maturation I Screening'>check</i></a> " +
 
-							"  <button class=\"btn btn-info btn-circle waves-effect waves-circle waves-float btnEdit\" data-id='" + row['id'] + "' title='Edit Data'><i class=\"material-icons\">edit</i></button> " +
+							" | <a href=\"" + hostname + "/maturation2.add/" + row["idembryo"] + "\" class=\"btn btn-success btn-circle waves-effect waves-circle waves-float " + row['disabled'] + "\"><i class=\"material-icons\" title='Transfer Maturation II'>trending_flat</i></a>"+ 
+
+							" | <button class=\"btn btn-info btn-circle waves-effect waves-circle waves-float btnEdit\" data-id='" + row['id'] + "' title='Edit Data'><i class=\"material-icons\">edit</i></button> " +
 
 							" | <button class=\"btn btn-danger btn-circle waves-effect waves-circle waves-float btn-delete\" data-idem='" + row['idembryo'] + "' id='delete-" + row['id'] + "'><i class=\"material-icons\" title='Remove Sample'>delete_outline</i></button> " +
 
-							" | <a href=\"" + hostname + "/maturation1.screen.log/" + row["idembryo"] + "\" class=\"btn btn-default btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\" title='Maturation I Screening'>check</i></a> " +
-
-							" | <a href=\"" + hostname + "/maturation2.add/" + row["idembryo"] + "\" class=\"btn btn-success btn-circle waves-effect waves-circle waves-float " + row['disabled'] + "\"><i class=\"material-icons\" title='Transfer Maturation II'>trending_flat</i></a></div> ";
+						"</div> ";
 					}
 				}
 			],
@@ -261,16 +266,27 @@
 
 		$("#updatemedia").click(function(){
 			datacheckbox = [];
+			all_id_embryo = "";
 
 		    // Iterate over all selected checkboxes
 		    $.each($("input[class='usecheckbox']:checked"), function(){
 		       	datacheckbox.push($(this).val());
+				
+				if (datacheckbox.length == 1){
+					all_id_embryo += $(this).val();
+				} else {
+					all_id_embryo = all_id_embryo + ", " + $(this).val();
+				}
 		    });
 
+			console.log(datacheckbox);
+
 		    if (datacheckbox != null && datacheckbox != ""){
-		    	$("#form-updatemedia").modal("show");
+				$("#title-id-embryo").html(all_id_embryo);
+				$("#form-updatemedia").modal("show");
 		    	dataforaddmedia = datacheckbox;
-				//console.log(dataforaddmedia);
+
+		
 		    } else {
 		    	alert("Check minimal 1 from list of the table!");
 		    }

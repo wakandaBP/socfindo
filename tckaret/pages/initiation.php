@@ -120,7 +120,7 @@
     	<form>
 	        <div class="modal-dialog">
 	            <div class="modal-content">
-	                <div class="modal-header"><h5><span id="title-media"></span> Update Media for ID Treatment : <b><span id="title-id"></span></b>  <button class="btn btn-warning right" data-dismiss="modal">Back</button> </h5> </div> 
+	                <div class="modal-header"><h5><span id="title-media"></span> Update Media for ID Treatment : <b><span id="title-id"></span></b></h5> </div> 
 	                <div class="modal-body">
 		                <div class="col-sm-5" id="media-field"> 
 		                	<h6>Choose Media : *</h6>
@@ -164,6 +164,7 @@
 	                	<div class="">
 		                    <div class="input-group">
 		                    	<button id="btnUpdateMedia" class="btn btn-primary">Save</button>
+		                    	<button class="btn btn-danger right" data-dismiss="modal">Back</button> 
 		                	</div>
 		                </div>
 	                </div>
@@ -267,7 +268,7 @@
 								
 						</tbody>
 					</table>
-					<button class="btn btn-warning" id="btnUnselect">Unselect</button>
+					<!-- <button class="btn btn-warning" id="btnUnselect">Unselect</button> -->
 				</div>
 			</div>
 		</div>

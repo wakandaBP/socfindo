@@ -45,9 +45,9 @@
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 			<div class="card">
 				<div class="header bg-cyan">
-					<h5 style="" >
-					data
-					</h5>
+					<h6 style="" >
+					Data
+					</h6>
 				</div>
 				<div class="body custom-form" id="form-data">
 					<div class="row clearfix">
@@ -57,7 +57,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<div class="form-line">
-									<input type="text" name="nomor" class="form-control" value="" id="nomor" required readonly>
+									<input type="text" name="nomor" class="form-control" value="" id="nomor" readonly>
 								</div>
 							</div>
 						</div>
@@ -105,7 +105,7 @@
 						<div class="col-sm-4"> 
 							<div class="form-group">
 								<div class="form-line">
-									<input type="text" name="" class="form-control" value="" id="initiationyear" required>
+									<input type="text" name="" maxlength="4" class="form-control" value="" id="initiationyear" required>
 								</div>
 							</div>
 						</div>
@@ -117,7 +117,20 @@
 						<div class="col-sm-7"> 
 							<div class="form-group">
 								<div class="form-line">
-									<input type="text" name="" class="form-control" value="" id="tree" required>
+									<!-- <input type="text" name="" class="form-control" value="" id="tree" required> -->
+									<select id="tree" class="form-control useselect2" required>
+										<option value="">Choose Tree</option>
+										<?php 
+											$tree = new Database("SELECT id, treecode FROM karet_tree
+														WHERE isactive = ?",array(1));
+
+											foreach ($tree::$result as $key => $value) {
+										?>
+											<option value="<?php echo $value['id'];?>"><?php echo $value['treecode'];?></option>
+										<?php
+											}
+										?>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -139,7 +152,20 @@
 						<div class="col-sm-7">
 							<div class="form-group">
 								<div class="form-line">
-									<input type="text" name="" class="form-control" value="" id="treepart" required>
+									<!-- <input type="text" name="" class="form-control" value="" id="treepart"> -->
+									<select id="treepart" class="form-control useselect2" required>
+										<option value="">Choose Treepart</option>
+										<?php 
+											$treepart = new Database("SELECT id, partname FROM karet_treepart
+														WHERE isactive = ?",array(1));
+
+											foreach ($treepart::$result as $key => $value) {
+										?>
+											<option value="<?php echo $value['id'];?>"><?php echo $value['partname'];?></option>
+										<?php
+											}
+										?>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -160,7 +186,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<div class="form-line">
-									<input type="date" name="" class="form-control setDatePicker" id="harvestdate" required>
+									<input type="date" name="" class="form-control setDatePicker" id="harvestdate" >
 								</div>
 							</div>
 						</div>
@@ -184,7 +210,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<div class="form-line">
-									<input type="date" name="" class="form-control setDatePicker" value="" id="usageofseeds" required>
+									<input type="date" name="" class="form-control setDatePicker" value="" id="usageofseeds">
 								</div>
 							</div>
 						</div>
@@ -196,7 +222,20 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<div class="form-line">
-									<input type="text" name="" class="form-control" value="" id="startmedium" required>
+									<!-- <input type="text" name="" class="form-control" value="" id="startmedium"> -->
+									<select id="startmedium" class="form-control useselect2" required>
+										<option value="">Choose Medium</option>
+										<?php 
+											$medium = new Database("SELECT id, mediacode FROM karet_media
+														WHERE isactive = ?",array(1));
+
+											foreach ($medium::$result as $key => $value) {
+										?>
+											<option value="<?php echo $value['id'];?>"><?php echo $value['mediacode'];?></option>
+										<?php
+											}
+										?>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -208,7 +247,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<div class="form-line">
-									<input type="date" name="" class="form-control setDatePicker" value="" id="germinationdate" required>
+									<input type="date" name="" class="form-control setDatePicker" value="" id="germinationdate">
 								</div>
 							</div>
 						</div>
@@ -220,7 +259,20 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<div class="form-line">
-									<input type="text" name="" class="form-control" value="" id="germinationmedium" required>
+									<!-- <input type="text" name="" class="form-control" value="" id="germinationmedium"> -->
+									<select id="germinationmedium" class="form-control useselect2" required>
+										<option value="">Choose Medium</option>
+										<?php 
+											$medium = new Database("SELECT id, mediacode FROM karet_media
+														WHERE isactive = ?",array(1));
+
+											foreach ($medium::$result as $key => $value) {
+										?>
+											<option value="<?php echo $value['id'];?>"><?php echo $value['mediacode'];?></option>
+										<?php
+											}
+										?>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -244,7 +296,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<div class="form-line">
-									<input type="text" name="" class="form-control" value="" id="leafsamplelocation" required>
+									<input type="text" name="" class="form-control" value="" id="leafsamplelocation">
 								</div>
 							</div>
 						</div>
@@ -268,7 +320,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<div class="form-line">
-									<input type="text" name="" class="form-control" value="" id="germinationse" required>
+									<input type="text" name="" class="form-control" value="" id="germinationse">
 								</div>
 							</div>
 						</div>
@@ -286,9 +338,9 @@
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 		<div class="card" class="col-md-6">
 			<div class="header bg-cyan">
-				<h5 style="" >
+				<h6 style="" >
 				Images-File-Comments
-				</h5>
+				</h6>
 			</div>
 			<div class="body">
 				<div class="row">

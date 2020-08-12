@@ -61,11 +61,15 @@
 						comment:comment
 					},
 					success:function(resp){
-						if(parseInt(resp) > 0){
-                            location.href = hostname + "/reception";
+						
+						data = JSON.parse(resp);
+
+						if(parseInt(data['rowcount']) > 0){
+							alert("Data has been added!");
+                            location.href = hostname + "/reception?last="+data['id'];
                         }
                         else{
-                            alert(resp);
+                            alert("Data cant be added!");
                         }
 					}
 				});

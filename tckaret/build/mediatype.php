@@ -1,12 +1,13 @@
 <script type="text/javascript">
 	$(function(){
+		id = '<?php echo ($_GET['last']!='')?$_GET['last']:''; ?>';
 
 		var mediatypeList = $("#list-mediatype").DataTable({
 
 			"ajax":{
 				"url": hostname + "/api/loader.mediatype.php",
 				"data":{
-					//
+					id:id
 				},
 				"type":"POST"
 			},
@@ -37,13 +38,18 @@
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return "<div style=\"text-align:center;\"><a href=\"" + hostname + "/mediatype.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" title=\"Edit Media\"><i class=\"material-icons\">edit</i></a>" + 
+						return "<div style=\"text-align:center;\" class=\""+ row["last_updated"] +"\"><a href=\"" + hostname + "/mediatype.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" title=\"Edit Media\"><i class=\"material-icons\">edit</i></a>" + 
 							" | <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete-" + row["id"] + "\" data-name=\"" + row["name"] + "\"> <i class=\"material-icons\" title=\"Delete Media\">close</i></button></div>";
 					}
 				}
-			]
+			],
+			rowCallback: function (row, data) {
+				if (data['last_updated'] == "last_updated"){
+					$(row).css({"background-color":"#0779e4","color":"#ffffff"});
+				}
+			}
 		});
-	
+
 		$("body").on("click", ".btn-delete", function(){
 			var id = $(this).attr("id").split("-");
 			var nama = $(this).data("name");

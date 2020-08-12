@@ -36,7 +36,7 @@
 			buttons: [
 				'excel', 'csv', 'pdf', 'copy'
 			],
-			aaSorting: [[5, "desc"]],
+			//aaSorting: [[5, "desc"]],
 			"columnDefs":[
 				{"targets":0, "className":"dt-body-left"}
 			],
@@ -95,13 +95,15 @@
 					"data" : null, render: function(data, type, row, meta) {
 						return "<div style='text-align:center;'>" + 
 
-							"  <button data-id=\""+ row["idembryo"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float btnEdit\" title='Edit Data'><i class=\"material-icons\">edit</i></button> " +
+							" <a href=\"" + hostname + "/germination-prepare.screen.log/" + row["idembryo"] + "\" class=\"btn btn-default btn-circle waves-effect waves-circle waves-float " + row['disabled'] + "\"><i class=\"material-icons\" title='Germination Screening'>check</i></a> " +
 
-							" | <button " + row['disabled'] + " class=\"btn btn-danger btn-circle waves-effect waves-circle waves-float btn-delete\" data-idem='" + row['idembryo'] + "' id='delete-" + row['id'] + "'><i class=\"material-icons\" title='Remove Embryo'>delete_outline</i></button> " +
+							" | <a href=\"" + hostname + "/motherplant-in.add/" + row["idembryo"] + "\" class=\"btn btn-success btn-circle waves-effect waves-circle waves-float " + row['disabled'] + "\"><i class=\"material-icons\" title='Transfer to Germination'>trending_flat</i></a>"+ 
 
-							" | <a href=\"" + hostname + "/germination-prepare.screen.log/" + row["idembryo"] + "\" class=\"btn btn-default btn-circle waves-effect waves-circle waves-float " + row['disabled'] + "\"><i class=\"material-icons\" title='Germination Screening'>check</i></a> " +
+							" | <button data-id=\""+ row["idembryo"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float btnEdit\" title='Edit Data'><i class=\"material-icons\">edit</i></button> " +
 
-							" | <a href=\"" + hostname + "/motherplant-in.add/" + row["idembryo"] + "\" class=\"btn btn-success btn-circle waves-effect waves-circle waves-float " + row['disabled'] + "\"><i class=\"material-icons\" title='Transfer to Germination'>trending_flat</i></a></div> ";
+							" | <button " + row['disabled'] + " class=\"btn btn-danger btn-circle waves-effect waves-circle waves-float btn-delete\" data-idem='" + row['idembryo'] + "' id='delete-" + row['id'] + "'><i class=\"material-icons\" title='Remove Embryo'>delete_outline</i></button>" +
+
+							"</div>";
 					}
 				}
 			],

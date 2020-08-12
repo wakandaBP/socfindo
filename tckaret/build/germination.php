@@ -10,12 +10,12 @@
 		$("#medium").on('change',function(){
 			$("#idmedium").val($(this).val());
 
-			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedium").val(),"error-media");
+			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedium").val(),"error-media","available-media");
 			disabledButton(stats);
 		});
 
 		$("#amountmedia").on('keyup',function(){
-			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedium").val(),"error-media");
+			stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedium").val(),"error-media","available-media");
 			disabledButton(stats);
 		});
 
@@ -45,7 +45,7 @@
 			buttons: [
 				'excel', 'csv', 'pdf', 'copy'
 			],
-			aaSorting: [[5, "desc"]],
+			//aaSorting: [[3, "desc"]],
 			"columnDefs":[
 				{"targets":0, "className":"dt-body-left"}
 			],
@@ -102,16 +102,23 @@
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
+						return "<b>" + row["cont_status"] + "</b>";
+					}
+				},
+				{
+					"data" : null, render: function(data, type, row, meta) {
 						return "<div style='text-align:center;'>" + 
 
 							// "<a href=\"" + hostname + "/reception.seeds/" + row["id"] + "\" class=\"btn btn-warning btn-circle waves-effect waves-circle waves-float\" title=\"View Initiation Description\"><i class=\"material-icons\">list</i></a>"
-							"  <button data-id=\"" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float btnEdit\" title='Edit Data'><i class=\"material-icons\">edit</i></button> " +
+
+							"  <a href=\"" + hostname + "/germination.screen.log/" + row["idembryo"] + "\" class=\"btn btn-default btn-circle waves-effect waves-circle waves-float \"><i class=\"material-icons\" title='Germination Screening'>check</i></a> " +
+
+							" | <a href=\"" + hostname + "/germination-prepare.add/" + row["idembryo"] + "\" class=\"btn btn-success btn-circle waves-effect waves-circle waves-float " + row['disabled'] + "\"><i class=\"material-icons\" title='Transfer to Germination'>trending_flat</i></a>" + 
+
+							" | <button data-id=\"" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float btnEdit\" title='Edit Data'><i class=\"material-icons\">edit</i></button> " +
 
 							" | <button class=\"btn btn-danger btn-circle waves-effect waves-circle waves-float btn-delete\" data-idem='" + row['idembryo'] + "' id='delete-" + row['id'] + "'><i class=\"material-icons\" title='Remove Embryo'>delete_outline</i></button> " +
-
-							" | <a href=\"" + hostname + "/germination.screen.log/" + row["idembryo"] + "\" class=\"btn btn-default btn-circle waves-effect waves-circle waves-float \"><i class=\"material-icons\" title='Germination Screening'>check</i></a> " +
-
-							" | <a href=\"" + hostname + "/germination-prepare.add/" + row["idembryo"] + "\" class=\"btn btn-success btn-circle waves-effect waves-circle waves-float " + row['disabled'] + "\"><i class=\"material-icons\" title='Transfer to Germination'>trending_flat</i></a></div> ";
+						"</div>";
 					}
 				}
 			],

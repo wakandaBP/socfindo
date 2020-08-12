@@ -2,6 +2,10 @@
 	$(function(){
 		//menuActive();
 		
+		$("#type").on('keyup',function(){
+			this.value = this.value.toUpperCase();
+		});
+
 		$("#btnSimpan").click(function(){
 			var type = $("#type").val();
 			var keterangan = $("#keterangan").val();
@@ -19,14 +23,14 @@
 						id:<?php echo $page[1];?>
 					},
 					success:function(resp){
-						if(parseInt(resp) > 0){
-							//alert(resp);
-							alert("Data has been saved!");
-                            location.href = hostname + "/mediatype";
+						data = JSON.parse(resp);
+
+						if(parseInt(data['rowcount']) > 0){
+							alert("Media Type has updated!");
+                            location.href = hostname + "/mediatype?last="+data['id'];
                         }
                         else{
-							alert("Data can't be saved!");
-                            //alert(resp);
+                            alert("Media Type cant be updated!");
                         }
 					}
 				})

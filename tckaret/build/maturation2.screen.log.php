@@ -58,6 +58,11 @@
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
+						return row["pink"];
+					}
+				},
+				{
+					"data" : null, render: function(data, type, row, meta) {
 						return row["dead"];
 					}
 				},

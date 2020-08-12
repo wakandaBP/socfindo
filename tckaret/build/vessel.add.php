@@ -21,12 +21,14 @@
 						description:description
 					},
 					success:function(resp){
-						if(parseInt(resp) > 0){
-							alert("Data has been saved!");
-                            location.href = hostname + "/vessel";
+						data = JSON.parse(resp);
+
+						if(parseInt(data['rowcount']) > 0){
+							alert("Vessel has added!");
+                            location.href = hostname + "/vessel?last="+data['id'];
                         }
                         else{
-                            alert("Data can't be saved!");
+                            alert("Vessel cant be added!");
                         }
 					}
 				})

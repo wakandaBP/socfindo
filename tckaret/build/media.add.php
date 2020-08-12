@@ -20,14 +20,7 @@
 						description:description
 					},
 					success:function(resp){
-						if(parseInt(resp) > 0){
-							//alert(resp);
-							alert("Data has been saved!");
-                            location.href = hostname + "/media";
-                        }
-                        else{
-                            alert("Data can't be saved!");
-                        }
+						redirectAfterAction(resp, "media", "add", "Data");
 					}
 				})
 			} else {

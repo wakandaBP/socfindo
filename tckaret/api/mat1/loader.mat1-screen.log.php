@@ -16,22 +16,22 @@
 
 		$fungi = "No";
 		if ($cont['fungi'] == 1){
-			$fungi = "Yes";
+			$fungi = "<span style='color:red'>Yes</span>";
 		}
 
 		$bact = "No";
 		if ($cont['bact'] == 1){
-			$bact = "Yes";
+			$bact = "<span style='color:red'>Yes</span>";
 		}
 
 		$pink = "No";
 		if ($cont['pink'] == 1){
-			$pink = "Yes";
+			$pink = "<span style='color:red'>Yes</span>";
 		}
 
 		$dead = "No";
 		if ($cont['dead'] == 1){
-			$dead = "Yes";
+			$dead = "<span style='color:red'>Yes</span>";
 		}
 
 		array_push($MetaData, 

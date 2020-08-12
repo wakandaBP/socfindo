@@ -14,7 +14,7 @@
 							JOIN karet_clone c ON a.clone = c.id
 							JOIN karet_treepart d ON a.treepart = d.id
 							JOIN karet_plantation e ON a.plantation = e.id
-							WHERE a.isactive = ? AND a.receiptdate BETWEEN ? AND ? ORDER BY a.receiptdate DESC",array("1",$_POST['awal'],$_POST['akhir']));
+							WHERE a.isactive = ? AND a.receiptdate BETWEEN ? AND ? ORDER BY a.id DESC",array("1",$_POST['awal'],$_POST['akhir']));
 
 	} else {
 		$query = new Database("SELECT a.id, b.treecode, a.harvestdate, a.senddate, 
@@ -25,10 +25,17 @@
 							JOIN karet_clone c ON a.clone = c.id
 							JOIN karet_treepart d ON a.treepart = d.id
 							JOIN karet_plantation e ON a.plantation = e.id
-							WHERE a.isactive = ? ORDER BY a.receiptdate DESC",array("1"));
+							WHERE a.isactive = ? ORDER BY a.id DESC",array("1"));
 	}
 
 	foreach ($query::$result as $key => $value) {
+		$last_updated = "";
+		if ($_POST['id'] != ""){
+			if ($_POST['id'] == $value['id']){
+				$last_updated = "last_updated";
+			}
+		}
+	
 		array_push($MetaData, 
 			array(
 				"id"=>$value["id"],
@@ -41,7 +48,8 @@
 				"comment"=>$value["comment"], 
 				"clonename"=>$value["clonename"],
 				"treepart"=>$value["partname"],
-				"plantation"=>$value["plantation"]
+				"plantation"=>$value["plantation"],
+				"last_updated"=>$last_updated
 			)
 		);
 	}

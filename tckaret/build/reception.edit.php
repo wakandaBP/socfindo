@@ -63,13 +63,15 @@
 						id:<?php echo $page[1]?>
 					},
 					success:function(resp){
-						if(parseInt(resp) > 0){
-							alert("Data has been updated!");
-                            location.href = hostname + "/reception";
-                        }
-                        else{
-                            alert(resp);
-                        }
+						data = JSON.parse(resp);
+
+						if(parseInt(data['rowcount']) > 0){
+							alert("Data has been added!");
+							location.href = hostname + "/reception?last="+data['id'];
+						}
+						else{
+							alert("Data cant be added!");
+						}
 					}
 				});
 			} else {

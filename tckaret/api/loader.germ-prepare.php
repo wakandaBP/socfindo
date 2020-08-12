@@ -5,9 +5,9 @@
 
 	$MetaData = array();
 	if (isset($_POST['awal']) && isset($_POST['akhir']) && $_POST['awal'] != "" && $_POST['akhir'] != ""){
-		$query = new Database("SELECT * FROM karet_embryo_germination_prepare WHERE isactive = ? AND is_available = ? AND germ_date ? BETWEEN ? ORDER BY germ_date",array(1,1,$_POST['awal'],$_POST['akhir']));
+		$query = new Database("SELECT * FROM karet_embryo_germination_prepare WHERE isactive = ? AND is_available = ? AND germ_date ? BETWEEN ? ORDER BY id DESC",array(1,1,$_POST['awal'],$_POST['akhir']));
 	} else {
-		$query = new Database("SELECT * FROM karet_embryo_germination_prepare WHERE isactive = ? AND is_available = ? ORDER BY germ_date",array(1,1));
+		$query = new Database("SELECT * FROM karet_embryo_germination_prepare WHERE isactive = ? AND is_available = ? ORDER BY id DESC",array(1,1));
 	}
 
 	foreach ($query::$result as $key => $value) {

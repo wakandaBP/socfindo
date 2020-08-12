@@ -148,8 +148,10 @@ function getMedia2($value){
 								WHERE a.id = ?",array($value));
 
 	
-	$data = array("id"=>$media::$result[0]['id'],"mediacode"=>$media::$result[0]['mediacode'],"jenis"=>$media::$result[0]['jenis']);
-	return $data;
+	if ($media::$rowCount > 0){
+		$data = array("id"=>$media::$result[0]['id'],"mediacode"=>$media::$result[0]['mediacode'],"jenis"=>$media::$result[0]['jenis']);
+		return $data;
+	}
 }
 
 function getMediaTotal2($id){
@@ -434,4 +436,11 @@ function countStokMedia($idmedia){
 }
 
 /*------------------------------------------------------------------------------*/
+
+/*-------------------------- FUNGSI UNTUK MENAMPILKAN HASIL ADD / UPDATE -------------------------------------------*/
+function printResult($id, $rowcount){
+	$result = array("id"=>$id,"rowcount"=>$rowcount);
+	print_r(json_encode($result));
+}
+
 

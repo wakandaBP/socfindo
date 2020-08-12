@@ -6,6 +6,7 @@
 	var selectedTreat = "";
 	var selectedRemain = "";
 	var selectedIDPengeluaran = "";
+	var selectedData = "";
 	var mode = "";
 
 	$(function(){
@@ -44,7 +45,7 @@
 				'excel', 'csv', 'pdf', 'copy'
 			],
 			select:'single',
-			aaSorting: [[5, "desc"]],
+			aaSorting: [[0, "desc"]],
 			"columnDefs":[
 				{"targets":0, "className":"dt-body-left"}
 			],
@@ -145,9 +146,27 @@
 		    var d = initiationList.row(this).data();
 		     
 		    d.counter++;
-		    selectedTreat = d.id;
-		    selectedIDPengeluaran = d.idpengeluaranmedia;
-		    selectedRemain = parseInt(d.remaining);
+			
+			console.log(d);
+
+			if (selectedData != ""){
+				if (selectedData['id'] == d.id){
+					selectedData = [];
+					selectedTreat = "";
+					selectedIDPengeluaran = "";
+		    		selectedRemain = 0;
+				} else {
+					selectedTreat = d.id;
+					selectedIDPengeluaran = d.idpengeluaranmedia;
+		    		selectedRemain = parseInt(d.remaining);
+					selectedData = {id:d.id,idtreatment:d.idtreatment,transdate:d.transdate,idpengeluaranmedia:d.idpengeluaranmedia,remain:parseInt(d.remainembryo)};
+				}
+			} else {
+				selectedTreat = d.id;
+				selectedIDPengeluaran = d.idpengeluaranmedia;
+				selectedRemain = parseInt(d.remaining);
+				selectedData = {id:d.id,idtreatment:d.idtreatment,transdate:d.transdate,idpengeluaranmedia:d.idpengeluaranmedia,remain:parseInt(d.remainembryo)};
+			}
 		});
 
 
@@ -268,13 +287,15 @@
 							idtreatment:selectedTreat
 						},
 						success: function(resp){
+							console.log(resp);
 							data = JSON.parse(resp);
 
+
 							$("form")[0].reset();
-							$("#idmedium").val(data.media);
-							$("#medium").val(data.media);
+							$("#idmedium").val(data['media']);
+							$("#medium").val(data['media']);
 							$("#medium").trigger('change');
-							$("#amountmedia").val(data.jumlah);
+							$("#amountmedia").val(data['jumlah']);
 
 							$("#title-id").html(selectedTreat);
 							$("#title-media").html("Edit data for");
@@ -301,6 +322,7 @@
 			amountmedia = $("#amountmedia").val();
 
 			$.ajax({
+				async: false,
 				url : hostname + "/action.php",
 				type: "POST",
 				data : {
@@ -315,6 +337,7 @@
 						alert("Media has been updated!");
 						$("#form-updatemedia").modal("hide");
 						RefreshData("#list-initiation", hostname + "/api/loader.initiation.php");
+						selectedData = "";
 						showRowLastRow(initiationList);
 					}
 				}				

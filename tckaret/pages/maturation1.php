@@ -2,7 +2,7 @@
     <div class="modal fade" tabindex="-1" role="dialog" id="form-updatemedia">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header"><h5><span id="title-media"></span> Update Media for ID Embryo : <b><span id="title-id"></span></b>  <button class="btn btn-warning right" data-dismiss="modal">Back</button> </h5> </div> 
+                <div class="modal-header"><h5><span id="title-media"></span> Update Media for ID Embryo : <b><span id="title-id-embryo"></span></b>  </h5> </div> 
                 <div class="modal-body">
 	                <div class="col-sm-6" id="media-field"> 
 	                	<h6>Choose Media : *</h6>
@@ -25,7 +25,15 @@
 						</div>
 						<div id="error-media"></div>
 	                </div> 
-                	<div class="col-sm-6">
+					<div class="col-sm-3"> 
+						<h6>Available Media : <span></span></h6>
+						<div class="input-group"> 
+							<div class="form-line">
+								<input type="text" readonly class="form-control numberonly" id="available-media" value="">
+							</div>
+						</div>
+					</div> 
+                	<div class="col-sm-3">
 	                	<h6>Media Amount : *</h6>
 						<div class="input-group">
 							<div class="form-line">
@@ -37,7 +45,9 @@
                 <div class="modal-footer">
                 	<div class="">
 	                    <div class="input-group">
-	                    	<button id="btnUpdateMedia" class="btn btn-primary">Save</button>
+	                    	<button id="btnUpdateMedia" class="btn btn-primary">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
+							&nbsp;
+							<span style="text-align:center;"><button class="btn btn-warning" data-dismiss="modal">Cancel</button></span>
 	                	</div>
 	                </div>
                 </div>
@@ -403,6 +413,7 @@
 								<th class="text-center">Media</th>
 								<th class="text-center">Last Screening</th>
 								<th class="text-center">Last Checkpoint</th>
+								<th class="text-center">Contaminated</th>
 								<th width="100px" class="text-center">Action</th>
 							</tr>
 						</thead>

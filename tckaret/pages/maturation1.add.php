@@ -39,7 +39,7 @@ try {
 
 											foreach ($worker::$result as $key => $value) {
 										?>
-											<option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option>
+											<option value="<?php echo $value['id'];?>"><?php echo $value['initial'];?></option>
 										<?php
 											}
 										?>
@@ -91,8 +91,8 @@ try {
 				</fieldset>
 				<fieldset>
 					<div class="row clearfix">
-						<div class="col-sm-4">
-							<h6>Embryo for Transfer *</h6>
+						<div class="col-sm-3">
+							<h6>Embryo for Transfer: *</h6>
 							<div class="input-group">
 								<div class="form-line">
 									<input type="number" class="form-control numberonly" required id="embryo" value="0" min="1">
@@ -100,16 +100,8 @@ try {
 							</div>
 							<div id="error-embryo"></div>
 						</div>
-						<div class="col-sm-4">
-		                	<h6>Media Amount : *</h6>
-							<div class="input-group">
-								<div class="form-line">
-									<input type="text" class="form-control numberonly" id="amountmedia" value="">
-								</div>
-							</div>
-		                </div>
-		                <div class="col-sm-4" id="media-field"> 
-		                	<h6>Choose Media : *</h6>
+		                <div class="col-sm-3" id="media-field"> 
+		                	<h6>Choose Media: *</h6>
 							<div class="input-group">
 								<div class="form-line">
 									<select class="form-control useselect2" id="media">
@@ -129,6 +121,22 @@ try {
 							</div>
 							<div id="error-media"></div>
 						</div>
+						<div class="col-sm-3"> 
+		                	<h6>Available Media : <span></span></h6>
+							<div class="input-group"> 
+								<div class="form-line">
+									<input type="text" readonly class="form-control numberonly" id="available-media" value="">
+								</div>
+							</div>
+		                </div> 
+						<div class="col-sm-3">
+		                	<h6>Media Amount : *</h6>
+							<div class="input-group">
+								<div class="form-line">
+									<input type="text" class="form-control numberonly" id="amountmedia" value="">
+								</div>
+							</div>
+		                </div>
 					</div>
 					<div class="row clearfix">
 						<div class="col-sm-6">

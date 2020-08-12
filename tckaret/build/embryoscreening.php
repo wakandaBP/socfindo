@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	var dataforaddpetri = [];
 	var datacheckbox = [];
-	var selectedData;
+	var selectedData = [];
 	var selectedForEdit = "";
 	var mode = "";
 
@@ -11,7 +11,7 @@
 			$("#idmedium").val($(this).val());
 
 			if (mode == "add"){
-				stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedium").val(),"error-media");
+				stats = checkAvailableMedia($("#amountmedia").val(),$("#idmedium").val(),"error-media","available-media");
 			} else if (mode == "edit") {
 				stats = checkAvailableMediaforEdit($("#amountmedia").val(),$("#idmedium").val(),selectedData['idpengeluaranmedia'],"error-media");
 			}
@@ -37,13 +37,14 @@
 			$("#idlaminar").val($(this).val());
 		});
 
+		id_treat = '<?php echo ($_GET['last']!='')?$_GET['last']:''; ?>';
 
 		var embryoScreenList = $("#list-embryoscreen").DataTable({
 
 			"ajax":{
 				"url": hostname + "/api/loader.embryoscreening.php",
 				"data":{
-					//
+					id:id_treat
 				},
 				"type":"POST"
 			},
@@ -52,7 +53,7 @@
 				'excel', 'csv', 'pdf', 'copy'
 			],
 			select:'single',
-			aaSorting: [[0, "asc"]],
+			//aaSorting: [[0, "asc"]],
 			"columnDefs":[
 				{"targets":0, "className":"dt-body-left"}
 			],
@@ -112,31 +113,46 @@
 					"data" : null, render: function(data, type, row, meta) {
 						return "<div style='text-align:center;'>" + 
 
+							" <a href=\"" + hostname + "/embryoscreening.log/" + row["id"] + "\" class=\"btn btn-default btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\" title='Check Embryo Screening'>check</i></a> " +
 
-							/*"<a href=\"" + hostname + "/initiation.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" title='Edit Initiation'><i class=\"material-icons\">edit</i></a> " +*/
+							" | <button class=\"btn btn-success btn-circle waves-effect waves-circle waves-float btnMaturation1\" data-id=\"" + row['id'] + "\" data-sample=\"" + row['remainembryo'] + "\"><i class=\"material-icons\" title='Transfer for Maturation I'>trending_flat</i></button>"+ 
 
-							" <button class=\"btn btn-info btn-circle waves-effect waves-circle waves-float btn-edit\" data-id=\"" + row["id"] + "\" data-nama=\"" + row["idtreatment"] + "\" data-tgl='" + row['transdate'] + "' title='Edit Embryo Screening Data'><i class=\"material-icons\">edit</i></button>" +
+							" | <button class=\"btn btn-info btn-circle waves-effect waves-circle waves-float btn-edit\" data-id=\"" + row["id"] + "\" data-nama=\"" + row["idtreatment"] + "\" data-tgl='" + row['transdate'] + "' title='Edit Embryo Screening Data'><i class=\"material-icons\">edit</i></button>" +
 
-							" | <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete-" + row["id"] + "\" data-nama=\"" + row["idtreatment"] + "\" data-tgl='" + row['transdate'] + "' title='Delete Embryo Screening'><i class=\"material-icons\">close</i></button>" +
+							" | <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete-" + row["id"] + "\" data-nama=\"" + row["idtreatment"] + "\" data-tgl='" + row['transdate'] + "' title='Delete Embryo Screening'><i class=\"material-icons\">delete_outline</i></button>" +
 
-							//" | <a href=\"" + hostname + "/embryoscreening.log/" + row["id"] + "\" class=\"btn btn-warning btn-circle waves-effect waves-circle waves-float\" title=\"View Screening Log\"><i class=\"material-icons\">list</i></a>" +
-	
-
-							"| <a href=\"" + hostname + "/embryoscreening.log/" + row["id"] + "\" class=\"btn btn-default btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\" title='Check Embryo Screening'>check</i></a> " +
-
-							" | <button class=\"btn btn-success btn-circle waves-effect waves-circle waves-float btnMaturation1\" data-id=\"" + row['id'] + "\" data-sample=\"" + row['remainembryo'] + "\"><i class=\"material-icons\" title='Transfer for Maturation I'>trending_flat</i></button></div> ";
-
-							;
+						"</div> ";
 					}
 				}
-			]
+			],
+			rowCallback: function (row, data) {
+				if (data['last_updated'] == "last_updated"){
+					$(row).addClass("last_updated").css({"background-color":"#0779e4","color":"#ffffff"});
+				}
+			}
+		});
+
+		$("#list-embryoscreen tbody").on('click','tr',function(e) {
+			if ( $(e.target).closest('last_updated').length === 0 ) {
+				$(".last_updated").removeAttr("style");
+			}
 		});
 
 		$('#list-embryoscreen tbody').on( 'click', 'tr', function () {
 		    var d = embryoScreenList.row(this).data();
 		     
 		    d.counter++;
-		    selectedData = {id:d.id,idtreatment:d.idtreatment,transdate:d.transdate,idpengeluaranmedia:d.idpengeluaranmedia,remain:parseInt(d.remainembryo)};
+			if (selectedData != ""){
+				if (selectedData['id'] == d.id){
+					selectedData = [];
+				} else {
+					selectedData = {id:d.id,idtreatment:d.idtreatment,transdate:d.transdate,idpengeluaranmedia:d.idpengeluaranmedia,remain:parseInt(d.remainembryo)};
+				}
+			} else {
+				selectedData = [];
+				selectedData = {id:d.id,idtreatment:d.idtreatment,transdate:d.transdate,idpengeluaranmedia:d.idpengeluaranmedia,remain:parseInt(d.remainembryo)};
+			}
+			
 		});
 
 		$('#list-embryoscreen tbody').on( 'click', '.btnMaturation1', function () {
@@ -149,10 +165,9 @@
 				alert("This treatment has no remaining embryo for transfer!");
 			}
 		});
-
 		
 		$("#updatemedia").click(function(){
-		    if (selectedData['id'] != ""){
+		    if (selectedData.length !== 0){
 		    	mode = "add";
 		    	
 		    	$("form")[0].reset();
@@ -170,8 +185,7 @@
 		$("#editupdatemedia").click(function(){
 			mode = "edit";
 
-		    if (selectedData['id'] != ""){
-
+		    if (selectedData.length !== 0){
 	    		$.ajax({
 					url: hostname + "/api/embryoscreen/check.emscreen.media.php",
 					type: "POST",
@@ -179,6 +193,7 @@
 						id:selectedData['id']
 					},
 					success: function(resp){
+						//console.log(resp);
 						data = JSON.parse(resp);
 
 						$("form")[0].reset();
@@ -186,6 +201,7 @@
 						$("#medium").val(data.media);
 						$("#medium").trigger('change');
 						$("#amountmedia").val(data.jumlah);
+						$("#available-media").val(data.stok);
 
 						$("#title-id").html(selectedData['idtreatment'] + " / " + selectedData['transdate']);
 						$("#title-media").html("Edit data for");
@@ -209,27 +225,31 @@
 			idmedia = $("#idmedium").val();
 			amountmedia = $("#amountmedia").val();
 
-			$.ajax({
-				url : hostname + "/action.php",
-				type: "POST",
-				data : {
-					action: mode +"-update-media-emscreen",
-					id:selectedData['id'],
-					idmedia:idmedia,
-					amountmedia:amountmedia
-				},
-				success : function(resp){
-					//alert(resp);
-					if (JSON.parse(resp) > 0){
-						alert("Media has been updated!");
-						$("#form-updatemedia").modal("hide");
-						RefreshData("#list-embryoscreen", hostname + "/api/loader.embryoscreening.php");
-					} else {
-						alert("Media can't be updated!");
-					}
-				}				
-			})
-
+			if (idmedia != "" && amountmedia != ""){
+				$.ajax({
+					url : hostname + "/action.php",
+					type: "POST",
+					data : {
+						action: mode +"-update-media-emscreen",
+						id:selectedData['id'],
+						idmedia:idmedia,
+						amountmedia:amountmedia
+					},
+					success : function(resp){
+						//alert(resp);
+						if (JSON.parse(resp) > 0){
+							alert("Media has been updated!");
+							$("#form-updatemedia").modal("hide");
+							RefreshData("#list-embryoscreen", hostname + "/api/loader.embryoscreening.php");
+						} else {
+							alert("Media can't be updated!");
+						}
+					}				
+				})
+			} else {
+				alert("Please select Media or insert Amount Media");
+			}
+			
 			return false;
 		});
 
@@ -393,34 +413,5 @@
 			$("#btnUpdateMedia").attr("disabled",true);
 		}
 	}
-
-	/*function refreshCreateDate(medium){
-		var selectedMedium;
-		$("#createddate option").remove();
-
-		$.ajax({
-			url: hostname + "/api/initiation/created.media.loader.php",
-			//async:false,
-			type: "POST",
-			data: {
-				idmedia:medium
-			},
-			success:function(resp){
-				var MetaData = JSON.parse(resp);
-
-				for(var key in MetaData){
-					//var id = key.split("-");
-					id = MetaData[key]['id'];
-					var selection = document.createElement("OPTION");
-					$(selection).attr("value", id).html(MetaData[key]['tglbuatmedia'] + " - " + MetaData[key]['worker']);
-
-					$("#createddate").append(selection);
-				}
-			}
-		});
-
-		selectedMedium = $("#createddate").val();
-		return selectedMedium;
-	}*/
 
 </script>

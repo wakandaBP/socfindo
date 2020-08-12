@@ -2,9 +2,9 @@
     <div class="modal fade" tabindex="-1" role="dialog" id="form-updatemedia">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header"><h5><span id="title-media"></span> Update Media for ID Treatment : <b><span id="title-id"></span></b>  <button class="btn btn-warning right" data-dismiss="modal">Back</button> </h5> </div> 
+                <div class="modal-header"><h5><span id="title-media"></span> Update Media for ID Treatment : <b><span id="title-id"></span></b></h5> </div> 
                 <div class="modal-body">
-	                <div class="col-sm-6" id="media-field"> 
+	                <div class="col-sm-5" id="media-field"> 
 	                	<h6>Choose Media : *</h6>
 						<div class="input-group">
 							<div class="form-line">
@@ -25,7 +25,15 @@
 						</div>
 						<div id="error-media"></div>
 	                </div> 
-                	<div class="col-sm-6">
+					<div class="col-sm-3"> 
+						<h6>Available Media : <span></span></h6>
+						<div class="input-group"> 
+							<div class="form-line">
+								<input type="text" readonly class="form-control numberonly" id="available-media" value="">
+							</div>
+						</div>
+		                </div> 
+                	<div class="col-sm-4">
 	                	<h6>Media Amount : *</h6>
 						<div class="input-group">
 							<div class="form-line">
@@ -38,6 +46,7 @@
                 	<div class="">
 	                    <div class="input-group">
 	                    	<button id="btnUpdateMedia" class="btn btn-primary">Save</button>
+	                    	<button class="btn btn-danger right" data-dismiss="modal">Back</button>
 	                	</div>
 	                </div>
                 </div>
@@ -76,7 +85,7 @@
 
 													foreach ($worker::$result as $key => $value) {
 												?>
-													<option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option>
+													<option value="<?php echo $value['id'];?>"><?php echo $value['initial'];?></option>
 												<?php
 													}
 												?>
