@@ -1,3 +1,9 @@
+<style type="text/css">
+	.mplant .select2-results__option {
+	 	padding: 0px 4px;
+	}
+</style>
+
 <form id="invitro-from-se">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="card">
@@ -10,27 +16,29 @@
 				<fieldset>
 					<legend>Data</legend>
 					<div class="row clearfix">
-						<div class="col-sm-6">
+						<div class="col-sm-8">
 							<h6>Mother Plant *</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<select id="motherplant" class="form-control useselect2" required>
+									<select id="motherplant" class="form-control useselect2 motherplant" required>
 										<option value="">Choose Motherplant</option>
+										<!-- 
 										<?php 
-											$motherplant = new Database("SELECT id, code_se FROM karet_motherplant
+										/*	$motherplant = new Database("SELECT id, code_se FROM karet_motherplant
 														WHERE deleted_at IS NULL",array());
 
-											foreach ($motherplant::$result as $key => $value) {
+											foreach ($motherplant::$result as $key => $value) {*/
 										?>
-											<option value="<?php echo $value['id'];?>"><?php echo $value['code_se'];?></option>
+											<option value="<?php// echo $value['id'];?>"><?php //echo $value['code_se'];?></option>
 										<?php
-											}
-										?>
+											//}
+										?> -->
 									</select>
+									<!-- <input class="form-control" id="motherplant" value="" /> -->
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<h6>Start Date *</h6>
 							<div class="input-group">
 								<div class="form-line">

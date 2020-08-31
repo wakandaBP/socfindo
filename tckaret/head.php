@@ -1,4 +1,4 @@
-<head>
+    <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -55,10 +55,13 @@
     <link rel="stylesheet" type="text/css" href="<?php echo $web_server?>/assets/plugins/select2/select2.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo $web_server?>/assets/plugins/select2/select2-bootstrap.css">
 
+    <!-- Jquery input picker -->
+    <link rel="stylesheet" type="text/css" href="<?php echo $web_server?>/assets/plugins/jquery-inputpicker/src/jquery.inputpicker.css">
+
     <!-- Jquery Core Js -->
     <!-- <script src="<?php echo $web_server?>/assets/plugins/jquery/jquery.min.js"></script> -->
     <script src="<?php echo $web_server?>/assets/plugins/jquery/jquery-2.2.4.min.js"></script>
-    <!-- <script src="<?php echo $web_server?>/assets/plugins/jquery/jquery-3.3.1.min.js"></script> -->
+   <!--  <script src="<?php echo $web_server?>/assets/plugins/jquery/jquery-3.3.1.min.js"></script> -->
     
     <!-- -------------  SCRIPT FOR SESSION TIMEOUT ------------- -->
     <script type="text/javascript">

@@ -69,6 +69,9 @@
     <!-- Select2 -->
     <script src="<?php echo $web_server?>/assets/plugins/select2/select2.full.js"></script>
 
+    <!-- Jquery input picker -->
+    <script src="<?php echo $web_server?>/assets/plugins/jquery-inputpicker/src/jquery.inputpicker.js"></script>
+
     <!-- <script src="<?php echo $web_server?>/assets/plugins/jquery/jquery-3.3.1.min.js"></script> -->
 
     <script type="text/javascript">

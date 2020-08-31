@@ -1,4 +1,6 @@
 <script type="text/javascript">
+	var firstEmptySelect = true;
+
 	$(function(){
 
 		$("#medium").on('change', function(){
@@ -55,7 +57,60 @@
 			return false;
 		});
 
+		//select 2 like table
+		$(".motherplant").select2({
+			minimumInputLength: 1,
+			templateResult: function (data, page) {
+	            if (data) {
+	                var html = '<table class="table table-bordered" style="margin-bottom: 0px;">\
+		                <tbody>\
+		                <tr>\
+		                    <td width="20%">' + data.text + '</td>\
+		                    <td width="10%">' + data.year + '</td>\
+		                    <td width="20%">' + data.clone + '</td>\
+		                    <td width="10%">' + data.deactivated + '</td>\
+		                </tr >\
+		                </tbody>\
+		                </table>';
 
+	                return $(html);
+	            }
+	        },
+			ajax: {
+			    url: hostname + "/api/invitro/search_motherplant.php",
+			    dataType: 'json',
+			    data: function (params) {
+					return {
+						params: params.term
+					}
+		    	},
+		    	processResults: function (data, page) {
+	              	return {
+	                	results: data
+	            	}
+	            }
+			}
+		});
+
+		//for template table select2
+		var headerIsAppend = false;
+		$('#motherplant').on('select2:open', function (e) {
+			if (!headerIsAppend) {
+	            html = '<table class="table table-bordered" style="margin-top: 5px;margin-bottom: 0px;">\
+	                <tbody>\
+	                <tr>\
+	                    <td width="20%"><b>Code SE</b></td>\
+	                    <td width="10%"><b>Year</b></td>\
+	                    <td width="20%"><b>Clone</b></td>\
+	                    <td width="10%"><b>Deactivated</b></td>\
+	                </tr >\
+	                </tbody>\
+	                </table>';
+	            $('.select2-search').append(html);
+	            $('.select2-results').addClass('mplant');
+	            headerIsAppend = true;
+	        }
+		});
 	});
 
 	function loadNumberOfStok(selector, media, vessel){
