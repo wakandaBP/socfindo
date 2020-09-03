@@ -92,7 +92,7 @@
 									<select id="tree" class="form-control show-tick ini-list useselect2">
 										<option disabled selected>--Choose-Tree-Code-/-Planting-Year-</option>
 										<?php 
-											$tree = new Database("SELECT * FROM karet_tree WHERE isactive = ?",array("1"));
+											$tree = new Database("SELECT * FROM karet_tree WHERE isactive = ?",array(1));
 
 											foreach ($tree::$result as $key => $value) {
 										?>

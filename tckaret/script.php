@@ -297,7 +297,7 @@
                         data = JSON.parse(resp);
 
                         stok = 0;
-                        if (parseInt(data['stok']) > 0){
+                        if (parseInt(data['stok']) > 0){    
                             stok = parseInt(data['stok']);
                         }
 

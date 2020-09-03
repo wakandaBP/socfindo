@@ -270,7 +270,7 @@
 					return false;
 				
 				} else {
-					alert("Total of (A Lot of Callus + Little Bit of Callus + Pieces Not React + Dead) is must same ");
+					alert("Total of (C. Fungi + C. Bacteri + A Lot of Callus + Little Bit of Callus + Pieces Not React + Dead) is must same ");
 				}
 				return false;
 

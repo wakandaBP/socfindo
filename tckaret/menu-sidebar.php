@@ -17,6 +17,12 @@
                 <span>Worker</span>
             </a>
         </li>
+        <li <?php if($module[0]=='region'){ echo "class='active'";} ?>>
+            <a href="<?php echo $tckaret;?>/region">
+                <i class="material-icons">layers</i>
+                <span>Region</span>
+            </a>
+        </li>
         <li <?php if($module[0]=='plantation'){ echo "class='active'";} ?>>
             <a href="<?php echo $tckaret;?>/plantation">
                 <i class="material-icons">layers</i>
@@ -64,6 +70,12 @@
             <a href="<?php echo $tckaret;?>/laminar">
                 <i class="material-icons">layers</i>
                 <span>Laminar</span>
+            </a>
+        </li>
+        <li <?php if($module[0]=='supplier'){ echo "class='active'";} ?>>
+            <a href="<?php echo $tckaret;?>/supplier">
+                <i class="material-icons">layers</i>
+                <span>Supplier</span>
             </a>
         </li>
         <li <?php if($module[0]=='contamination'){ echo "class='active'";} ?>>

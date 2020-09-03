@@ -1,60 +1,55 @@
 <script type="text/javascript">
 	$(function(){
-		var dataInvitro = loadDataInvitro();
+		var dataInvitro;
+		var selectedCloneID, selectedMother, selectedMotherID; 
+		var selectedCloneID_temp = '';
 		var no_urut = 1;
 		var dataParent = {};
 		$("#end_date").val(<?= json_encode(date("Y-m-d")); ?>);
-		//loadDataInvitro();
-		console.log(dataInvitro);
-
-		$("#parent_invitro").on('change', function(){
-			let id = $(this).val();
-			let index;
-
-			for(i = 0; i < dataInvitro.length; i++){
-				if (dataInvitro[i].id == id) { 
-					$("#quantity").val(dataInvitro[i].number_of_plants);
-				}
-			}
-		});
 
 		$("#parent-form").submit(function(){
 			let invitroID = $("#parent_invitro").val();
-			let invitroText = $("#parent_invitro option:selected").html();
 			let endDate = $("#end_date").val();
 			let qty = $("#quantity").val();
+			let deactivated = ($("#deactivated").is(":checked")) ? "TRUE" : "FALSE";
 
 			var index = '';
 
-			for(i = 0; i < dataInvitro.length; i++){
+			/*for(i = 0; i < dataInvitro.length; i++){
 				if (dataInvitro[i].id == invitroID) { index = i; }
-			}
+			}*/
 
 			html = "<tr>" + 
 						"<td><button type='button' class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete-parent\" id=\"delete_" + no_urut + "\" title='Delete Item'><i class=\"material-icons\">delete_outline</i></button></td>" + 
-						"<td>"+ invitroText +"</td>" + 
-						"<td>"+ dataInvitro[index].mother_embryo + "</td>" +
+						"<td>"+ selectedMother.text +"</td>" + 
+						"<td>"+ selectedMother.mother_embryo + "</td>" +
 						"<td>"+ endDate +"</td>" +
 						"<td>"+ qty +"</td>" + 
+						"<td>"+ deactivated +"</td>" + 
 					"</tr>";
 
 			
 			$("#list-parent tbody").append(html);
-			//console.log(invitroText);
 
 			dataParent[no_urut] = {['id'] : invitroID, 
 									['end_date'] :endDate,
-									['qty'] : qty
+									['qty'] : qty,
+									['deactivated'] : deactivated
 								};
 
 
-			loadMotherByCloneID(dataInvitro, dataInvitro[index].clone);
+			//loadMotherByCloneID(dataInvitro, dataInvitro[index].clone);
 			$("form")[0].reset();
 			$("#parent_invitro").trigger('change');
 			$("#end_date").val(<?= json_encode(date("Y-m-d")); ?>);
 			no_urut++;
 
-			console.log(dataParent);
+			selectedCloneID = selectedMother.clone_id;
+			selectedMotherID = selectedMother.mother_id;
+
+			if (dataInvitro != ""){
+				dataInvitro = loadMotherByCloneID(selectedCloneID, selectedMotherID);
+			}
 
 			return false;
 		});
@@ -65,48 +60,51 @@
 
 			$(this).parent().parent().remove();
 			delete dataParent[id];
-			if (Object.size(dataParent) == 0) {loadDataInvitro();}
+			
+			if (Object.size(dataParent) == 0) { 
+				selectedCloneID = ''; 
+				selectedMotherID = '';
+				selectedMother = '';
+			}
 		});
 
 		$("#add-acclimatization").submit(function(){
 	
 			if (Object.size(dataParent) > 0){
-				let plantation = $("#plantation").val();
+				let region = $("#region").val();
 				let supplier = $("#supplier").val();
 				let country_arrival_date = $("#country_arrival_date").val();
 				let date_of_shipment = $("#date_of_shipment").val();
 				let plantation_arrival_date = $("#plantation_arrival_date").val();
-				let startdate = $("#start_date").val();
-				let greenhouse_number = $("#green_house_number").val();
+				let start_date = $("#start_date").val();
+				let green_house_number = $("#green_house_number").val();
 				let quantity_received = $("#quantity_received").val();
 				let quantity_rejected = $("#quantity_rejected").val();
 				let quantity_at_end = $("#quantity_at_end").val();
 
-				console.log(plantation + " _ " + supplier + " _ " + country_arrival_date + " _ " + date_of_shipment + " _ " + plantation_arrival_date + " _ " + startdate + " _ " + greenhouse_number  + " _ " + quantity_received + " _ " + quantity_rejected + " _ " + quantity_at_end + " _ ");
+				//console.log(startdate + " _ " + medium + " _ " + recipient + " _ " + numberofplants + " _ " + laminarflow + " _ " + worker);
 
-				console.log(dataParent);
-				/*$.ajax({
+				$.ajax({
 					url: hostname + "/action.php",
 					type: "POST",
 					data: {
 						action:"add-acclimatization",
-						plantation: plantation,
+						region: region,
 						supplier: supplier,
 						country_arrival_date: country_arrival_date,
 						date_of_shipment: date_of_shipment,
 						plantation_arrival_date: plantation_arrival_date,
-						startdate: startdate,
-						greenhouse_number: greenhouse_number,
+						start_date: start_date,
+						green_house_number: green_house_number,
 						quantity_received: quantity_received,
 						quantity_rejected: quantity_rejected,
 						quantity_at_end: quantity_at_end,
 						dataParent: dataParent
 					},
 					success:function(resp){
-						console.log(resp);
+						//console.log(resp);
 						data = JSON.parse(resp);
 
-						//console.log(data);
 						if(parseInt(data['rowcount']) > 0){
 							alert("Acclimatization has added!");
 	                        location.href = hostname + "/acclimatization?last=" + data['id'];
@@ -120,7 +118,6 @@
 						console.log(response);
 					}
 				});
-				*/
 			} else {
 				alert("Please select min. 1 mother embryo");
 			}
@@ -128,15 +125,7 @@
 			return false;
 		});
 
-		/*$("#medium").on('change', function(){
-			loadNumberOfStok('stok_available', $(this).val(), $("#recipient").val());
-		});
-
-		$("#recipient").on('change', function(){
-			loadNumberOfStok('stok_available', $("#medium").val(), $(this).val());
-		});*/
-
-	/*	$(".parent_invitro").select2({
+		/*$(".parent_invitro").select2({
 			minimumInputLength: 1,
 			placeholder: 'Type Min. 1 character',
 			ajax: {
@@ -155,6 +144,89 @@
 			}
 		});*/
 
+		$(".parent_invitro").select2({
+			minimumInputLength: 1,
+			templateResult: function (data, page) {
+	            if (data) {
+	                var html = '<table class="table table-bordered" style="margin-bottom: 0px;">\
+		                <tbody>\
+		                <tr>\
+		                    <td width="120px">' + data.text + '</td>\
+		                    <td width="120px">' + data.mother_embryo + '</td>\
+		                    <td width="70px">' + data.medium_name + '</td>\
+		                    <td width="70px">' + data.number_of_plants + '</td>\
+		                </tr >\
+		                </tbody>\
+		                </table>';
+
+	                return $(html);
+	            }
+	        },
+			ajax: {
+			    url: hostname + "/api/invitro/search_invitro.php",
+			    dataType: 'json',
+			    data: function (params) {
+					return {
+						params: params.term,
+						clone_id: selectedCloneID,
+						mother_id: selectedMotherID
+					}
+		    	},
+		    	processResults: function (data, page) {
+		    		let listItem = data;
+		    		//console.log(listItem);
+
+		    		//filter if mother has added 
+		    		for(i = 0; i < listItem.length; i++){
+
+		    			$.each(dataParent, function(key, item){
+
+							if (item.id == listItem[i].id) {
+
+								listItem.splice(i, 1);
+							
+							}
+		    			
+		    			});
+						
+					}
+
+	              	return {
+	                	results: listItem
+	            	}
+	            }
+			}
+		});
+
+		//action on select
+		$("#parent_invitro").on('select2:select', function(e){
+			selectedMother = e.params.data;
+			//console.log(selectedMother);
+
+			$("#quantity").val(selectedMother.number_of_plants);
+			$("#end_date").val(selectedMother.end_date);
+		});
+
+		//for template table select2
+		var headerIsAppend = false;
+		$('#parent_invitro').on('select2:open', function (e) {
+			if (!headerIsAppend) {
+	            html = '<table class="table table-bordered" style="margin-top: 5px;margin-bottom: 0px;">\
+	                <tbody>\
+	                <tr>\
+	                	<td width="120px"><b>Unique Code</b></td>\
+	                    <td width="120px"><b>Base SE</b></td>\
+	                    <td width="70px"><b>Medium</b></td>\
+	                    <td width="70px"><b>Number of Plants</b></td>\
+	                </tr >\
+	                </tbody>\
+	                </table>';
+	            $('.select2-search').append(html);
+	            $('.select2-results').addClass('mplant');
+	            headerIsAppend = true;
+	        }
+		});
+
 		Object.size = function(obj) {
 		    var size = 0, key;
 		    for (key in obj) {
@@ -172,7 +244,7 @@
 		$.ajax({
 			async: false,
 			url: hostname + "/api/invitro/search_invitro.php",
-			type: "POST",
+			type: "GET",
 			success:function(resp){
 				MetaData = JSON.parse(resp);
 
@@ -191,7 +263,7 @@
 		return MetaData;
 	}
 
-	function loadMotherByCloneID(mother_arr, clone_id){
+	/*function loadMotherByCloneID(mother_arr, clone_id){
 		$("#parent_invitro option").remove();
 		$("#parent_invitro").append("<option value=''>Choose</option>");
 
@@ -203,26 +275,20 @@
                 $("#parent_invitro").append(selection);
 			}
 		});
-	}
+	}*/
 
-	function loadNumberOfStok(selector, media, vessel){
+	function loadMotherByCloneID(clone_id, mother_id){
+		let data;
+
 		$.ajax({
-			url: hostname + "/api/invitro/cek_media_available.php",
-			type: "POST",
-			data: {
-				media: media,
-				vessel:vessel
-			},
+			async: false,
+			url: hostname + "/api/invitro/search_invitro.php?params=&clone_id=" + clone_id + "&mother_id=" + mother_id,
+			type: "GET",
 			success:function(resp){
 				data = JSON.parse(resp);
-				$("#" + selector).val(data.qty);
-
-				if (data.qty == 0){
-					$("#btnSimpan").attr("disabled",true);
-				} else {
-					$("#btnSimpan").removeAttr("disabled");
-				}
 			}
 		});
+
+		return data;
 	}
 </script>

@@ -27,7 +27,7 @@
     			},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["treecode"];
+						return row["clone"];
 					}
 				},
 				{
@@ -37,7 +37,7 @@
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["block"];
+						return row["treecode"];
 					}
 				},
 				{
@@ -47,7 +47,7 @@
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["clone"];
+						return row["block"];
 					}
 				},
 				{

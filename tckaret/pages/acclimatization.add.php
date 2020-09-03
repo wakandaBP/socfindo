@@ -9,17 +9,19 @@
 			<div class="body" id="form-data" style="padding: 2% 5% 2% 5%";>
 				<fieldset>
 					<div class="row clearfix">
-						<div class="col-sm-6">
+						<div class="col-sm-8">
 							<h6>Parent In Vitro *</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<select id="parent_invitro" class="form-control useselect2 parent_form" required>
+									<select id="parent_invitro" class="form-control useselect2 parent_form parent_invitro" required>
 										<option value="">Choose Parent</option>
 										
 									</select>
 								</div>
 							</div>
 						</div>
+					</div>
+					<div class="row clearfix">
 						<div class="col-sm-3">
 							<h6>End Date *</h6>
 							<div class="input-group">
@@ -36,6 +38,14 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-sm-2" style="text-align: center;">
+							<h6>Deactivated</h6>
+							<div class="input-group">
+								<div>
+									<input type="checkbox" class="form-control parent_form" id="deactivated">
+								</div>
+							</div>
+						</div>
 					</div>
 					<div style="text-align: left;"><button id="btnAddtoList" class="btn btn-primary">Add to List</button></div>
 					<br />
@@ -49,6 +59,7 @@
 									<th class="text-center">Base SE</th>
 									<th class="text-center">Invitro End</th>
 									<th class="text-center">Quantity</th>
+									<th class="text-center">Deactivated</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -63,12 +74,21 @@
 					<!-- <legend>Data</legend> -->
 					<div class="row clearfix">
 						<div class="col-sm-4">
-							<h6>Plantation *</h6>
+							<h6>Region *</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<select id="plantation" class="form-control useselect2" >
-										<option value="">Choose Plantation</option>
-										
+									<select id="region" class="form-control useselect2" >
+										<option value="">Choose Region</option>
+										<?php 
+											$region = new Database("SELECT id, name FROM karet_plantation_region
+														WHERE isactive = ?",array(1));
+
+											foreach ($region::$result as $key => $value) {
+										?>
+											<option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option>
+										<?php
+											}
+										?>
 									</select>
 								</div>
 							</div>
@@ -79,7 +99,16 @@
 								<div class="form-line">
 									<select id="supplier" class="form-control useselect2" >
 										<option value="">Choose Supplier</option>
-										
+										<?php 
+											$supplier = new Database("SELECT id, name FROM karet_supplier
+														WHERE isactive = ?",array(1));
+
+											foreach ($supplier::$result as $key => $value) {
+										?>
+											<option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option>
+										<?php
+											}
+										?>
 									</select>
 								</div>
 							</div>

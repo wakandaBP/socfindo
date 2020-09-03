@@ -9,11 +9,11 @@
 			<div class="body" id="form-data" style="padding: 2% 5% 2% 5%";>
 				<fieldset>
 					<div class="row clearfix">
-						<div class="col-sm-4">
+						<div class="col-sm-12">
 							<h6>Parent In Vitro *</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<select id="parent_invitro" class="form-control useselect2 parent_form" required>
+									<select id="parent_invitro" class="form-control useselect2 parent_form parent_invitro" required>
 										<option value="">Choose Parent</option>
 										
 									</select>
@@ -25,22 +25,6 @@
 							<div class="input-group">
 								<div class="form-line">
 									<input type="date" class="form-control parent_form" required id="end_date">
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<h6>Quantity *</h6>
-							<div class="input-group">
-								<div class="form-line">
-									<input type="number" class="form-control numberonly parent_form" required id="quantity" value="0">
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-2">
-							<h6>Deactivated</h6>
-							<div class="input-group">
-								<div class="" style="margin-left: -40%;">
-									<input type="checkbox" class="form-control parent_form" id="deactivated">
 								</div>
 							</div>
 						</div>
@@ -60,7 +44,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-2">
+						<div class="col-sm-3">
 							<h6>Contaminated</h6>
 							<div class="input-group">
 								<div class="form-line">
@@ -68,7 +52,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-2">
+						<div class="col-sm-3">
 							<h6>New Shoots for R</h6>
 							<div class="input-group">
 								<div class="form-line">
@@ -76,11 +60,27 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-2">
+						<div class="col-sm-3">
 							<h6>New Shoots on M</h6>
 							<div class="input-group">
 								<div class="form-line">
 									<input type="number" class="form-control numberonly parent_form" id="new_shoots_on_m" value="0">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3" style="text-align: center;">
+							<h6>Deactivated</h6>
+							<div class="input-group">
+								<div>
+									<input type="checkbox" class="form-control parent_form" id="deactivated">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<h6>Quantity *</h6>
+							<div class="input-group">
+								<div class="form-line">
+									<input type="number" class="form-control numberonly parent_form" required id="quantity" value="0">
 								</div>
 							</div>
 						</div>

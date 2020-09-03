@@ -3,10 +3,10 @@
 	$(function(){
 		id = '<?php echo ($_GET['last']!='')?$_GET['last']:''; ?>';
 
-		var invitroList = $("#list-invitro").DataTable({
+		var invitroList = $("#list-acclimatization").DataTable({
 
 			"ajax":{
-				"url": hostname + "/api/loader.invitro.php",
+				"url": hostname + "/api/loader.acclimatization.php",
 				"data":{
 					id:id
 				},
@@ -46,52 +46,52 @@
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
+						return row["region"];
+					}
+				},
+				{
+					"data" : null, render: function(data, type, row, meta) {
 						return row["start_date"];
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["medium_name"];
+						return row["green_house_number"];
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["recipient_name"];
+						return row["qty_received"];
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["number_of_plants"];
+						return row["qty_rejected"];
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["number_of_alive"];
+						return row["qty_at_end"];
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["number_of_dead"];
+						return row["plantation_arrival_date"];
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["number_of_contaminated"];
+						return row["supplier"];
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["new_shoots_for_r"];
+						return row["country_arrival_date"];
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["new_shoots_on_m"];
-					}
-				},
-				{
-					"data" : null, render: function(data, type, row, meta) {
-						return row["laminar_flow_name"];
+						return row["date_of_shipment"];
 					}
 				},
 				{

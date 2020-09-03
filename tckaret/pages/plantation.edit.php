@@ -16,7 +16,7 @@ try {
 					<fieldset>
 						<legend>Data</legend>
 						<div class="row clearfix">
-							<div class="col-sm-12">
+							<div class="col-sm-6">
 								<h6>Name *</h6>
 								<div class="input-group">
 									<div class="form-line">
@@ -24,6 +24,30 @@ try {
 									</div>
 								</div>
 							</div>
+							<div class="col-sm-6">
+								<h6>Region *</h6>
+								<div class="input-group">
+									<div class="form-line">
+										<select id="region" class="form-control useselect2" required>
+											<option value="">Choose Region</option>
+											<?php 
+												$region = new Database("SELECT id, name FROM karet_plantation_region
+															WHERE isactive = ?",array(1));
+
+												foreach ($region::$result as $key => $items) {
+													$select = "";
+													if ($items['id'] == $value['region']){
+														$select = "selected"; 
+													}
+											?>
+												<option value="<?= $items['id'];?>" <?= $select ?> ><?= $items['name'];?></option>
+											<?php
+												}
+											?>
+										</select>
+									</div>
+								</div>
+						</div>
 						</div>
 						<div class="row clearfix">
 							<div class="col-sm-12">

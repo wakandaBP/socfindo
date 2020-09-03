@@ -7,15 +7,17 @@
 
 		$("#btnSimpan").click(function(){
 			var name = $("#name").val();
+			var region = $("#region").val();
 			var description = $("#description").val();
 
-			if(name != ""){
+			if(name != "" && region != ""){
 				$.ajax({
 					url: hostname + "/action.php",
 					type: "POST",
 					data: {
 						action:"add-plantation",
 						name:name,
+						region:region,
 						description:description
 					},
 					success:function(resp){

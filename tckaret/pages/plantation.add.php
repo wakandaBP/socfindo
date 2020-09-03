@@ -11,11 +11,31 @@
 				<fieldset>
 					<legend>Data</legend>
 					<div class="row clearfix">
-						<div class="col-sm-12">
+						<div class="col-sm-6">
 							<h6>Name *</h6>
 							<div class="input-group">
 								<div class="form-line">
 									<input type="text" class="form-control" id="name">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<h6>Region *</h6>
+							<div class="input-group">
+								<div class="form-line">
+									<select id="region" class="form-control useselect2" required>
+										<option value="">Choose Region</option>
+										<?php 
+											$region = new Database("SELECT id, name FROM karet_plantation_region
+														WHERE isactive = ?",array(1));
+
+											foreach ($region::$result as $key => $value) {
+										?>
+											<option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option>
+										<?php
+											}
+										?>
+									</select>
 								</div>
 							</div>
 						</div>

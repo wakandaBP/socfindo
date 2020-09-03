@@ -3,25 +3,23 @@
 		<div class="card">
 			<div class="header bg-cyan">
 				<h5 style="" >
-					Plantation List
+					Region List
 				</h5>
 				<ul class="header-dropdown" style="">
 					<li>
-						<a href="<?php echo $tckaret;?>/plantation.add">
+						<a href="<?php echo $tckaret;?>/region.add">
 							<i class="material-icons">add</i>
 						</a>
 					</li>
 				</ul>
 			</div>
 			<div class="body">
-				<table class="table table-bordered table-striped dataTable" id="list-plantation">
+				<table class="table table-bordered table-striped dataTable" id="list-region">
 					<thead>
 						<tr>
-							<th width="30px" class="text-center">No</th>
+							<th width="5%" class="text-center">No</th>
 							<th width="200px" class="text-center">Name</th>
-							<th width="200px" class="text-center">Region</th>
-							<th width="" class="text-center">Description</th>
-							<th width="150px" class="text-center">Action</th>
+							<th width="20px" class="text-center">Action</th>
 						</tr>
 					</thead>
 					<tbody>

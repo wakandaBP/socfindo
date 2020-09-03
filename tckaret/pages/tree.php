@@ -18,11 +18,11 @@
 					<thead>
 						<tr>
 							<th width="30px" class="text-center">No</th>
-							<th class="text-center">Tree Code</th>
-							<th class="text-center">Plantation</th>
-							<th class="text-center">Block</th>
-							<th class="text-center">Year of Planting</th>
 							<th class="text-center">Clone</th>
+							<th class="text-center">Plantation</th>
+							<th class="text-center">Tree Code</th>
+							<th class="text-center">Year of Planting</th>
+							<th class="text-center">Block</th>
 							<th class="text-center">Line</th>
 							<th class="text-center">GPS</th>
 							<th class="text-center">Certified</th>

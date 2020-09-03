@@ -6,30 +6,26 @@
 
 		$("#btnSimpan").click(function(){
 			var name = $("#name").val();
-			var region = $("#region").val();
-			var description = $("#description").val();
 
-			if(name != "" && region != ""){
+			if(name != ""){
 				//$("#tambah-worker").reset();
 				$.ajax({
 					url: hostname + "/action.php",
 					type: "POST",
 					data: {
-						action:"update-plantation",
+						action:"update-supplier",
 						name:name,
-						region:region,
-						description:description,
 						id:<?php echo $page[1];?>
 					},
 					success:function(resp){
 						data = JSON.parse(resp);
 
 						if(parseInt(data['rowcount']) > 0){
-							alert("Plantation has been updated!");
-                            location.href = hostname + "/plantation?last="+data['id'];
+							alert("Region has been updated!");
+                            location.href = hostname + "/supplier?last="+data['id'];
                         }
                         else{
-                            alert("Plantation cant be updated!");
+                            alert("Region cant be updated!");
                         }
 					}
 				})

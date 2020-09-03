@@ -74,7 +74,7 @@
 									<th class="text-center">Unique Code</th>
 									<th class="text-center">Mother Embryo</th>
 									<th class="text-center">Deactivated</th>
-									<th class="text-center">Plantation</th>
+									<th class="text-center">Region</th>
 									<th class="text-center">Start Date</th>
 									<th class="text-center">Green House Number</th>
 									<th class="text-center">Quantity Received</th>
@@ -83,7 +83,6 @@
 									<th class="text-center">Plantation Arrival Date</th>
 									<th class="text-center">Supplier</th>
 									<th class="text-center">Country Arrival Date</th>
-									<th class="text-center">New Shoots on M</th>
 									<th class="text-center">Date of Shipment</th>
 									<th class="text-center">Action</th>
 								</tr>

@@ -29,6 +29,30 @@ try {
 										</div>
 									</div>
 								</div>
+								<div class="row clearfix">
+									<div class="col-sm-3 form-control-label">
+										<label>SE :*</label>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<div class="form-line">
+												<input type="text" name="se" class="form-control" value="" id="se" required>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row clearfix">
+									<div class="col-sm-3 form-control-label">
+										<label>Deactivated:</label>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<div class="">
+												<input type="checkbox" name="" class="form-control" value="" id="deactive">
+											</div>
+										</div>
+									</div>
+								</div>
 								<div class="col-sm-6">
 									<h6>Leaf Sample for Identification * </h6>
 									<div class="input-group">
