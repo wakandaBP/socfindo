@@ -9,18 +9,20 @@
 			<div class="body" id="form-data" style="padding: 2% 5% 2% 5%";>
 				<fieldset>
 					<div class="row clearfix">
-						<div class="col-sm-6">
+						<div class="col-sm-10">
 							<h6>Parent Nursery *</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<select id="parent_invitro" class="form-control useselect2 parent_form" required>
+									<select id="parent_nursery" class="form-control useselect2 parent_form parent_nursery" required>
 										<option value="">Choose Parent</option>
 										
 									</select>
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-3">
+					</div>
+					<div class="row clearfix">
+						<div class="col-sm-2">
 							<h6>End Date *</h6>
 							<div class="input-group">
 								<div class="form-line">
@@ -28,11 +30,35 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-3">
-							<h6>Quantity *</h6>
+						<div class="col-sm-2">
+							<h6>Quantity Start</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<input type="number" class="form-control numberonly parent_form" required id="quantity" value="0">
+									<input type="text" class="form-control" disabled  id="quantity_start" value="0">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<h6>Quantity Remaining</h6>
+							<div class="input-group">
+								<div class="form-line">
+									<input type="text" class="form-control" disabled id="quantity_remaining" value="0">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<h6>Quantity Used *</h6>
+							<div class="input-group">
+								<div class="form-line">
+									<input type="number" class="form-control numberonly parent_form" min="0" required id="quantity_used" value="0">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-2" style="text-align: center;">
+							<h6>Deactivated</h6>
+							<div class="input-group">
+								<div class="" style="">
+									<input <?php echo ("TRUE" == $data['deactivated']) ? 'checked' : ''; ?> type="checkbox" class="form-control parent_form" id="deactivated">
 								</div>
 							</div>
 						</div>
@@ -48,7 +74,10 @@
 									<th class="text-center">Unique Code</th>
 									<th class="text-center">Base SE</th>
 									<th class="text-center">Nursery Ending</th>
-									<th class="text-center">Quantity</th>
+									<th class="text-center">Quantity Start</th>
+									<th class="text-center">Quantity Remaining</th>
+									<th class="text-center">Quantity Used</th>
+									<th class="text-center">Deactivated</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -58,7 +87,7 @@
 					</div>
 				</fieldset>
 </form>
-<form id="add-plantation-field">
+<form id="add-budwood">
 				<fieldset>
 					<!-- <legend>Data</legend> -->
 					<div class="row clearfix">
@@ -67,8 +96,20 @@
 							<div class="input-group">
 								<div class="form-line">
 									<select class="form-control useselect2" id="block" required>
-										<option value="">Choose Panel</option>
-										
+										<option value="">Choose Block</option>
+										<?php 
+											$block = new Database("SELECT a.id, a.blocknumber, b.name as plantation, 
+														c.name as region FROM karet_plantation_block a 
+														JOIN karet_plantation b ON b.id = a.idplantation
+														JOIN karet_plantation_region c ON c.id = b.region
+														WHERE a.isactive = ?", array(1));
+
+												foreach ($block::$result as $key => $value) {
+										?>
+											<option value="<?php echo $value['id'];?>"><?php echo $value['blocknumber'];?> ;  <?= $value['plantation'] ?> ;  <?= $value['region'] ?></option>
+										<?php
+											}
+										?>
 									</select>
 								</div>
 							</div>
@@ -77,7 +118,7 @@
 							<h6>Planting Date *</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<input type="date" class="form-control" id="planting_date">
+									<input type="date" class="form-control" id="planting_date" required>
 								</div>
 							</div>
 						</div>

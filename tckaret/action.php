@@ -3267,6 +3267,318 @@
 				echo $query1::$rowCount;
 				break;
 
+			/*--------------------- BUDWOOD GARDEN ------------------------*/
+			case 'add-budwood':
+				//GET embryocode
+				$getcodeSE = "";
+				$getMotherplant = "";
+				foreach ($_POST['dataParent'] as $key => $value) {
+					$codese = new Database("SELECT * FROM karet_exvitro_nursery WHERE id = ?", array($value["id"]));
+					$getcodeSE = explode("_", $codese::$result[0]["unique_code"]);
+					$getMotherplant = $codese::$result[0]['motherplant_id'];
+					if ($getcodeSE != "" && $getMotherplant != "") { 
+						break; 
+					}
+				}
+				
+				//GET nextcode
+				$code = new Database("SELECT MAX(id) max_id FROM karet_exvitro_budwood_garden");
+				$nextcode = ($code::$rowCount > 0) ? intval($code::$result[0]["max_id"]) + 1 : 1;
+
+				$timestamp = timeStamp();
+
+				$query = new Database("INSERT INTO karet_exvitro_budwood_garden (
+						unique_code
+						,qty_planted
+						,block
+						,planting_date
+						,motherplant_id
+						,created_at
+						,updated_at
+						)
+						VALUES (
+						?, ?, ?, ?,
+						?, ?, ?
+						)"
+					, array(
+						$getcodeSE[0] . "_B_" . str_pad($nextcode, 6, "0", STR_PAD_LEFT),
+						$_POST['qty_planted'],
+						$_POST['block'],
+						$_POST['planting_date'],
+						$getMotherplant,
+						$timestamp,
+						$timestamp
+					)
+				);
+
+				$setID = $query::$lastInsertId;
+				$rowCount = intval($query::$rowCount);
+
+				if ($query::$rowCount > 0){
+					$updateParentCount = 0;
+					$parentChildCount = 0;
+					foreach ($_POST['dataParent'] as $key => $value) {
+						$updateParent = new Database("UPDATE karet_exvitro_nursery SET 
+							end_date = ?,
+							deactivated = ?,
+							qty_remaining = ?,
+							updated_at = ?
+							WHERE id = ?"
+							,array(
+								$value['end_date'],
+								$value['deactivated'],
+								$value['qty_remaining'],
+								$timestamp,
+								$value['id']
+							)
+						);
+						
+						if ($updateParent::$rowCount > 0){
+							$updateParentCount += $updateParent::$rowCount;
+						}
+
+						$parentTable = new Database("INSERT INTO 
+							karet_exvitro_budwood_garden_parent_child (
+									parent,
+									child,
+									created_at,
+									updated_at)
+									VALUES (?,?,?,?)"
+								,array(
+									$value['id'],
+									$setID,
+									$timestamp,
+									$timestamp
+							)	
+						);
+
+						if ($parentTable::$rowCount > 0){
+							$parentChildCount += $parentTable::$rowCount;
+						}
+						//}
+					}
+
+						$result = array("id"=>$setID,"rowcount"=>$rowCount);
+
+						if ($parentTable::$rowCount > 0){
+							$result["parent_update"] = $updateParentCount;
+							$result["parent_table"] = $parentChildCount;
+						}
+
+				} else {
+					$result = $query::$result;
+				}
+
+				print_r(json_encode($result));
+
+				break;
+
+			case 'update-budwood':
+				$timestamp = timeStamp();
+
+				$quantityStands = NULL;
+				if ($_POST['qty_stands'] != ''){
+					$quantityStands = $_POST['qty_stands'];
+				}
+
+				$quantityRejected = NULL;
+				if ($_POST['qty_rejected'] != ''){
+					$quantityRejected = $_POST['qty_rejected'];
+				}
+
+				$query = new Database("UPDATE karet_exvitro_budwood_garden SET
+						block = ?
+						,planting_date = ?
+						,qty_planted = ?
+						,qty_stands = ?
+						,qty_rejected = ?
+						,updated_at = ?
+						WHERE id = ?"
+						, array(
+							$_POST['block'],
+							$_POST['planting_date'],
+							$_POST['qty_planted'],
+							$quantityStands,
+							$quantityRejected,
+							$timestamp,
+							$_POST['selectedID']
+						)
+					);
+
+				if ($query::$rowCount > 0){
+					$result = array("id"=>$_POST['selectedID'],"rowcount"=>intval($query::$rowCount));
+				} else {
+					$result = $query::$result;
+				}
+
+				print_r(json_encode($result));
+				break;
+
+			case "delete-budwood":
+				$timestamp = timeStamp();
+				
+				$query1 = new Database("UPDATE karet_exvitro_nursery SET deleted_at = ? WHERE id = ?",array($timestamp, $_POST['id']));
+
+				echo $query1::$rowCount;
+				break;
+
+			/*--------------------- ROOTING GREEN HOUSE ------------------------*/
+			case 'add-rooting':
+				//GET embryocode
+				$getcodeSE = "";
+				$getMotherplant = "";
+				foreach ($_POST['dataParent'] as $key => $value) {
+					$codese = new Database("SELECT * FROM karet_exvitro_stock_cutting WHERE id = ?", array($value["id"]));
+					$getcodeSE = explode("_", $codese::$result[0]["unique_code"]);
+					$getMotherplant = $codese::$result[0]['motherplant_id'];
+					if ($getcodeSE != "" && $getMotherplant != "") { 
+						break; 
+					}
+				}
+				
+				//GET nextcode
+				$code = new Database("SELECT MAX(id) max_id FROM karet_exvitro_rooting_green_house");
+				$nextcode = ($code::$rowCount > 0) ? intval($code::$result[0]["max_id"]) + 1 : 1;
+
+				$timestamp = timeStamp();
+
+				$query = new Database("INSERT INTO karet_exvitro_rooting_green_house (
+						unique_code
+						,deactivated
+						,start_date
+						,qty_at_start
+						,qty_remaining
+						,motherplant_id
+						,created_at
+						,updated_at
+						)
+						VALUES (
+						?, ?, ?, ?,
+						?, ?, ?, ?
+						)"
+					, array(
+						$getcodeSE[0] . "_R_" . str_pad($nextcode, 6, "0", STR_PAD_LEFT),
+						'FALSE',
+						$_POST['start_date'],
+						$_POST['qty_received'],
+						$_POST['qty_received'],
+						$getMotherplant,
+						$timestamp,
+						$timestamp
+					)
+				);
+
+				$setID = $query::$lastInsertId;
+				$rowCount = intval($query::$rowCount);
+
+				if ($query::$rowCount > 0){
+					$updateParentCount = 0;
+					$parentChildCount = 0;
+					foreach ($_POST['dataParent'] as $key => $value) {
+						$updateParent = new Database("UPDATE karet_exvitro_stock_cutting SET 
+							end_date = ?,
+							deactivated = ?,
+							qty_remaining = ?,
+							updated_at = ?
+							WHERE id = ?"
+							,array(
+								$value['end_date'],
+								$value['deactivated'],
+								$value['qty_remaining'],
+								$timestamp,
+								$value['id']
+							)
+						);
+						
+						if ($updateParent::$rowCount > 0){
+							$updateParentCount += $updateParent::$rowCount;
+						}
+
+						$parentTable = new Database("INSERT INTO 
+							karet_exvitro_rooting_green_house_parent_child (
+									parent,
+									child,
+									created_at,
+									updated_at)
+									VALUES (?,?,?,?)"
+								,array(
+									$value['id'],
+									$setID,
+									$timestamp,
+									$timestamp
+							)	
+						);
+
+						if ($parentTable::$rowCount > 0){
+							$parentChildCount += $parentTable::$rowCount;
+						}
+						//}
+					}
+
+						$result = array("id"=>$setID,"rowcount"=>$rowCount);
+
+						if ($parentTable::$rowCount > 0){
+							$result["parent_update"] = $updateParentCount;
+							$result["parent_table"] = $parentChildCount;
+						}
+
+				} else {
+					$result = $query::$result;
+				}
+
+				print_r(json_encode($result));
+
+				break;
+
+			case 'update-rooting':
+				$timestamp = timeStamp();
+
+				$quantityStands = NULL;
+				if ($_POST['qty_stands'] != ''){
+					$quantityStands = $_POST['qty_stands'];
+				}
+
+				$quantityRejected = NULL;
+				if ($_POST['qty_rejected'] != ''){
+					$quantityRejected = $_POST['qty_rejected'];
+				}
+
+				$query = new Database("UPDATE karet_exvitro_budwood_garden SET
+						block = ?
+						,planting_date = ?
+						,qty_planted = ?
+						,qty_stands = ?
+						,qty_rejected = ?
+						,updated_at = ?
+						WHERE id = ?"
+						, array(
+							$_POST['block'],
+							$_POST['planting_date'],
+							$_POST['qty_planted'],
+							$quantityStands,
+							$quantityRejected,
+							$timestamp,
+							$_POST['selectedID']
+						)
+					);
+
+				if ($query::$rowCount > 0){
+					$result = array("id"=>$_POST['selectedID'],"rowcount"=>intval($query::$rowCount));
+				} else {
+					$result = $query::$result;
+				}
+				
+				print_r(json_encode($result));
+				break;
+
+			case "delete-rooting":
+				$timestamp = timeStamp();
+				
+				$query1 = new Database("UPDATE karet_exvitro_nursery SET deleted_at = ? WHERE id = ?",array($timestamp, $_POST['id']));
+
+				echo $query1::$rowCount;
+				break;
+
 			default:
 				# code...
 			break;
