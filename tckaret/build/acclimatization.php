@@ -3,7 +3,7 @@
 	$(function(){
 		id = '<?php echo ($_GET['last']!='')?$_GET['last']:''; ?>';
 
-		var invitroList = $("#list-acclimatization").DataTable({
+		var acclimatizationList = $("#list-acclimatization").DataTable({
 
 			"ajax":{
 				"url": hostname + "/api/loader.acclimatization.php",
@@ -115,19 +115,20 @@
 			var nama = $(this).data("name");
 			id = id[id.length - 1];
 
-			var conf = confirm("Delete In Vitro : " + nama + " ?");
+			var conf = confirm("Delete Acclimatization : " + nama + " ?");
 			if(conf){
-				/*$.ajax({
+				$.ajax({
 					url:hostname + "/action.php",
 					type:"POST",
 					data:{
-						action:"delete-clone",
+						action:"delete-acclimatization",
 						id:id
 					},
 					success:function(resp){
-						RefreshData("#list-clone", hostname + "/api/loader.clone.php");
+						acclimatizationList.ajax.reload();
+						//RefreshData("#list-clone", hostname + "/api/loader.acclimatization.php");
 					}
-				});*/
+				});
 			}
 			return false;
 		});

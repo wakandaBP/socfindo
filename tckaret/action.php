@@ -2592,6 +2592,14 @@
 
 				break;
 
+			case "delete-invitro":
+				$timestamp = timeStamp();
+				
+				$query1 = new Database("UPDATE karet_invitro SET deleted_at = ? WHERE id = ?",array($timestamp, $_POST['id']));
+
+				echo $query1::$rowCount;
+				break;
+
 			/*------------------- ACCLIMATIZATION ------------------*/
 			case "add-acclimatization":
 				
@@ -2756,6 +2764,14 @@
 
 				print_r(json_encode($result));
 
+				break;
+
+			case "delete-acclimatization":
+				$timestamp = timeStamp();
+				
+				$query1 = new Database("UPDATE karet_acclimatization SET deleted_at = ? WHERE id = ?",array($timestamp, $_POST['id']));
+
+				echo $query1::$rowCount;
 				break;
 
 			default:

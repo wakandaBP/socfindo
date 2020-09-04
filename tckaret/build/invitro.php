@@ -115,19 +115,20 @@
 			var nama = $(this).data("name");
 			id = id[id.length - 1];
 
-			var conf = confirm("Delete In Vitro : " + nama + " ?");
+			var conf = confirm("Delete Acclimatization : " + nama + " ?");
 			if(conf){
-				/*$.ajax({
+				$.ajax({
 					url:hostname + "/action.php",
 					type:"POST",
 					data:{
-						action:"delete-clone",
+						action:"delete-invitro",
 						id:id
 					},
 					success:function(resp){
-						RefreshData("#list-clone", hostname + "/api/loader.clone.php");
+						invitroList.ajax.reload();
+						//RefreshData("#list-clone", hostname + "/api/loader.acclimatization.php");
 					}
-				});*/
+				});
 			}
 			return false;
 		});
