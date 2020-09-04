@@ -2716,6 +2716,48 @@
 
 				break;
 
+			case 'update-acclimatization':
+				$timestamp = timeStamp();
+
+				$query = new Database("UPDATE karet_acclimatization SET
+						deactivated = ?,
+						country_arrival_date = ?,
+						supplier = ?,
+						date_of_shipment = ?,
+						plantation_arrival_date = ?,
+						start_date = ?,
+						green_house_number = ?,
+						qty_received = ?,
+						qty_rejected = ?,
+						qty_at_end = ?,
+						updated_at = ?
+						WHERE id = ?"
+						, array(
+							$_POST['deactivated'],
+							$_POST['country_arrival_date'],
+							$_POST['supplier'],
+							$_POST['date_of_shipment'],
+							$_POST['plantation_arrival_date'],
+							$_POST['start_date'],
+							$_POST['green_house_number'],
+							$_POST['quantity_received'],
+							$_POST['quantity_rejected'],
+							$_POST['quantity_at_end'],
+							$timestamp,
+							$_POST['selectedID']
+						)
+					);
+
+				if ($query::$rowCount > 0){
+					$result = array("id"=>$_POST['selectedID'],"rowcount"=>intval($query::$rowCount));
+				} else {
+					$result = $query::$result;
+				}
+
+				print_r(json_encode($result));
+
+				break;
+
 			default:
 				# code...
 			break;

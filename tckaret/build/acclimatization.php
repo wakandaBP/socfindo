@@ -98,7 +98,7 @@
 					"data" : null, render: function(data, type, row, meta) {
 						//return "";
 						return "<div style='text-align:center;' class='"+ row['last_updated'] +"'>" + 
-								"<a href=\"" + hostname + "/invitro.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" data-toggle='tooltip' title='Edit'><i class=\"material-icons\">edit</i></a>" + 
+								"<a href=\"" + hostname + "/acclimatization.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" data-toggle='tooltip' title='Edit'><i class=\"material-icons\">edit</i></a>" + 
 								" | <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete_" + row["id"] + "\" data-name=\"" + row["unique_code"] + "\" data-toggle='tooltip' title='Delete'><i class=\"material-icons\">delete_outline</i></button></div>";
 					}
 				}
