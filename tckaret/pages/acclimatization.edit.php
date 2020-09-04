@@ -5,7 +5,7 @@ try {
 		[id]
 		,[unique_code]
 		,[deactivated]
-		,[region]
+		,[plantation]
 		,[country_arrival_date]
 		,[supplier]
 		,[date_of_shipment]
@@ -15,6 +15,7 @@ try {
 		,[qty_received]
 		,[qty_rejected]
 		,[qty_at_end]
+		,[dead_plant]
 		,[motherplant_id]
 		FROM karet_acclimatization 
 		WHERE id = ? AND deleted_at IS NULL", array($page[1]));
@@ -125,7 +126,7 @@ try {
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-3">
 							<h6>Quantity Rejected *</h6>
 							<div class="input-group">
 								<div class="form-line">
@@ -133,18 +134,26 @@ try {
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-4">
-							<h6>Quantity At End *</h6>
+						<div class="col-sm-3">
+							<h6>Quantity At End </h6>
 							<div class="input-group">
 								<div class="form-line">
-									<input type="number" class="form-control" required id="quantity_at_end" value="<?= ($data['qty_at_end'] == NULL) ? 0 : $data['qty_at_end'] ?>">
+									<input type="number" class="form-control" id="quantity_at_end" value="<?= ($data['qty_at_end'] == NULL) ? 0 : $data['qty_at_end'] ?>">
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-2">
+						<div class="col-sm-3">
+							<h6>Dead Plant </h6>
+							<div class="input-group">
+								<div class="form-line">
+									<input type="number" class="form-control numberonly" id="dead_plant" value="<?= $data['dead_plant'] ?>">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3" style="text-align: center;">
 							<h6>Deactivated</h6>
 							<div class="input-group">
-								<div class="" style="margin-left: -40%;">
+								<div class="" style="">
 									<input <?php echo ("TRUE" == $data['deactivated']) ? 'checked' : ''; ?> type="checkbox" class="form-control parent_form" id="deactivated">
 								</div>
 							</div>

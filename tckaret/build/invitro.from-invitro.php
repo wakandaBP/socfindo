@@ -128,14 +128,14 @@
 						console.log(resp);
 						data = JSON.parse(resp);
 
-						console.log(data);
-						/*if(parseInt(data['rowcount']) > 0){
+						//console.log(data);
+						if(parseInt(data['rowcount']) > 0){
 							alert("In Vitro has added!");
 	                        location.href = hostname + "/invitro?last=" + data['id'];
 	                    }
 	                    else{
 	                        alert("In Vitro cant be added!");
-	                    }*/
+	                    }
 					},
 					error: function(response) {
 						console.log("Error : ");

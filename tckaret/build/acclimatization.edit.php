@@ -11,8 +11,10 @@
 			let green_house_number = $("#green_house_number").val();
 			let quantity_received = $("#quantity_received").val();
 			let quantity_rejected = $("#quantity_rejected").val();
-			let quantity_at_end = $("#quantity_at_end").val()
+			let quantity_at_end = $("#quantity_at_end").val();
+			let dead_plant = $("#dead_plant").val();
 			let deactivated = ($("#deactivated").is(":checked")) ? "TRUE" : "FALSE";
+			console.log(dead_plant);
 
 			$.ajax({
 				url: hostname + "/action.php",
@@ -29,6 +31,7 @@
 					quantity_received: quantity_received,
 					quantity_rejected: quantity_rejected,
 					quantity_at_end: quantity_at_end,
+					dead_plant: dead_plant,
 					deactivated: deactivated
 				},
 				success:function(resp){

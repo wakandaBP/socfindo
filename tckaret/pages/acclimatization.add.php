@@ -9,7 +9,7 @@
 			<div class="body" id="form-data" style="padding: 2% 5% 2% 5%";>
 				<fieldset>
 					<div class="row clearfix">
-						<div class="col-sm-8">
+						<div class="col-sm-10">
 							<h6>Parent In Vitro *</h6>
 							<div class="input-group">
 								<div class="form-line">
@@ -22,7 +22,7 @@
 						</div>
 					</div>
 					<div class="row clearfix">
-						<div class="col-sm-3">
+						<div class="col-sm-2">
 							<h6>End Date *</h6>
 							<div class="input-group">
 								<div class="form-line">
@@ -30,11 +30,27 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-3">
-							<h6>Quantity *</h6>
+						<div class="col-sm-2">
+							<h6>Quantity Start</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<input type="number" class="form-control numberonly parent_form" required id="quantity" value="0">
+									<input type="text" class="form-control" disabled  id="quantity_start" value="0">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<h6>Quantity Remaining</h6>
+							<div class="input-group">
+								<div class="form-line">
+									<input type="text" class="form-control" disabled id="quantity_remaining" value="0">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<h6>Quantity Used *</h6>
+							<div class="input-group">
+								<div class="form-line">
+									<input type="number" class="form-control numberonly parent_form" min="0" required id="quantity_used" value="0">
 								</div>
 							</div>
 						</div>
@@ -58,7 +74,9 @@
 									<th class="text-center">Unique Code</th>
 									<th class="text-center">Base SE</th>
 									<th class="text-center">Invitro End</th>
-									<th class="text-center">Quantity</th>
+									<th class="text-center">Quantity Start</th>
+									<th class="text-center">Quantity Remaining</th>
+									<th class="text-center">Quantity Used</th>
 									<th class="text-center">Deactivated</th>
 								</tr>
 							</thead>
@@ -74,18 +92,24 @@
 					<!-- <legend>Data</legend> -->
 					<div class="row clearfix">
 						<div class="col-sm-4">
-							<h6>Region *</h6>
+							<h6>Plantation *</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<select id="region" class="form-control useselect2" >
-										<option value="">Choose Region</option>
+									<select id="plantation" class="form-control useselect2 plantation" >
+										<option value="">Choose Plantation</option>
 										<?php 
-											$region = new Database("SELECT id, name FROM karet_plantation_region
-														WHERE isactive = ?",array(1));
+											$plantation = new Database("SELECT a.id
+												,a.name as plantation
+												,a.description
+												,a.region as id_region
+												,b.name as region
+												FROM karet_plantation a
+												JOIN karet_plantation_region b ON b.id = a.region 
+											    WHERE a.isactive = ?",array(1));
 
-											foreach ($region::$result as $key => $value) {
+											foreach ($plantation::$result as $key => $value) {
 										?>
-											<option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option>
+											<option value="<?php echo $value['id'];?>"><?= $value['region'] ?>; &nbsp;<?= $value['plantation'];?></option>
 										<?php
 											}
 										?>
@@ -141,7 +165,7 @@
 							<h6>Start Date *</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<input type="date" class="form-control" id="start_date">
+									<input type="date" class="form-control" id="start_date" required>
 								</div>
 							</div>
 						</div>
@@ -170,10 +194,10 @@
 							</div>
 						</div>
 						<div class="col-sm-4">
-							<h6>Quantity At End *</h6>
+							<h6>Quantity At End </h6>
 							<div class="input-group">
 								<div class="form-line">
-									<input type="number" class="form-control" required id="quantity_at_end" value="0">
+									<input type="number" class="form-control" id="quantity_at_end" value="0">
 								</div>
 							</div>
 						</div>

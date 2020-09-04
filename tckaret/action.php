@@ -2624,7 +2624,7 @@
 				$query = new Database("INSERT INTO karet_acclimatization (
 						unique_code,
 						deactivated,
-						region,
+						plantation,
 						country_arrival_date,
 						supplier,
 						date_of_shipment,
@@ -2634,18 +2634,19 @@
 						qty_received,
 						qty_rejected,
 						qty_at_end,
+						qty_remaining,
 						motherplant_id,
 						created_at,
 						updated_at)
 						VALUES (
 						?, ?, ?, ?, ?, 
 						?, ?, ?, ?, ?,
-						?, ?, ?, ?, ?
+						?, ?, ?, ?, ?, ?
 						)"
 					, array(
 						$getcodeSE[0] . "_A_" . str_pad($nextcode, 6, "0", STR_PAD_LEFT),
 						"FALSE",
-						$_POST['region'],
+						$_POST['plantation'],
 						$_POST['country_arrival_date'],
 						$_POST['supplier'],
 						$_POST['date_of_shipment'],
@@ -2655,6 +2656,7 @@
 						$_POST['quantity_received'],
 						$_POST['quantity_rejected'],
 						$_POST['quantity_at_end'],
+						$_POST['quantity_received'],
 						$getMotherplant,
 						$timestamp,
 						$timestamp
@@ -2670,13 +2672,13 @@
 						$updateParent = new Database("UPDATE karet_invitro SET 
 							end_date = ?,
 							deactivated = ?,
-							number_of_plants = ?,
+							qty_remaining = ?,
 							updated_at = ?
 							WHERE id = ?"
 							,array(
 								$value['end_date'],
 								$value['deactivated'],
-								$value['qty'],
+								$value['qty_remaining'],
 								$timestamp,
 								$value['id']
 							)
@@ -2690,14 +2692,12 @@
 							karet_acclimatization_parent_child (
 									parent,
 									child,
-									parent_option,
 									created_at,
 									updated_at)
-									VALUES (?,?,?,?,?)"
+									VALUES (?,?,?,?)"
 								,array(
 									$value['id'],
 									$setID,
-									"invitro",
 									$timestamp,
 									$timestamp
 							)	
@@ -2727,6 +2727,11 @@
 			case 'update-acclimatization':
 				$timestamp = timeStamp();
 
+				$deadPlant = NULL;
+				if ($_POST['dead_plant'] != ''){
+					$deadPlant = $_POST['dead_plant'];
+				}
+
 				$query = new Database("UPDATE karet_acclimatization SET
 						deactivated = ?,
 						country_arrival_date = ?,
@@ -2738,6 +2743,7 @@
 						qty_received = ?,
 						qty_rejected = ?,
 						qty_at_end = ?,
+						dead_plant = ?,
 						updated_at = ?
 						WHERE id = ?"
 						, array(
@@ -2751,6 +2757,7 @@
 							$_POST['quantity_received'],
 							$_POST['quantity_rejected'],
 							$_POST['quantity_at_end'],
+							$deadPlant,
 							$timestamp,
 							$_POST['selectedID']
 						)
@@ -2764,6 +2771,157 @@
 
 				print_r(json_encode($result));
 
+				break;
+
+			case "delete-acclimatization":
+				$timestamp = timeStamp();
+				
+				$query1 = new Database("UPDATE karet_acclimatization SET deleted_at = ? WHERE id = ?",array($timestamp, $_POST['id']));
+
+				echo $query1::$rowCount;
+				break;
+
+			/*--------------------- HARDENING ------------------------*/
+			case 'add-hardening':
+				//GET embryocode
+				$getcodeSE = "";
+				$getMotherplant = "";
+				foreach ($_POST['dataParent'] as $key => $value) {
+					$codese = new Database("SELECT * FROM karet_acclimatization WHERE id = ?", array($value["id"]));
+					$getcodeSE = explode("_", $codese::$result[0]["unique_code"]);
+					$getMotherplant = $codese::$result[0]['motherplant_id'];
+					if ($getcodeSE != "" && $getMotherplant != "") { 
+						break; 
+					}
+				}
+				
+				//GET nextcode
+				$code = new Database("SELECT MAX(id) max_id FROM karet_exvitro_hardening");
+				$nextcode = ($code::$rowCount > 0) ? intval($code::$result[0]["max_id"]) + 1 : 1;
+
+				$timestamp = timeStamp();
+
+				$query = new Database("INSERT INTO karet_exvitro_hardening (
+						unique_code
+						,deactivated
+						,qty_at_start
+						,start_date
+						,qty_remaining
+						,motherplant_id
+						,created_at
+						,updated_at
+						)
+						VALUES (
+						?, ?, ?, ?,
+						?, ?, ?, ?
+						)"
+					, array(
+						$getcodeSE[0] . "_H_" . str_pad($nextcode, 6, "0", STR_PAD_LEFT),
+						"FALSE",
+						$_POST['qty_received'],
+						$_POST['start_date'],
+						$_POST['qty_received'],
+						$getMotherplant,
+						$timestamp,
+						$timestamp
+					)
+				);
+
+				$setID = $query::$lastInsertId;
+				$rowCount = intval($query::$rowCount);
+
+				
+				if ($query::$rowCount > 0){
+					$updateParentCount = 0;
+					$parentChildCount = 0;
+					foreach ($_POST['dataParent'] as $key => $value) {
+						$updateParent = new Database("UPDATE karet_acclimatization SET 
+							end_date = ?,
+							deactivated = ?,
+							qty_remaining = ?,
+							updated_at = ?
+							WHERE id = ?"
+							,array(
+								$value['end_date'],
+								$value['deactivated'],
+								$value['qty_remaining'],
+								$timestamp,
+								$value['id']
+							)
+						);
+						
+						if ($updateParent::$rowCount > 0){
+							$updateParentCount += $updateParent::$rowCount;
+						}
+
+						$parentTable = new Database("INSERT INTO 
+							karet_exvitro_hardening_parent_child (
+									parent,
+									child,
+									created_at,
+									updated_at)
+									VALUES (?,?,?,?)"
+								,array(
+									$value['id'],
+									$setID,
+									$timestamp,
+									$timestamp
+							)	
+						);
+
+						if ($parentTable::$rowCount > 0){
+							$parentChildCount += $parentTable::$rowCount;
+						}
+						//}
+					}
+
+						$result = array("id"=>$setID,"rowcount"=>$rowCount);
+
+						if ($parentTable::$rowCount > 0){
+							$result["parent_update"] = $updateParentCount;
+							$result["parent_table"] = $parentChildCount;
+						}
+
+				} else {
+					$result = $query::$result;
+				}
+
+				print_r(json_encode($result));
+
+				break;
+
+			case 'update-hardening':
+				$timestamp = timeStamp();
+
+				$quantityAtEnd = NULL;
+				if ($_POST['quantity_at_end'] != ''){
+					$quantityAtEnd = $_POST['quantity_at_end'];
+				}
+
+				$query = new Database("UPDATE karet_exvitro_hardening SET
+						deactivated = ?
+						,qty_at_start = ?
+						,qty_at_end = ?
+						,start_date = ?
+						,updated_at = ?
+						WHERE id = ?"
+						, array(
+							$_POST['deactivated'],
+							$_POST['quantity_at_start'],
+							$quantityAtEnd,
+							$_POST['start_date'],
+							$timestamp,
+							$_POST['selectedID']
+						)
+					);
+
+				if ($query::$rowCount > 0){
+					$result = array("id"=>$_POST['selectedID'],"rowcount"=>intval($query::$rowCount));
+				} else {
+					$result = $query::$result;
+				}
+
+				print_r(json_encode($result));
 				break;
 
 			case "delete-acclimatization":

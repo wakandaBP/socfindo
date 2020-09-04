@@ -46,7 +46,7 @@
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["region"];
+						return row["plantation"];
 					}
 				},
 				{
@@ -72,6 +72,10 @@
 				{
 					"data" : null, render: function(data, type, row, meta) {
 						return row["qty_at_end"];
+					}
+				},{
+					"data" : null, render: function(data, type, row, meta) {
+						return (row['dead_plant'] != null && row['dead_plant'] != '') ? row["dead_plant"] : '-';
 					}
 				},
 				{

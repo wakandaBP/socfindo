@@ -3,10 +3,10 @@
 	$(function(){
 		id = '<?php echo ($_GET['last']!='')?$_GET['last']:''; ?>';
 
-		var invitroList = $("#list-invitro").DataTable({
+		var hardeningList = $("#list-hardening").DataTable({
 
 			"ajax":{
-				"url": hostname + "/api/loader.invitro.php",
+				"url": hostname + "/api/loader.hardening.php",
 				"data":{
 					id:id
 				},
@@ -46,59 +46,29 @@
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
+						return row["qty_at_start"];
+					}
+				},
+				{
+					"data" : null, render: function(data, type, row, meta) {
 						return row["start_date"];
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["medium_name"];
+						return row["qty_remaining"];
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["recipient_name"];
-					}
-				},
-				{
-					"data" : null, render: function(data, type, row, meta) {
-						return row["number_of_plants"];
-					}
-				},
-				{
-					"data" : null, render: function(data, type, row, meta) {
-						return row["number_of_alive"];
-					}
-				},
-				{
-					"data" : null, render: function(data, type, row, meta) {
-						return row["number_of_dead"];
-					}
-				},
-				{
-					"data" : null, render: function(data, type, row, meta) {
-						return row["number_of_contaminated"];
-					}
-				},
-				{
-					"data" : null, render: function(data, type, row, meta) {
-						return row["new_shoots_for_r"];
-					}
-				},
-				{
-					"data" : null, render: function(data, type, row, meta) {
-						return row["new_shoots_on_m"];
-					}
-				},
-				{
-					"data" : null, render: function(data, type, row, meta) {
-						return row["laminar_flow_name"];
+						return (row['qty_at_end'] != null && row['qty_at_end'] != '') ? row["qty_at_end"] : '-';
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
 						//return "";
 						return "<div style='text-align:center;' class='"+ row['last_updated'] +"'>" + 
-								"<a href=\"" + hostname + "/invitro.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" data-toggle='tooltip' title='Edit'><i class=\"material-icons\">edit</i></a>" + 
+								"<a href=\"" + hostname + "/hardening.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" data-toggle='tooltip' title='Edit'><i class=\"material-icons\">edit</i></a>" + 
 								" | <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete_" + row["id"] + "\" data-name=\"" + row["unique_code"] + "\" data-toggle='tooltip' title='Delete'><i class=\"material-icons\">delete_outline</i></button></div>";
 					}
 				}
@@ -115,17 +85,17 @@
 			var nama = $(this).data("name");
 			id = id[id.length - 1];
 
-			var conf = confirm("Delete In Vitro : " + nama + " ?");
+			var conf = confirm("Delete Hardening : " + nama + " ?");
 			if(conf){
 				$.ajax({
 					url:hostname + "/action.php",
 					type:"POST",
 					data:{
-						action:"delete-invitro",
+						action:"delete-hardening",
 						id:id
 					},
 					success:function(resp){
-						invitroList.ajax.reload();
+						hardeningList.ajax.reload();
 						//RefreshData("#list-clone", hostname + "/api/loader.acclimatization.php");
 					}
 				});

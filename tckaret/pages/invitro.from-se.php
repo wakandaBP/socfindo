@@ -87,7 +87,7 @@
 							</div>
 						</div>
 						<div class="col-sm-2">
-							<h6>Stock Available:</h6>
+							<h6>Stock Medium:</h6>
 							<div class="input-group">
 								<div class="form-line">
 									<input type="text" class="form-control" disabled id="stok_available">

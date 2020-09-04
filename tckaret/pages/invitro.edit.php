@@ -18,12 +18,15 @@ try {
 						      ,[created_at]
 						      ,[updated_at]
 						      ,[deleted_at] 
-						      FROM karet_invitro WHERE id = ? AND deleted_at IS NULL AND deactivated = ?",array($page[1],'FALSE'));
+						      FROM karet_invitro WHERE id = ? AND deleted_at IS NULL",array($page[1]));
 
 	$invitroData = $invitro::$result[0];
 
-	$get_parent_child = new Database("SELECT parent, child, parent_option FROM karet_invitro_parent_child WHERE child = ?", array($invitroData['id']));
+	/*$get_parent_child = new Database("SELECT parent, child, parent_option FROM karet_invitro_parent_child WHERE child = ?", array($invitroData['id']));*/
 
+	$get_mother = new Database("SELECT code_se FROM karet_motherplant WHERE id = ?", array($data['motherplant_id']));
+	$motherplant = $get_mother::$result[0]['code_se'];
+/*
 	if ($get_parent_child::$result[0]['parent_option'] == "motherplant") {
 		$get_motherembryo = new Database("SELECT a.parent, b.code_se FROM karet_invitro_parent_child a JOIN karet_motherplant b ON a.parent = b.id WHERE a.child = ?",array($invitroData['id']));
 		$mother_embryo = $get_motherembryo::$result[0]["code_se"];
@@ -32,7 +35,7 @@ try {
 		
 		$get_motherembryo = new Database("SELECT a.parent, b.code_se FROM karet_invitro_parent_child a JOIN karet_motherplant b ON a.parent = b.id WHERE a.child = ?",array($get_parent::$result[0]['parent']));
 		$mother_embryo = $get_motherembryo::$result[0]["code_se"];
-	}
+	}*/
 ?>
 
 <form id="invitro-edit">

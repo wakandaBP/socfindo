@@ -19,6 +19,8 @@
 			,a.new_shoots_for_r
 			,a.new_shoots_on_m
 			,a.motherplant_id
+			,a.qty_start
+			,a.qty_remaining
 			,c.code_se
 			,e.id as clone_id
 			,e.clonename as clone
@@ -33,6 +35,7 @@
 			JOIN karet_tree d ON d.id = c.tree
 			JOIN karet_clone e ON e.id = d.clonename
 		    WHERE a.unique_code LIKE '%" . 	$_GET['params'] . "%'
+		    AND a.qty_remaining > 0
 			AND c.id = ?
 		    AND d.clonename = ?
 		    AND a.deleted_at IS NULL 
@@ -52,6 +55,8 @@
 			,a.new_shoots_for_r
 			,a.new_shoots_on_m
 			,a.motherplant_id
+			,a.qty_start
+			,a.qty_remaining
 			,c.code_se
 			,e.id as clone_id
 			,e.clonename as clone
@@ -68,6 +73,7 @@
 			JOIN karet_tree d ON d.id = c.tree
 			JOIN karet_clone e ON e.id = d.clonename
 		    WHERE a.unique_code LIKE '%" . 	$_GET['params'] . "%' 
+		    AND a.qty_remaining > 0
 		    AND a.deleted_at IS NULL 
 		    AND a.deactivated = ?",array('FALSE'));
 	}
@@ -99,6 +105,8 @@
 				,"number_of_alive"=>intval($value["number_of_alive"])
 				,"number_of_dead"=>intval($value['number_of_dead'])
 				,"number_of_contaminated"=>intval($value['number_of_contaminated'])
+				,"qty_start" => intval($value['qty_start'])
+				,"qty_remaining" => intval($value['qty_remaining'])
 				,"deactivated"=>$value["deactivated"]
 				,"start_date"=>$value["start_date"]
 				,"medium_name"=>$medium

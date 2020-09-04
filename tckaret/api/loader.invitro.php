@@ -18,6 +18,7 @@
 						      ,[contamination_type]
 						      ,[laminar_flow]
 						      ,[end_date]
+						      ,[motherplant_id]
 						      ,[worker]
 						      ,[created_at]
 						      ,[updated_at]
@@ -28,9 +29,9 @@
 		/*$get_motherembryo = new Database("SELECT a.parent, b.code_se FROM karet_invitro_parent_child a JOIN karet_motherplant b ON a.parent = b.id WHERE a.child = ?",array($value['id']));
 		$mother_embryo = $get_motherembryo::$result[0]["code_se"];*/
 
-		$get_parent_child = new Database("SELECT parent, child, parent_option FROM karet_invitro_parent_child WHERE child = ?", array($value['id']));
+		/*$get_parent_child = new Database("SELECT parent, child, parent_option FROM karet_invitro_parent_child WHERE child = ?", array($value['id']));*/
 
-		if ($get_parent_child::$result[0]['parent_option'] == "motherplant") {
+		/*if ($get_parent_child::$result[0]['parent_option'] == "motherplant") {
 			$get_motherembryo = new Database("SELECT a.parent, b.code_se FROM karet_invitro_parent_child a JOIN karet_motherplant b ON a.parent = b.id WHERE a.child = ?",array($value['id']));
 			$mother_embryo = $get_motherembryo::$result[0]["code_se"];
 		} else {
@@ -38,7 +39,10 @@
 			
 			$get_motherembryo = new Database("SELECT a.parent, b.code_se FROM karet_invitro_parent_child a JOIN karet_motherplant b ON a.parent = b.id WHERE a.child = ?",array($get_parent::$result[0]['parent']));
 			$mother_embryo = $get_motherembryo::$result[0]["code_se"];
-		}
+		}*/
+
+		$get_motherembryo = new Database("SELECT code_se FROM karet_motherplant WHERE id = ?",array($value['motherplant_id']));
+		$mother_embryo = $get_motherembryo::$result[0]["code_se"];
 
 		$get_laminar = new Database("SELECT nolaminar FROM karet_laminar WHERE id = ?", array($value['laminar_flow']));
 		$laminar = $get_laminar::$result[0]["nolaminar"];

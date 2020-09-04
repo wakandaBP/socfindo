@@ -1,9 +1,28 @@
 <?php 
 try {
-	
+	$hardening = new Database("SELECT [id]
+	    ,[unique_code]
+		,[qty_at_start]
+		,[start_date]
+		,[deactivated]
+		,[motherplant_id]
+		,[created_at]
+		,[updated_at]
+		,[deleted_at]
+		,[end_date]
+		,[qty_remaining]
+		,[qty_at_end]
+		FROM karet_exvitro_hardening 
+		WHERE deleted_at IS NULL AND id = ?",array($page[1]));
+
+	$hardeningData = $hardening::$result[0];
+
+	$get_mother = new Database("SELECT code_se FROM karet_motherplant WHERE id = ?", array($hardeningData['motherplant_id']));
+	$motherplant = $get_mother::$result[0]['code_se'];
+
 ?>
 
-<form id="hardening-edit">
+<form id="edit-hardening">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="card">
 			<div class="header bg-cyan">
@@ -19,7 +38,7 @@ try {
 							<h6>Unique Code</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<input type="text" class="form-control" disabled name="unique_code" id="unicue_code" value="">
+									<input type="text" class="form-control" disabled name="unique_code" id="unicue_code" value="<?= $hardeningData['unique_code'] ?>">
 								</div>
 							</div>
 						</div>
@@ -27,7 +46,7 @@ try {
 							<h6>Motherplant</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<input type="text" class="form-control" disabled name="motherplant" id="motherplant" value="">
+									<input type="text" class="form-control" disabled name="motherplant" id="motherplant" value="<?= $motherplant ?>">
 								</div>
 							</div>
 						</div>
@@ -35,7 +54,7 @@ try {
 							<h6>Quantity At Start *</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<input type="number" class="form-control" required id="quantity_at_start" value="0">
+									<input type="number" class="form-control" required id="quantity_at_start" value="<?= $hardeningData['qty_at_start'] ?>">
 								</div>
 							</div>
 						</div>
@@ -43,15 +62,15 @@ try {
 							<h6>Start Date *</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<input type="date" class="form-control" id="start_date">
+									<input type="date" class="form-control" id="start_date" value="<?= $hardeningData['start_date'] ?>">
 								</div>
 							</div>
 						</div>
 						<div class="col-sm-4">
-							<h6>Quantity At End *</h6>
+							<h6>Quantity At End </h6>
 							<div class="input-group">
 								<div class="form-line">
-									<input type="number" class="form-control" required id="quantity_at_end" value="0">
+									<input type="number" class="form-control" id="quantity_at_end" value="<?= $hardeningData['quantity_at_end'] ?>">
 								</div>
 							</div>
 						</div>
