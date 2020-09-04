@@ -33,6 +33,7 @@
 
 		$("#btnSimpan").click(function(){
 			var treecode = $("#treecode").val();
+			var num_tree = $("#num_tree").val();
 			var plantation = $("#idplantation").val();
 			var block = $("#idblock").val();
 			var yearofplant = $("#yearplanting").val();
@@ -54,6 +55,7 @@
 					type: "POST",
 					data: {
 						action:"add-tree",
+						num_tree: num_tree,
 						treecode:treecode,
 						plantation:plantation,
 						block:block,

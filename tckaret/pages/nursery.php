@@ -76,6 +76,7 @@
 									<th class="text-center">Deactivated</th>
 									<th class="text-center">Quantity At Start</th>
 									<th class="text-center">Start Date</th>
+									<th class="text-center">Quantity Remaining</th>
 									<th class="text-center">Quantity At End</th>
 									<th class="text-center">Action</th>
 								</tr>

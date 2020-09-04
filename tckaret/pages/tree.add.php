@@ -10,7 +10,15 @@
 				<fieldset>
 					<legend>Data</legend>
 					<div class="row clearfix">
-						<div class="col-sm-6">
+						<div class="col-sm-4">
+							<h6>Num Tree *</h6>
+							<div class="input-group">
+								<div class="form-line">
+									<input type="text" class="form-control" id="num_tree">
+								</div>
+							</div>	
+						</div>
+						<div class="col-sm-4">
 							<h6>Tree Code *</h6>
 							<div class="input-group">
 								<div class="form-line">
@@ -19,7 +27,7 @@
 							</div>	
 						</div>
 						
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<h6>Year of Planting *</h6>
 							<div class="input-group">
 								<div class="form-line">

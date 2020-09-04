@@ -1,11 +1,12 @@
 <script type="text/javascript">
+	
 	$(function(){
 		id = '<?php echo ($_GET['last']!='')?$_GET['last']:''; ?>';
-		
-		var treeList = $("#list-tree").DataTable({
+
+		var nurseryList = $("#list-nursery").DataTable({
 
 			"ajax":{
-				"url": hostname + "/api/loader.tree.php",
+				"url": hostname + "/api/loader.nursery.php",
 				"data":{
 					id:id
 				},
@@ -27,57 +28,48 @@
     			},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["clone"];
+						return row["unique_code"];
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["plantation"];
+						return row["mother_embryo"];
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["num_tree"];
+						//return row["deactivated"];
+						var checked = (row["deactivated"] == "FALSE") ? "<i class=\"glyphicon glyphicon-unchecked\"></i>":"<i class=\"glyphicon glyphicon-check\"></i>";
+
+						return checked;
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["treecode"];
+						return row["qty_at_start"];
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["year"];
+						return row["start_date"];
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["block"];
+						return row["qty_remaining"];
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["line"];
+						return (row['qty_at_end'] != null && row['qty_at_end'] != '') ? row["qty_at_end"] : '-';
 					}
 				},
 				{
 					"data" : null, render: function(data, type, row, meta) {
-						return row["gps"];
-					}
-				},
-				{
-					"data" : null, render: function(data, type, row, meta) {
-						return row["certified"];
-					}
-				},
-				{
-					"data" : null, render: function(data, type, row, meta) {
-						return row["certificatenumber"];
-					}
-				},
-				{
-					"data" : null, render: function(data, type, row, meta) {
-						return "<div class='"+ row["last_updated"] +"'><a href=\"" + hostname + "/tree.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\"><i class=\"material-icons\">edit</i></a> | <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete-" + row["id"] + "\" data-name=\"" + row["treecode"] + "\"><i class=\"material-icons\">close</i></button></div>";
+						//return "";
+						return "<div style='text-align:center;' class='"+ row['last_updated'] +"'>" + 
+								"<a href=\"" + hostname + "/nursery.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" data-toggle='tooltip' title='Edit'><i class=\"material-icons\">edit</i></a>" + 
+								" | <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete_" + row["id"] + "\" data-name=\"" + row["unique_code"] + "\" data-toggle='tooltip' title='Delete'><i class=\"material-icons\">delete_outline</i></button></div>";
 					}
 				}
 			],
@@ -87,30 +79,24 @@
 				}
 			}
 		});
-
-		$(document).click(function(e) {
-			if ( $(e.target).closest('last_updated').length === 0 ) {
-				$(".last_updated").parent().parent().removeAttr("style");
-			}
-		});
 	
 		$("body").on("click", ".btn-delete", function(){
-			var id = $(this).attr("id").split("-");
+			var id = $(this).attr("id").split("_");
 			var nama = $(this).data("name");
 			id = id[id.length - 1];
 
-			var conf = confirm("Delete Tree with Tree Code : " + nama + " ?");
+			var conf = confirm("Delete Nursery : " + nama + " ?");
 			if(conf){
 				$.ajax({
 					url:hostname + "/action.php",
 					type:"POST",
 					data:{
-						action:"delete-tree",
+						action:"delete-nursery",
 						id:id
 					},
 					success:function(resp){
-						no = 1;
-						RefreshData("#list-tree", hostname + "/api/loader.tree.php");
+						nurseryList.ajax.reload();
+						//RefreshData("#list-clone", hostname + "/api/loader.acclimatization.php");
 					}
 				});
 			}

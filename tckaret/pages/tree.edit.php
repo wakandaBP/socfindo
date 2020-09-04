@@ -17,7 +17,15 @@ try {
 				<fieldset>
 					<legend>Data</legend>
 					<div class="row clearfix">
-						<div class="col-sm-6">
+						<div class="col-sm-4">
+							<h6>Num Tree *</h6>
+							<div class="input-group">
+								<div class="form-line">
+									<input type="text" class="form-control" id="num_tree" value="<?= $data['num_tree'] ?>">
+								</div>
+							</div>	
+						</div>
+						<div class="col-sm-4">
 							<h6>Tree Code *</h6>
 							<div class="input-group">
 								<div class="form-line">
@@ -26,7 +34,7 @@ try {
 							</div>	
 						</div>
 						
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<h6>Year of Planting *</h6>
 							<div class="input-group">
 								<div class="form-line">
@@ -40,7 +48,7 @@ try {
 							<h6>Clone *</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<select class="form-control" id="clone">
+									<select class="form-control useselect2" id="clone">
 										<option selected disabled>--Choose-clone--</option>
 										<?php 
 											$clone = new Database("SELECT * FROM karet_clone WHERE isactive = ?",array("1"));

@@ -6,6 +6,7 @@
 		var MODE = "NEW";
 		//alert(hostname + "/api/loader.motherplant.php");
 		var DataPopulate = {};
+ 	
 
 		$.ajax({
 			url: hostname + "/api/loader.motherplant.php",
@@ -237,106 +238,6 @@
 						success:function(resp){
 							console.log(resp);
 							$("#btnReset").click();
-							motherplantList.ajax.reload();
-
-							$.ajax({
-								url: hostname + "/api/loader.motherplant.php",
-								async: false,
-								success: function(data){
-									console.log(data);
-									var parsed = JSON.parse(data);
-									for(var a = 0; a < parsed.data.length; a++){
-										DataPopulate["identifier-" + parsed.data[a]["id"] + "-" + parsed.data[a]["treecode_id"] + "-" + parsed.data[a]["treepart_id"]] = parsed.data[a];
-									}
-									//DataPopulate = parsed.data;
-								}
-							});
-							/*if(parseInt(resp) > 0){
-	                            
-	                            alert(resp);
-	                            location.href = hostname + "/motherplant";
-	                        }
-	                        else{
-	                            alert(resp);
-	                        }*/
-						},
-						error: function(response) {
-							console.log("Error : ");
-							console.log(response);
-						}
-					});
-				}
-				else {
-					alert("Please fill out every field with *");
-				}
-			}
-			return false;
-		});
-
-
-
-
-
-
-		$("#prosesData2").submit(function(){
-			var conf = confirm("Pastikan data telah benar. Proses data?");
-			if(conf){
-				var shipment_mother = $("#shipment_mother").val();
-				var shipment_invitro = $("#shipment_invitro").val();
-				var codese = $("#nomor2").val();
-				var se = $("#se2").val();
-				var certified = ($("#certified2").is(":checked"))?"Yes":"No";
-				var deactivated = ($("#deactive2").is(":checked"))?"TRUE":"FALSE";
-				var initiationyear = $("#initiationyear2").val();
-				var tree = $("#tree2").val(); //$("#tree").attr("selectedidunique");
-				var treepart =  $("#treepart2").val(); //$("#treepart").attr("selectedidunique");
-				var harvestdate = $("#harvestdate2").val();
-				var receptionug = $("#receptionug2").val();
-				var usageofseeds = $("#usageofseeds2").val();
-				var startmedium = $("#startmedium2").val();
-				var germinationdate = $("#germinationdate2").val();
-				var germinationmedium = $("#germinationmedium2").val();
-				var leafsample = ($("#leafsample2").is(":checked"))?"Yes":"No";
-				var leafsamplelocation = $("#leafsamplelocation2").val();
-				var leafsamplecirad = ($("#leafsamplecirad2").is(":checked"))?"Yes":"No";
-				var germinationse = $("#germinationse2").val();
-
-				if (
-					shipment_mother != "" &&
-					shipment_invitro != "" &&
-					se != "" &&
-					initiationyear != "" &&
-					tree != "" &&
-					receptionug != ""
-				){
-					$.ajax({
-						url: hostname + "/action.php",
-						type: "POST",
-						data: {
-							action:"add-motherplant",
-							shipment_mother: shipment_mother,
-							shipment_invitro: shipment_invitro,
-							codese:codese,
-							se:se,
-							certified:certified,
-							deactivated:deactivated,
-							initiation_year:initiationyear,
-							tree:tree,
-							treepart:treepart,
-							harvest_date:harvestdate,
-							reception_ug:receptionug,
-							usage_of_seeds:usageofseeds,
-							start_medium:startmedium,
-							germination_date:germinationdate,
-							germination_medium:germinationmedium,
-							leaf_sample:leafsample,
-							leaf_sample_location:leafsamplelocation,
-							leaf_sample_cirad:leafsamplecirad,
-							germination_se:germinationse
-						},
-						success:function(resp){
-							console.log(resp);
-							$("#btnResetShipment").click();
 							motherplantList.ajax.reload();
 
 							$.ajax({

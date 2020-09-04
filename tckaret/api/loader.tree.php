@@ -5,7 +5,7 @@
 	$MetaData = array();
 	$query = new Database("SELECT a.id, b.name as plantation, d.blocknumber as block, a.treecode, 
 						a.yearofplanting as year, c.clonename as clone, a.line, a.gps, a.certified, 
-						a.certificatenumber, a.isactive 
+						a.certificatenumber, a.num_tree, a.isactive 
 						FROM karet_tree a 
 						JOIN karet_plantation b ON a.idplantation = b.id 
 						JOIN karet_clone c ON a.clonename = c.id 
@@ -31,6 +31,7 @@
 			array(
 				"id"=>$value["id"], 
 				"plantation"=>$value["plantation"],
+				"num_tree"=>$value['num_tree'],
 				"block"=>$value["block"],
 				"treecode"=>$value["treecode"],
 				"year"=>$value["year"],					// = year of planting

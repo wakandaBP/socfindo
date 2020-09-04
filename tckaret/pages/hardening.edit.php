@@ -78,7 +78,7 @@ try {
 							<h6>Deactivated</h6>
 							<div class="input-group">
 								<div class="" style="margin-left: -40%;">
-									<input <?php echo ("TRUE" == $invitroData['deactivated']) ? 'checked' : ''; ?> type="checkbox" class="form-control parent_form" id="deactivated">
+									<input <?php echo ("TRUE" == $hardeningData['deactivated']) ? 'checked' : ''; ?> type="checkbox" class="form-control parent_form" id="deactivated">
 								</div>
 							</div>
 						</div>

@@ -30,6 +30,7 @@
 		});
 
 		$("#btnSimpan").click(function(){
+			var num_tree = $("#num_tree").val();
 			var treecode = $("#treecode").val();
 			var plantation = $("#plantation").val();
 			var block = $("#block").val();
@@ -41,7 +42,7 @@
 			var certinumber = $("#certinumber").val();
 
 			//alert(treecode + " " + plantation + " " + block  + " " + yearofplant + " " + clone + " " + line + " " + gps + " " + certified + " " + certinumber);
-			if (treecode != "" && plantation != "" && block != "" && yearofplant != "" && clone != "" && certified != ""){
+			if (num_tree != "" && treecode != "" && plantation != "" && block != "" && yearofplant != "" && clone != "" && certified != ""){
 				
 				if (certified == 'No' || certified == "NULL" || certified == "null"){
 					certinumber = "";
@@ -52,6 +53,7 @@
 					type: "POST",
 					data: {
 						action:"update-tree",
+						num_tree: num_tree,
 						treecode:treecode,
 						plantation:plantation,
 						block:block,
