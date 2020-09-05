@@ -67,8 +67,8 @@
 									<th class="text-center">Unique Code</th>
 									<th class="text-center">Mother Embryo</th>
 									<th class="text-center">Deactivated</th>
-									<th class="text-center">Site</th>
-									<th class="text-center">Quantity</th>
+									<th class="text-center">Plantation</th>
+									<th class="text-center">Quantity At Start</th><th class="text-center">Quantity Remaining</th>
 									<th class="text-center">Date Stock</th>
 									<th class="text-center">Table Number</th>
 									<th class="text-center">Action</th>

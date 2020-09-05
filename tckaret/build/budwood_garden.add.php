@@ -35,6 +35,7 @@
 			dataParent[no_urut] = {['id'] : nurseryID, 
 									['end_date'] :endDate,
 									['qty_remaining']: (qty_remaining - qty_used),
+									['qty_used']: qty_used,
 									['deactivated'] : deactivated
 								};
 
@@ -52,7 +53,7 @@
 				dataNursery = loadMotherByCloneID(selectedCloneID, selectedMotherID);
 			}
 
-			console.log(dataParent);
+			//console.log(dataParent);		//for checking dataParent has result
 			
 			return false;
 		});
@@ -60,6 +61,8 @@
 		$("#list-parent tbody").on('click', '.btn-delete-parent', function(){
 			let id = $(this).attr("id").split("_");
 			id = id[id.length - 1];
+
+			qtyPlanted -= dataParent[id].qty_used;
 
 			$(this).parent().parent().remove();
 			delete dataParent[id];

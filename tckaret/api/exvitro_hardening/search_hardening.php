@@ -24,6 +24,7 @@
 			JOIN karet_tree d ON d.id = c.tree
 			JOIN karet_clone e ON e.id = d.clonename
 		    WHERE a.unique_code LIKE '%" . 	$_GET['params'] . "%'
+			AND a.qty_remaining > 0 
 			AND a.motherplant_id = ?
 		    AND d.clonename = ?
 		    AND a.deleted_at IS NULL 
@@ -47,6 +48,7 @@
 			JOIN karet_tree d ON d.id = c.tree
 			JOIN karet_clone e ON e.id = d.clonename
 		    WHERE a.unique_code LIKE '%" . 	$_GET['params'] . "%' 
+		    AND a.qty_remaining > 0 
 		    AND a.deleted_at IS NULL 
 		    AND a.deactivated = ?",array('FALSE'));
 	}

@@ -35,6 +35,7 @@
 			dataParent[no_urut] = {['id'] : cuttingID, 
 									['end_date'] :endDate,
 									['qty_remaining']: (qty_remaining - qty_used),
+									['qty_used'] : qty_used,
 									['deactivated'] : deactivated
 								};
 
@@ -61,6 +62,8 @@
 			let id = $(this).attr("id").split("_");
 			id = id[id.length - 1];
 
+			qtyReceived -= dataParent[id].qty_used;
+			
 			$(this).parent().parent().remove();
 			delete dataParent[id];
 			
