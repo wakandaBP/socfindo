@@ -2554,6 +2554,8 @@
 					$updateParentCount = 0;
 					$parentChildCount = 0;
 					foreach ($_POST['dataParent'] as $key => $value) {
+
+						//new shoots for r has removed
 						$updateParent = new Database("UPDATE karet_invitro SET 
 							end_date = ?,
 							deactivated = ?,
@@ -2561,7 +2563,6 @@
 							number_of_alive = ?,
 							number_of_dead = ?,
 							number_of_contaminated = ?,
-							new_shoots_for_r = ?,
 							new_shoots_on_m = ?,
 							updated_at = ?
 							WHERE id = ?"
@@ -2572,7 +2573,6 @@
 								$value['number_of_alive'],
 								$value['number_of_dead'],
 								$value['contaminated'],
-								$value['new_shoots_for_r'],
 								$value['new_shoots_on_m'],
 								$timestamp,
 								$value['id']
@@ -2753,12 +2753,14 @@
 							end_date = ?,
 							deactivated = ?,
 							qty_remaining = ?,
+							new_shoots_for_r = ?,
 							updated_at = ?
 							WHERE id = ?"
 							,array(
 								$value['end_date'],
 								$value['deactivated'],
 								$value['qty_remaining'],
+								$value['qty_used'],
 								$timestamp,
 								$value['id']
 							)

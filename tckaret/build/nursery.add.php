@@ -6,7 +6,24 @@
 		var qtyReceived = 0;
 		var no_urut = 1;
 		var dataParent = {};
-		$("#end_date").val(<?= json_encode(date("Y-m-d")); ?>);
+		var dateNow = <?= json_encode(date("Y-m-d")); ?>;
+		$("#end_date").val(dateNow);
+		$("#deactivated").attr("disabled", true);
+
+		$("#quantity_used").on('keyup', function(){
+			let qty_remaining = parseInt($("#quantity_remaining").val());
+			let qty_used = parseInt($(this).val());
+
+			if (qty_used > qty_remaining) {
+				$(this).val(0);
+			}
+
+			if ((qty_remaining - qty_used) > 0){
+				$("#deactivated").attr("disabled", true);
+			} else {
+				$("#deactivated").attr("disabled", false);
+			}
+		});
 
 		$("#parent-form").submit(function(){
 			let hardeningID = $("#parent_hardening").val();
@@ -15,12 +32,14 @@
 			let qty_remaining = parseInt($("#quantity_remaining").val());
 			let qty_used = parseInt($("#quantity_used").val());
 			let deactivated = ($("#deactivated").is(":checked")) ? "TRUE" : "FALSE";
+			dateNow = endDate;
 
 			var index = '';
 
 			html = "<tr>" + 
 						"<td><button type='button' class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete-parent\" id=\"delete_" + no_urut + "\" title='Delete Item'><i class=\"material-icons\">delete_outline</i></button></td>" + 
-						"<td>"+ selectedMother.text +"</td>" + 
+						"<td>"+
+						 selectedMother.text +"</td>" + 
 						"<td>"+ selectedMother.mother_embryo + "</td>" +
 						"<td>"+ endDate +"</td>" +
 						"<td>"+ qty_start +"</td>" + 
@@ -41,7 +60,7 @@
 
 			$("form")[0].reset();
 			$("#parent_hardening").trigger('change');
-			$("#end_date").val(<?= json_encode(date("Y-m-d")); ?>);
+			$("#end_date").val(dateNow);
 			no_urut++;
 
 			qtyReceived += qty_used;
@@ -73,6 +92,8 @@
 				selectedCloneID = ''; 
 				selectedMotherID = '';
 				selectedMother = '';
+				dateNow = <?= json_encode(date("Y-m-d")); ?>;
+				$("#end_date").val(dateNow);
 			}
 		});
 
@@ -176,7 +197,15 @@
 			$("#quantity_start").val(selectedMother.qty_at_start);
 			$("#quantity_remaining").val(selectedMother.qty_remaining);
 			$("#quantity_used").attr("max", selectedMother.qty_remaining);
-			$("#end_date").val(selectedMother.end_date);
+			//$("#end_date").val(selectedMother.end_date);
+			
+			if (Object.size(dataParent) != 0) {
+				$.each(dataParent, function(key, item){
+					$("#end_date").val(item.end_date);
+				});
+			} else {
+				$("#end_date").val(dateNow);
+			}
 		});
 
 		//for template table select2

@@ -26,6 +26,7 @@
 		var germprepareList = $("#list-germ-prepare").DataTable({
 
 			"ajax":{
+				"async": false,
 				"url": hostname + "/api/loader.germ-prepare.php",
 				"data":{
 					//
@@ -97,7 +98,7 @@
 
 							" <a href=\"" + hostname + "/germination-prepare.screen.log/" + row["idembryo"] + "\" class=\"btn btn-default btn-circle waves-effect waves-circle waves-float " + row['disabled'] + "\"><i class=\"material-icons\" title='Germination Screening'>check</i></a> " +
 
-							" | <a href=\"" + hostname + "/motherplant-in.add/" + row["idembryo"] + "\" class=\"btn btn-success btn-circle waves-effect waves-circle waves-float " + row['disabled'] + "\"><i class=\"material-icons\" title='Transfer to Germination'>trending_flat</i></a>"+ 
+							" | <a href=\"" + hostname + "/motherplant/" + row["idembryo"] + "\" class=\"btn btn-success btn-circle waves-effect waves-circle waves-float " + row['disabled'] + "\"><i class=\"material-icons\" title='Transfer to Germination'>trending_flat</i></a>"+ 
 
 							" | <button data-id=\""+ row["idembryo"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float btnEdit\" title='Edit Data'><i class=\"material-icons\">edit</i></button> " +
 

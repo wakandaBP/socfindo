@@ -1,6 +1,7 @@
 <script type="text/javascript">
 	$(function(){
 		//menuActive(); 
+
 		var no = 1;
 		var targetMotherPlantID;
 		var MODE = "NEW";
@@ -11,7 +12,7 @@
 			url: hostname + "/api/loader.motherplant.php",
 			async: false,
 			success: function(data){
-				console.log(data);
+				//console.log(data);
 				var parsed = JSON.parse(data);
 				for(var a = 0; a < parsed.data.length; a++){
 					DataPopulate["identifier-" + parsed.data[a]["id"] + "-" + parsed.data[a]["treecode_id"] + "-" + parsed.data[a]["treepart_id"]] = parsed.data[a];
@@ -939,6 +940,30 @@
 			}
 			return false;
 		});*/
+		
+
+		//auto load when transfer from germination to motherplant
+		var se_id = <?= json_encode($page[1])?>;
+		if (se_id != null){
+
+			$.ajax({
+				url: hostname + "/api/motherplant/get.se.php?se_id=" + se_id,
+				async: false,
+				success: function(resp){
+					//console.log(resp);
+					let data = JSON.parse(resp);
+
+					$("#se").val(data.id_embryo);
+					$("#tree").val(data.tree).trigger('change');
+					$("#treepart").val(data.treepart).trigger('change');
+					$("#harvestdate").val(data.harvest_date);
+					$("#germinationdate").val(data.germination_date);
+					$("#germinationmedium").val(data.germination_medium).trigger('change');
+					$("#germinationse").val(data.id_embryo);
+				}
+			});
+
+		}
 	});
 
 

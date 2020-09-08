@@ -1,339 +1,60 @@
-<form>
-    <div class="modal fade" tabindex="-1" role="dialog" id="form-updatemedia">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header"><h5><span id="title-media"></span> Update Media for ID Embryo : <b><span id="title-id-embryo"></span></b>  </h5> </div> 
-                <div class="modal-body">
-	                <div class="col-sm-6" id="media-field"> 
-	                	<h6>Choose Media : *</h6>
-						<div class="input-group">
-							<div class="form-line">
-								<select class="form-control useselect2" id="medium" style="width: 100%;">
-										<option value="" disabled selected>--Choose-Medium--</option>
-										<?php 
-											$media = new Database("SELECT * FROM karet_media WHERE id_jenis_media = ? AND isactive = ?",array("3","1"));
-
-											foreach ($media::$result as $key => $value) {
-										?>
-											<option value="<?php echo $value['id'];?>"><?= $value['mediacode']?></option>
-										<?php
-											}
-										?>
-								</select>
-								<input type="text" hidden id="idmedium">
-							</div>
-						</div>
-						<div id="error-media"></div>
-	                </div> 
-					<div class="col-sm-3"> 
-						<h6>Available Media : <span></span></h6>
-						<div class="input-group"> 
-							<div class="form-line">
-								<input type="text" readonly class="form-control numberonly" id="available-media" value="">
-							</div>
-						</div>
-					</div> 
-                	<div class="col-sm-3">
-	                	<h6>Media Amount : *</h6>
-						<div class="input-group">
-							<div class="form-line">
-								<input type="text" class="form-control numberonly" id="amountmedia" value="">
-							</div>
-						</div>
-	                </div>  	                
+<!--- Modal for Trace Children Parent -->
+<div class="modal fade" tabindex="-1" role="dialog" id="view-tracing">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header"><h5> Trace detail : <span id="title"></span>   </h5> </div> 
+            <div class="modal-body">
+            	<div class="col-sm-4">
+            		<div style="text-align: center; text-decoration: underline;"><h5>Parent</h5></div>
+                	<table class="table table-bordered" id="table_parent">
+                		<thead>
+                			<tr>
+                				<th width="40%">Code SE</th>
+                				<th>Number of Alive</th>
+                				<th>Number of Dead</th>
+                			</tr>
+                		</thead>
+                		<tbody>
+                			
+                		</tbody>
+                	</table>
                 </div>
-                <div class="modal-footer">
-                	<div class="">
-	                    <div class="input-group">
-	                    	<button id="btnUpdateMedia" class="btn btn-primary">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
-							&nbsp;
-							<span style="text-align:center;"><button class="btn btn-warning" data-dismiss="modal">Cancel</button></span>
-	                	</div>
-	                </div>
+                <div class="col-sm-4">
+            		<div style="text-align: center; text-decoration: underline;"><h5>Children in Invitro</h5></div>
+                	<table class="table table-bordered" id="table_child">
+                		<thead>
+                			<tr>
+                				<th width="50%">Code SE</th>
+                				<th>Number of Plants</th>
+                			</tr>
+                		</thead>
+                		<tbody>
+                			
+                		</tbody>
+                	</table>
                 </div>
+                <div class="col-sm-4">
+            		<div style="text-align: center; text-decoration: underline;"><h5>Children in Acclimatization</h5></div>
+                	<table class="table table-bordered" id="table_child_aklim">
+                		<thead>
+                			<tr>
+                				<th width="40%">Code SE</th>
+                				<th >Quantity</th>
+                				<th>Invitro Ending</th>
+                			</tr>
+                		</thead>
+                		<tbody>
+                			
+                		</tbody>
+                	</table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- <button class="btn btn-danger" data-dismiss="modal">Close</button> -->
             </div>
         </div>
     </div>
-</form>
-
-<form>
-    <div class="modal fade" tabindex="-1" role="dialog" id="form-edit-mat1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header"><h5></span> Edit Maturation I Data for ID Embryo : <b><span id="title-edit"></span></b>  </h5> </div> 
-                <div class="modal-body">
-                	<input type="text" hidden id="iddata">
-	                <fieldset>
-						<div class="row">
-							<div class="col-sm-6">
-								<h6>Transfer Date for Maturation I *</h6>
-								<div class="input-group">
-									<div class="form-line">
-										<input type="date" class="form-control" required id="mat1transdate" value="<?= $now; ?>" max="<?= $now ?>">
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<h6>Transfer Worker *</h6>
-								<div class="">
-									<div class="form-line">
-										<select class="form-control useselect2" id="mat1worker" style="width: 100%;">
-											<option value="" disabled selected="">--Choose-Worker--</option>
-											<?php 
-												$worker = new Database("SELECT * FROM karet_worker
-															WHERE isactive = ?",array("1"));
-
-												foreach ($worker::$result as $key => $value) {
-											?>
-												<option value="<?php echo $value['id'];?>"><?php echo $value['initial'];?></option>
-											<?php
-												}
-											?>
-										</select>
-										<input type="text" hidden id="idmat1worker">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row clearfix">
-							<div class="col-sm-4">
-								<h6>No. Box *</h6>
-								<div class="input-group">
-									<div class="form-line">
-										<input type="text" class="form-control numberonly" required id="nobox" value="">
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<h6>Culture Room * </h6>
-								<div class="input-group">
-									<div class="form-line">
-										<input type="text" class="form-control" required id="cultureroom" value="">
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<h6>Laminar *</h6>
-								<div class="">
-									<div class="form-line">
-										<select class="form-control useselect2" id="laminar" style="width: 100%;">
-											<option value="" disabled selected="">--Choose-Laminar--</option>
-											<?php 
-												$laminar = new Database("SELECT * FROM karet_laminar 
-															WHERE isactive = ?",array("1"));
-
-												foreach ($laminar::$result as $key => $value) {
-											?>
-												<option value="<?php echo $value['id'];?>"><?php echo $value['nolaminar'];?></option>
-											<?php
-												}
-											?>
-										</select>
-										<input type="text" hidden id="idlaminar">
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<h6>Comment </h6>
-								<div class="input-group">
-									<div class="form-line">
-										<textarea class="form-control" id="seedcomment"></textarea>
-									</div>
-								</div>
-							</div>
-						</div>
-					</fieldset>
-					<fieldset>
-						<div class="row clearfix">
-							<!-- <div class="col-sm-4">
-								<h6>Embryo for Transfer *</h6>
-								<div class="input-group">
-									<div class="form-line">
-										<input type="number" class="form-control numberonly" required id="embryo" value="0" min="1">
-									</div>
-								</div>
-								<div id="error-embryo"></div>
-							</div>
-							<div class="col-sm-4">
-			                	<h6>Media Amount : *</h6>
-								<div class="input-group">
-									<div class="form-line">
-										<input type="text" class="form-control numberonly" id="amountmedia" value="">
-									</div>
-								</div>
-			                </div>
-			                <div class="col-sm-4" id="media-field"> 
-			                	<h6>Choose Media : *</h6>
-								<div class="input-group">
-									<div class="form-line">
-										<select class="form-control useselect2" id="media">
-												<option value="" disabled selected>--Choose-Initiation-Medium--</option>
-												<?php 
-													/*$media = new Database("SELECT * FROM karet_media WHERE id_jenis_media = ? AND isactive = ?",array("3","1"));
-
-													foreach ($media::$result as $key => $value) {*/
-												?>
-													<option value="<?php //echo $value['id'];?>"><?= $value['mediacode']?></option>
-												<?php
-													//}
-												?>
-										</select>
-										<input type="text" hidden id="idmedia">
-									</div>
-								</div>
-								<div id="error-media"></div>
-							</div> -->
-						</div>
-						<div class="row clearfix">
-					
-						</div>
-					</fieldset>        
-                </div>
-                <div class="modal-footer">
-                	<div class="">
-	                    <div class="input-group">
-	                    	<button id="btnUpdateData" class="btn btn-primary">Save</button>
-	                    	<button class="btn btn-danger" data-dismiss="modal">Back</button> 
-	                	</div>
-	                </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-
-<form>
-    <div class="modal fade" tabindex="-1" role="dialog" id="form-multitrans">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header"><h5> Multiple Embryo Transfer for ID :  <span id="title2"></span> </h5> </div> 
-                <div class="modal-body">
-	                <fieldset>
-						<div class="row">
-							<div class="col-sm-6">
-								<h6>Transfer Date for Maturation II *</h6>
-								<div class="input-group">
-									<div class="form-line">
-										<input type="date" class="form-control" required id="mat2transdate" value="<?= $now; ?>" max="<?= $now ?>">
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<h6>Transfer Worker *</h6>
-								<div class="">
-									<div class="form-line">
-										<select class="form-control useselect2" id="mat2worker" style="width: 100%;">
-											<option value="" disabled selected="">--Choose-Worker--</option>
-											<?php 
-												$worker = new Database("SELECT * FROM karet_worker 
-																		WHERE isactive = ?",array("1"));
-
-												foreach ($worker::$result as $key => $value) {
-											?>
-												<option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option>
-											<?php
-												}
-											?>
-										</select>
-										<input type="text" hidden id="idmat2worker">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row clearfix">
-							<div class="col-sm-4">
-								<h6>No. Box *</h6>
-								<div class="input-group">
-									<div class="form-line">
-										<input type="text" class="form-control numberonly" required id="mat2nobox" value="">
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<h6>Culture Room * </h6>
-								<div class="input-group">
-									<div class="form-line">
-										<input type="text" class="form-control" required id="mat2cultureroom" value="">
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<h6>Laminar *</h6>
-								<div class="">
-									<div class="form-line">
-										<select class="form-control useselect2" id="mat2laminar" style="width: 100%;">
-											<option value="" disabled selected="">--Choose-Laminar--</option>
-											<?php 
-												$laminar = new Database("SELECT * FROM karet_laminar 
-															WHERE isactive = ?",array("1"));
-
-												foreach ($laminar::$result as $key => $value) {
-											?>
-												<option value="<?php echo $value['id'];?>"><?php echo $value['nolaminar'];?></option>
-											<?php
-												}
-											?>
-										</select>
-										<input type="text" hidden id="mat2idlaminar">
-									</div>
-								</div>
-							</div>
-						</div>
-					</fieldset>
-					<fieldset>
-						<div class="row clearfix">
-							<div class="col-sm-4">
-			                	<h6>Media Amount : *</h6>
-								<div class="input-group">
-									<div class="form-line">
-										<input type="text" class="form-control numberonly" id="mat2amountmedia" value="">
-									</div>
-								</div>
-			                </div>
-			                <div class="col-sm-4" id="media-field"> 
-			                	<h6>Choose Media : *</h6>
-								<div class="input-group">
-									<div class="form-line">
-										<select class="form-control useselect2" id="mat2medium" style="width: 100%;">
-												<option value="" disabled selected>--Choose-Initiation-Medium--</option>
-												<?php 
-													$media = new Database("SELECT * FROM karet_media WHERE id_jenis_media = ? AND isactive = ?",array("4","1"));
-
-													foreach ($media::$result as $key => $value) {
-												?>
-													<option value="<?php echo $value['id'];?>"><?= $value['mediacode']?></option>
-												<?php
-													}
-												?>
-										</select>
-										<input type="text" hidden id="mat2idmedium">
-									</div>
-								</div>
-								<div id="mat2-error-media"></div>
-							</div>
-							<div class="col-sm-4">
-								<h6>Comment </h6>
-								<div class="input-group">
-									<div class="form-line">
-										<textarea class="form-control" id="mat2seedcomment"></textarea>
-									</div>
-								</div>
-							</div>
-						</div>
-					</fieldset> 	                
-                </div>
-                <div class="modal-footer">
-                	<div class="">
-	                    <div class="input-group">
-	                    	<button id="btnMultiTrans" class="btn btn-primary">Save</button>
-	                    	<button type="reset" data-dismiss="modal" class="btn btn-danger">Cancel</button>
-	                	</div>
-	                </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
+</div>
 
 	<!-- Widgets -->
 	<div class="row clearfix">
@@ -403,11 +124,11 @@
 						<a href="<?php echo $tckaret;?>/invitro.from-se" class="btn btn-primary">+ From SE</a> &nbsp;&nbsp;
 						<a href="<?php echo $tckaret;?>/invitro.from-invitro" class="btn btn-primary">+ From In Vitro</a>
 					</div>
-					<div class="body" style="overflow-x: scroll;"> 
+					<div class="body" style="overflow-x: scroll; width: 100%;"> 
 						<table class="table table-bordered table-striped dataTable" id="list-invitro" style="text-align:center;">
 							<thead>
 								<tr>
-									<th width="30px" class="text-center">#</th>
+									<th class="text-center">#</th>
 									<th class="text-center">Unique Code</th>
 									<th class="text-center">Mother Embryo</th>
 									<th class="text-center">Deactivated</th>
@@ -421,7 +142,7 @@
 									<th class="text-center">New Shoots for R</th>
 									<th class="text-center">New Shoots on M</th>
 									<th class="text-center">Laminar Flow</th>
-									<th class="text-center">Action</th>
+									<th style="width: 20%;" class="">Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -433,4 +154,3 @@
 			</div>
 		</div>
 	</div>
-</div>

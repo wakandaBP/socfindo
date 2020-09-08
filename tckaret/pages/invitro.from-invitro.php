@@ -56,7 +56,7 @@
 							<h6>New Shoots for R</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<input type="number" class="form-control numberonly parent_form" id="new_shoots_for_r" value="0">
+									<input type="text" disabled class="form-control numberonly parent_form" id="new_shoots_for_r" value="0">
 								</div>
 							</div>
 						</div>

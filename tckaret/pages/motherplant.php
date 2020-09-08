@@ -78,7 +78,7 @@
 												</div>
 												<div class="row clearfix">
 													<div class="col-sm-3 form-control-label">
-														<label>Se:*</label>
+														<label>SE:*</label>
 													</div>
 													<div class="col-sm-9">
 														<div class="form-group">

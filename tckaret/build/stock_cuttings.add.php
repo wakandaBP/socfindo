@@ -16,6 +16,8 @@
 			let qty_used = parseInt($("#quantity_used").val());
 			let deactivated = ($("#deactivated").is(":checked")) ? "TRUE" : "FALSE";
 
+			dateNow = endDate;
+
 			var index = '';
 
 			html = "<tr>" + 
@@ -41,7 +43,7 @@
 
 			$("form")[0].reset();
 			$("#parent_nursery").trigger('change');
-			$("#end_date").val(<?= json_encode(date("Y-m-d")); ?>);
+			$("#end_date").val(dateNow);
 			no_urut++;
 
 			qtyReceived += qty_used;
@@ -71,6 +73,8 @@
 				selectedCloneID = ''; 
 				selectedMotherID = '';
 				selectedMother = '';
+				dateNow = <?= json_encode(date("Y-m-d")); ?>;
+				$("#end_date").val(dateNow);
 			}
 		});
 
@@ -181,7 +185,15 @@
 			$("#quantity_start").val(selectedMother.qty_at_start);
 			$("#quantity_remaining").val(selectedMother.qty_remaining);
 			$("#quantity_used").attr("max", selectedMother.qty_remaining);
-			$("#end_date").val(selectedMother.end_date);
+			//$("#end_date").val(selectedMother.end_date);
+
+			if (Object.size(dataParent) != 0) {
+				$.each(dataParent, function(key, item){
+					$("#end_date").val(item.end_date);
+				});
+			} else {
+				$("#end_date").val(dateNow);
+			}
 		});
 
 		//for template table select2

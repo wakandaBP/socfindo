@@ -98,8 +98,9 @@
 					"data" : null, render: function(data, type, row, meta) {
 						//return "";
 						return "<div style='text-align:center;' class='"+ row['last_updated'] +"'>" + 
-								"<a href=\"" + hostname + "/invitro.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" data-toggle='tooltip' title='Edit'><i class=\"material-icons\">edit</i></a>" + 
-								" | <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete_" + row["id"] + "\" data-name=\"" + row["unique_code"] + "\" data-toggle='tooltip' title='Delete'><i class=\"material-icons\">delete_outline</i></button></div>";
+								" <button class=\"btn btn-warning btn-circle waves-effect waves-circle waves-float btn-detail\" data-id=\"" + row["id"] + "\" data-toggle='tooltip' title='Detail'><i class=\"material-icons\">list</i></button></div>" + 
+								"  <a href=\"" + hostname + "/invitro.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" data-toggle='tooltip' title='Edit'><i class=\"material-icons\">edit</i></a>" ;
+								//"  <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete_" + row["id"] + "\" data-name=\"" + row["unique_code"] + "\" data-toggle='tooltip' title='Delete'><i class=\"material-icons\">delete_outline</i></button></div>";
 					}
 				}
 			],
@@ -132,6 +133,86 @@
 			}
 			return false;
 		});
+
+		$("#list-invitro tbody").on('click', '.btn-detail', function(){
+			let selectID = $(this).data("id");
+
+			loadParent(selectID);
+			loadChild(selectID);
+			loadAklimChild(selectID);
+
+			$("#view-tracing").modal("show");
+		});
 	});
+
+	function loadParent(id){
+		let data;
+
+		$.ajax ({
+			url:hostname + "/api/invitro/get.invitro.parent.php?id=" + id,
+			type:"GET",
+			success:function(resp){
+				//console.log(resp);
+				data = JSON.parse(resp);
+
+				$.each(data, function(key, item){
+					let html = "<tr>\
+							<td>"+ item.unique_code +"</td>\
+							<td>"+ item.number_of_alive +"</td>\
+							<td>"+ item.number_of_alive +"</td>\
+						</tr>";
+
+					$("#table_parent tbody").append(html);
+				});
+			}
+		});	
+
+
+	}
+
+	function loadChild(id){
+		let data;
+
+		$.ajax ({
+			url:hostname + "/api/invitro/get.invitro.from.invitro.child.php?id=" + id,
+			type:"GET",
+			success:function(resp){
+				//console.log(data);
+				data = JSON.parse(resp);
+
+				$.each(data, function(key, item){
+					let html = "<tr>\
+							<td>"+ item.unique_code +"</td>\
+							<td>"+ item.number_of_plants +"</td>\
+						</tr>";
+
+					$("#table_child tbody").append(html);
+				});
+			}
+		});	
+	}
+
+	function loadAklimChild(id){
+		let data;
+
+		$.ajax ({
+			url:hostname + "/api/invitro/get.invitro.from.aklim.child.php?id=" + id,
+			type:"GET",
+			success:function(resp){
+				//console.log(data);
+				data = JSON.parse(resp);
+
+				$.each(data, function(key, item){
+					let html = "<tr>\
+							<td>"+ item.unique_code +"</td>\
+							<td>"+ item.quantity +"</td>\
+							<td>"+ item.invitro_end +"</td>\
+						</tr>";
+
+					$("#table_child_aklim tbody").append(html);
+				});
+			}
+		});	
+	}
 
 </script>
