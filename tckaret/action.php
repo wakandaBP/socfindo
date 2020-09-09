@@ -2940,12 +2940,14 @@
 							karet_exvitro_hardening_parent_child (
 									parent,
 									child,
+									parent_option,
 									created_at,
 									updated_at)
-									VALUES (?,?,?,?)"
+									VALUES (?,?,?,?,?)"
 								,array(
 									$value['id'],
 									$setID,
+									'acclimatization',
 									$timestamp,
 									$timestamp
 							)	
@@ -3048,12 +3050,14 @@
 							karet_exvitro_hardening_parent_child (
 									parent,
 									child,
+									parent_option,
 									created_at,
 									updated_at)
-									VALUES (?,?,?,?)"
+									VALUES (?,?,?,?,?)"
 								,array(
 									$value['id'],
 									$setID,
+									'rooting',
 									$timestamp,
 									$timestamp
 							)	
@@ -3546,7 +3550,7 @@
 						,panel = ?
 						,planting_date = ?
 						,qty_stands_at_planting = ?
-						,qty_stands_after_1_celcius = ?
+						,qty_stands_after_1_cencus = ?
 						,scan_date = ?
 						,updated_at = ?
 						WHERE id = ?"
@@ -3555,7 +3559,7 @@
 							$_POST['panel'],
 							$_POST['planting_date'],
 							$_POST['quantity_stands_planting'],
-							$_POST['quantity_stands_1st_celcius'],
+							$_POST['quantity_stands_1st_cencus'],
 							$scanDate,
 							$timestamp,
 							$_POST['selectedID']

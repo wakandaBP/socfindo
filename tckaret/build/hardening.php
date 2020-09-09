@@ -68,8 +68,9 @@
 					"data" : null, render: function(data, type, row, meta) {
 						//return "";
 						return "<div style='text-align:center;' class='"+ row['last_updated'] +"'>" + 
-								"<a href=\"" + hostname + "/hardening.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" data-toggle='tooltip' title='Edit'><i class=\"material-icons\">edit</i></a>" + 
-								" | <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete_" + row["id"] + "\" data-name=\"" + row["unique_code"] + "\" data-toggle='tooltip' title='Delete'><i class=\"material-icons\">delete_outline</i></button></div>";
+								" <button class=\"btn btn-warning btn-circle waves-effect waves-circle waves-float btn-detail\" data-id=\"" + row["id"] + "\" data-toggle='tooltip' title='View Parent and Child'><i class=\"material-icons\">list</i></button>" +
+								"	<a href=\"" + hostname + "/hardening.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" data-toggle='tooltip' title='Edit'><i class=\"material-icons\">edit</i></a>" + 
+								"  <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete_" + row["id"] + "\" data-name=\"" + row["unique_code"] + "\" data-toggle='tooltip' title='Delete'><i class=\"material-icons\">delete_outline</i></button></div>";
 					}
 				}
 			],
@@ -102,6 +103,88 @@
 			}
 			return false;
 		});
+
+		$("#list-hardening tbody").on('click', '.btn-detail', function(){
+			let selectID = $(this).data("id");
+
+			loadParentAcc(selectID);
+			loadParentRooting(selectID);
+			loadChildNursery(selectID);
+
+			$("#view-tracing").modal("show");
+		});
 	});
 
+	function loadParentAcc(id){
+		let data;
+		$("#table_parent_acc tbody").empty();
+
+		$.ajax ({
+			url:hostname + "/api/exvitro_hardening/get.hardening.parent.acc.php?id=" + id,
+			type:"GET",
+			success:function(resp){
+				//console.log(resp);
+				data = JSON.parse(resp);
+
+				$.each(data, function(key, item){
+					let html = "<tr>\
+							<td>"+ item.unique_code +"</td>\
+							<td>"+ item.qty_received +"</td>\
+							<td>"+ item.acc_end +"</td>\
+						</tr>";
+
+					$("#table_parent_acc tbody").append(html);
+				});
+			}
+		});
+	}
+
+	function loadParentRooting(id){
+		let data;
+		$("#table_parent_rooting tbody").empty();
+
+		$.ajax ({
+			url:hostname + "/api/exvitro_hardening/get.hardening.parent.rooting.php?id=" + id,
+			type:"GET",
+			success:function(resp){
+				console.log(resp);
+				data = JSON.parse(resp);
+
+				$.each(data, function(key, item){
+					let html = "<tr>\
+							<td>"+ item.unique_code +"</td>\
+							<td>"+ item.qty_at_start +"</td>\
+							<td>"+ item.rooting_end +"</td>\
+						</tr>";
+
+					$("#table_parent_rooting tbody").append(html);
+				});
+			}
+		});
+	}
+
+	function loadChildNursery(id){
+		let data;
+		$("#table_child tbody").empty();
+
+		$.ajax ({
+			url:hostname + "/api/exvitro_hardening/get.hardening.child.php?id=" + id,
+			type:"GET",
+			success:function(resp){
+				//console.log(resp);
+				data = JSON.parse(resp);
+
+				$.each(data, function(key, item){
+					let html = "<tr>\
+							<td>"+ item.unique_code +"</td>\
+							<td>"+ item.qty_at_start +"</td>\
+							<td>"+ item.start_end +"</td>\
+						</tr>";
+
+					$("#table_child tbody").append(html);
+				});
+			}
+		});
+	}
+	
 </script>

@@ -8,7 +8,7 @@
 		,[panel]
 		,[qty_planted]
 		,[qty_stands_at_planting]
-		,[qty_stands_after_1_celcius]
+		,[qty_stands_after_1_cencus]
 		,[scan_date]
 		,[motherplant_id]
 		,[created_at]
@@ -52,7 +52,7 @@
 				,"motherplant_id"				=>	$value["motherplant_id"]
 				,"qty_planted"					=>	$value["qty_planted"]
 				,"qty_stands_at_planting"		=>	$value["qty_stands_at_planting"]
-				,"qty_stands_after_1_celcius"	=>	$value["qty_stands_after_1_celcius"]
+				,"qty_stands_after_1_cencus"	=>	$value["qty_stands_after_1_cencus"]
 				,"scan_date"					=>	$value['scan_date']
 				,"created_at"					=>	$value["created_at"]
 				,"updated_at"					=>	$last_updated

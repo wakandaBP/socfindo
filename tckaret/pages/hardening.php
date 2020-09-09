@@ -1,4 +1,61 @@
 	<!-- Widgets -->
+<!--- Modal for Trace Children Parent -->
+<div class="modal fade" tabindex="-1" role="dialog" id="view-tracing">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header"><h5> Trace detail : <span id="title"></span>   </h5> </div> 
+            <div class="modal-body">
+                <div class="col-sm-4">
+            		<div style="text-align: center; text-decoration: underline;"><h5>Parent Acclimatization</h5></div>
+                	<table class="table table-bordered" id="table_parent_acc">
+                		<thead>
+                			<tr>
+                				<th width="40%">Code SE</th>
+                				<th>Quantity Received of Acclimatization</th>
+                				<th>Acclimatization Ending</th>
+                			</tr>
+                		</thead>
+                		<tbody>
+                			
+                		</tbody>
+                	</table>
+                </div>
+            	<div class="col-sm-4">
+            		<div style="text-align: center; text-decoration: underline;"><h5>Parent Rooting Green House</h5></div>
+                	<table class="table table-bordered" id="table_parent_rooting">
+                		<thead>
+                			<tr>
+                				<th width="40%">Code SE</th>
+                				<th>Quantity At Start</th>
+                			</tr>
+                		</thead>
+                		<tbody>
+                			
+                		</tbody>
+                	</table>
+                </div>
+                <div class="col-sm-4">
+            		<div style="text-align: center; text-decoration: underline;"><h5>Children Nursery</h5></div>
+                	<table class="table table-bordered" id="table_child">
+                		<thead>
+                			<tr>
+                				<th width="40%">Code SE</th>
+                				<th>Quantity At Start</th>
+                			</tr>
+                		</thead>
+                		<tbody>
+                			
+                		</tbody>
+                	</table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- <button class="btn btn-danger" data-dismiss="modal">Close</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
 <div>
 	<div class="row clearfix">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -79,7 +136,7 @@
 									<th class="text-center">Start Date</th>
 									<th class="text-center">Quantity Remaining</th>
 									<th class="text-center">Quantity At End</th>
-									<th class="text-center">Action</th>
+									<th width="50px" class="text-center">Action</th>
 								</tr>
 							</thead>
 							<tbody>

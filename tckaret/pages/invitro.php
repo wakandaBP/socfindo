@@ -1,60 +1,60 @@
-<!--- Modal for Trace Children Parent -->
-<div class="modal fade" tabindex="-1" role="dialog" id="view-tracing">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header"><h5> Trace detail : <span id="title"></span>   </h5> </div> 
-            <div class="modal-body">
-            	<div class="col-sm-4">
-            		<div style="text-align: center; text-decoration: underline;"><h5>Parent</h5></div>
-                	<table class="table table-bordered" id="table_parent">
-                		<thead>
-                			<tr>
-                				<th width="40%">Code SE</th>
-                				<th>Number of Alive</th>
-                				<th>Number of Dead</th>
-                			</tr>
-                		</thead>
-                		<tbody>
-                			
-                		</tbody>
-                	</table>
-                </div>
-                <div class="col-sm-4">
-            		<div style="text-align: center; text-decoration: underline;"><h5>Children in Invitro</h5></div>
-                	<table class="table table-bordered" id="table_child">
-                		<thead>
-                			<tr>
-                				<th width="50%">Code SE</th>
-                				<th>Number of Plants</th>
-                			</tr>
-                		</thead>
-                		<tbody>
-                			
-                		</tbody>
-                	</table>
-                </div>
-                <div class="col-sm-4">
-            		<div style="text-align: center; text-decoration: underline;"><h5>Children in Acclimatization</h5></div>
-                	<table class="table table-bordered" id="table_child_aklim">
-                		<thead>
-                			<tr>
-                				<th width="40%">Code SE</th>
-                				<th >Quantity</th>
-                				<th>Invitro Ending</th>
-                			</tr>
-                		</thead>
-                		<tbody>
-                			
-                		</tbody>
-                	</table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <!-- <button class="btn btn-danger" data-dismiss="modal">Close</button> -->
-            </div>
-        </div>
-    </div>
-</div>
+	<!--- Modal for Trace Children Parent -->
+	<div class="modal fade" tabindex="-1" role="dialog" id="view-tracing">
+	    <div class="modal-dialog modal-xl">
+	        <div class="modal-content">
+	            <div class="modal-header"><h5> Trace detail : <span id="title"></span>   </h5> </div> 
+	            <div class="modal-body">
+	            	<div class="col-sm-4">
+	            		<div style="text-align: center; text-decoration: underline;"><h5>Parent</h5></div>
+	                	<table class="table table-bordered" id="table_parent">
+	                		<thead>
+	                			<tr>
+	                				<th width="40%">Code SE</th>
+	                				<th>Number of Alive</th>
+	                				<th>Number of Dead</th>
+	                			</tr>
+	                		</thead>
+	                		<tbody>
+	                			
+	                		</tbody>
+	                	</table>
+	                </div>
+	                <div class="col-sm-4">
+	            		<div style="text-align: center; text-decoration: underline;"><h5>Children in Invitro</h5></div>
+	                	<table class="table table-bordered" id="table_child">
+	                		<thead>
+	                			<tr>
+	                				<th width="50%">Code SE</th>
+	                				<th>Number of Plants</th>
+	                			</tr>
+	                		</thead>
+	                		<tbody>
+	                			
+	                		</tbody>
+	                	</table>
+	                </div>
+	                <div class="col-sm-4">
+	            		<div style="text-align: center; text-decoration: underline;"><h5>Children in Acclimatization</h5></div>
+	                	<table class="table table-bordered" id="table_child_aklim">
+	                		<thead>
+	                			<tr>
+	                				<th width="40%">Code SE</th>
+	                				<th >Quantity Children</th>
+	                				<!-- <th>Invitro Ending</th> -->
+	                			</tr>
+	                		</thead>
+	                		<tbody>
+	                			
+	                		</tbody>
+	                	</table>
+	                </div>
+	            </div>
+	            <div class="modal-footer">
+	                <!-- <button class="btn btn-danger" data-dismiss="modal">Close</button> -->
+	            </div>
+	        </div>
+	    </div>
+	</div>
 
 	<!-- Widgets -->
 	<div class="row clearfix">

@@ -1,4 +1,53 @@
-	<!-- Widgets -->
+<!--- Modal for Trace Children Parent -->
+<div class="modal fade" tabindex="-1" role="dialog" id="view-tracing">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header"><h5> Trace detail : <span id="title"></span>   </h5> </div> 
+            <div class="modal-body">
+                <div class="col-sm-7">
+            		<div style="text-align: ; text-decoration: underline;"><h5>Parent Stock for Cuttings</h5></div>
+                	<table class="table table-bordered" id="table_parent">
+                		<thead>
+                			<tr>
+                				<th width="25%">Code SE</th>
+                				<th>Date Stock</th>
+                				<th>Quantity</th>
+                				<th>Table Number</th>
+                				<th>Plantation</th>
+                				<th>Region</th>
+                				<th>Stock for Cutting Ending</th>
+                			</tr>
+                		</thead>
+                		<tbody>
+                			
+                		</tbody>
+                	</table>
+                </div>
+                <div class="col-sm-5">
+            		<div style="text-align: ; text-decoration: underline;"><h5>Children Hardening</h5></div>
+                	<table class="table table-bordered" id="table_child">
+                		<thead>
+                			<tr>
+                				<th width="35%">Code SE</th>
+                				<th>Quantity Start</th>
+                				<th>Hardening Start</th>
+                				<th>Quantity End</th>
+                			</tr>
+                		</thead>
+                		<tbody>
+                			
+                		</tbody>
+                	</table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- <button class="btn btn-danger" data-dismiss="modal">Close</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Widgets -->
 <div>
 	<div class="row clearfix">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -71,7 +120,7 @@
 									<th class="text-center">Start Date</th>
 									<th class="text-center">Quantity Remaining</th>
 									<th class="text-center">Quantity At End</th>
-									<th class="text-center">Action</th>
+									<th width="40px" class="text-center">Action</th>
 								</tr>
 							</thead>
 							<tbody>

@@ -98,7 +98,7 @@
 					"data" : null, render: function(data, type, row, meta) {
 						//return "";
 						return "<div style='text-align:center;' class='"+ row['last_updated'] +"'>" + 
-								" <button class=\"btn btn-warning btn-circle waves-effect waves-circle waves-float btn-detail\" data-id=\"" + row["id"] + "\" data-toggle='tooltip' title='Detail'><i class=\"material-icons\">list</i></button></div>" + 
+								" <button class=\"btn btn-warning btn-circle waves-effect waves-circle waves-float btn-detail\" data-id=\"" + row["id"] + "\" data-toggle='tooltip' title='Detail'><i class=\"material-icons\">list</i></button>" + 
 								"  <a href=\"" + hostname + "/invitro.edit/" + row["id"] + "\" class=\"btn btn-info btn-circle waves-effect waves-circle waves-float\" data-toggle='tooltip' title='Edit'><i class=\"material-icons\">edit</i></a>" ;
 								//"  <button class=\"btn bg-red btn-circle waves-effect waves-circle waves-float btn-delete\" id=\"delete_" + row["id"] + "\" data-name=\"" + row["unique_code"] + "\" data-toggle='tooltip' title='Delete'><i class=\"material-icons\">delete_outline</i></button></div>";
 					}
@@ -147,6 +147,7 @@
 
 	function loadParent(id){
 		let data;
+		$("#table_parent tbody").empty();
 
 		$.ajax ({
 			url:hostname + "/api/invitro/get.invitro.parent.php?id=" + id,
@@ -172,6 +173,7 @@
 
 	function loadChild(id){
 		let data;
+		$("#table_child tbody").empty();
 
 		$.ajax ({
 			url:hostname + "/api/invitro/get.invitro.from.invitro.child.php?id=" + id,
@@ -194,6 +196,7 @@
 
 	function loadAklimChild(id){
 		let data;
+		$("#table_child_aklim tbody").empty();
 
 		$.ajax ({
 			url:hostname + "/api/invitro/get.invitro.from.aklim.child.php?id=" + id,
@@ -206,8 +209,9 @@
 					let html = "<tr>\
 							<td>"+ item.unique_code +"</td>\
 							<td>"+ item.quantity +"</td>\
-							<td>"+ item.invitro_end +"</td>\
 						</tr>";
+
+					//item.quantity is qty start of invitro 
 
 					$("#table_child_aklim tbody").append(html);
 				});

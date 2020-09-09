@@ -1,4 +1,34 @@
-	<!-- Widgets -->
+<!--- Modal for Trace Children Parent -->
+<div class="modal fade" tabindex="-1" role="dialog" id="view-tracing">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h5> Trace detail : <span id="title"></span>   </h5> </div> 
+            <div class="modal-body">
+                <div class="col-sm-12">
+            		<div style="text-align: ; text-decoration: underline;"><h5>Parent Nursery</h5></div>
+                	<table class="table table-bordered" id="table_parent">
+                		<thead>
+                			<tr>
+                				<th width="30%">Code SE</th>
+                				<th>Quantity at Start</th>
+                				<th>Nursery Start</th>
+                				<th>Nursery Ending</th>
+                			</tr>
+                		</thead>
+                		<tbody>
+                			
+                		</tbody>
+                	</table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- <button class="btn btn-danger" data-dismiss="modal">Close</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Widgets -->
 <div>
 	<div class="row clearfix">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

@@ -7,7 +7,7 @@ try {
 		,planting_date
 		,qty_planted
 		,qty_stands_at_planting
-		,qty_stands_after_1_celcius
+		,qty_stands_after_1_cencus
 		,scan_date
 		,motherplant_id
 		,created_at
@@ -115,7 +115,7 @@ try {
 							<h6>Quantity Stands After 1st Cencus</h6>
 							<div class="input-group">
 								<div class="form-line">
-									<input type="number" class="form-control" id="quantity_stands_1st_celcius" value="<?php echo intval($PFData['qty_stands_after_1_celcius']) ?>">
+									<input type="number" class="form-control" id="quantity_stands_1st_cencus" value="<?php echo intval($PFData['qty_stands_after_1_cencus']) ?>">
 								</div>
 							</div>
 						</div>
